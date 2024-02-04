@@ -1,2 +1,115 @@
 User-agent: *
 Disallow:
+
+
+
+<!-- Produits  -->
+    <div class="container px-4 px-lg-5 mt-5">
+      <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center" id="Produits">
+        @foreach ($produits as $produit)
+        <div class="col-lg-3 col-12 mb-5" id="prod_{{ $produit->id.'_'.$produit->id_categorie }}">
+          <div class="card h-100">
+            <div id="carouselExample{{ $produit->id }}" class="carousel slide" data-bs-ride="carousel">
+              <div class="carousel-inner">
+                @if ($produit->repPhotos)
+                @php
+                $folderPath = public_path('storage/' . $produit->repPhotos);
+                $imageFiles = File::allFiles($folderPath);
+                @endphp
+                @foreach ($imageFiles as $key => $imageFile)
+                <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
+                  <img src="{{ asset('storage/' . $produit->repPhotos . '/' . $imageFile->getFilename()) }}"
+                    class="d-block w-100" alt="Product Image" height="180">
+                </div>
+                @endforeach
+                @endif
+              </div>
+              <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample{{ $produit->id }}"
+                data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#carouselExample{{ $produit->id }}"
+                data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+              </button>
+            </div>
+
+            <!-- Product details-->
+            <div class="card-body p-2">
+              <div class="text-center">
+                <!-- Product name-->
+                <h5 class="fw-bolder productNameForSearch">{{ $produit->label }}</h5>
+                <!-- Product prices-->
+                <p class="text-danger p-0">{{ $produit->oldPrice }}</p>
+                {{ $produit->price }}
+              </div>
+            </div>
+            <!-- Product actions-->
+            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+              <div class="text-center justify-content-center align-items-center">
+                <a class="btn btn-primary text-light fw-bold fs-6 btn-outline-dark mt-auto"
+                  onclick="addToCart({{ $produit->id }},'{{ $produit->label }}', {{ $produit->price }})">A
+                </a>
+                <a class="btn btn-success text-light fw-bold fs-6 btn-outline-dark mt-auto"
+                  href="{{ route('produit-details', ['produit' => $produit->id]) }}">
+                  V
+                </a>
+                <!-- Modal -->
+                <div class="modal fade" id="detailProdModal" data-bs-backdrop="static" data-bs-keyboard="false"
+                  tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="titre"></h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                        <div class="row justify-content-center align-items-center text-center">
+                          <div class="col-5">
+                            <img src="https://s.alicdn.com/@sc04/kf/Hf02070edd0394dcc96c05860cdee240bK.jpg_140x140.jpg"
+                              alt="Principal Image" id="principalImage" class="img-fluid w-100">
+                            <div class="row">
+                              <img
+                                src="https://s.alicdn.com/@sc04/kf/Hc5fa2de0d4b34818822c18ae9f03da4eq.jpg_140x140.jpg"
+                                alt="Thumbnail 1" class="img-thumbnail col-4"
+                                onclick="changeImage('https://s.alicdn.com/@sc04/kf/Hc5fa2de0d4b34818822c18ae9f03da4eq.jpg_140x140.jpg')">
+                              <img
+                                src="https://s.alicdn.com/@sc04/kf/H422d2de3f9fd430d995b06d24ede12c4O.jpg_140x140.jpg"
+                                alt="Thumbnail 2" class="img-thumbnail col-4"
+                                onclick="changeImage('https://s.alicdn.com/@sc04/kf/H422d2de3f9fd430d995b06d24ede12c4O.jpg_140x140.jpg')">
+                              <img
+                                src="https://s.alicdn.com/@sc04/kf/H49a0931f8b8348938f9874192bef8ca59.jpg_220x220.jpg"
+                                alt="Thumbnail 3" class="img-thumbnail col-4"
+                                onclick="changeImage('https://s.alicdn.com/@sc04/kf/H49a0931f8b8348938f9874192bef8ca59.jpg_220x220.jpg')">
+                            </div>
+                          </div>
+                          <div class="col-7">
+                            <h2>Product Name</h2>
+                            <p>Description: This is a fantastic product with great features.
+                            </p>
+                            <p>Price: $19.99</p>
+                            <button class="btn btn-primary">Add to Cart</button>
+                          </div>
+                        </div>
+                      </div>
+                      <script>
+ ion changeImage(newc) {
+                          // Change the principal image source
+                          document.getElementById('principalImage').src = newImageSrc;
+                        }
+                      </script>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Understood</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        @endforeach
+      </div>

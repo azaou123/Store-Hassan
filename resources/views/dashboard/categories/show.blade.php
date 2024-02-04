@@ -14,8 +14,9 @@
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Roboto:wght@500;700&display=swap" rel="stylesheet"> 
-    
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Roboto:wght@500;700&display=swap"
+        rel="stylesheet">
+
     <!-- Icon Font Stylesheet -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
@@ -34,7 +35,8 @@
 <body>
     <div class="container-fluid position-relative d-flex p-0">
         <!-- Spinner Start -->
-        <div id="spinner" class="show bg-dark position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div id="spinner"
+            class="show bg-dark position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
             <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
                 <span class="sr-only">Loading...</span>
             </div>
@@ -51,7 +53,9 @@
                 <div class="d-flex align-items-center ms-4 mb-4">
                     <div class="position-relative">
                         <img class="rounded-circle" src="back/img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                        <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
+                        <div
+                            class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1">
+                        </div>
                     </div>
                     <div class="ms-3">
                         <h6 class="mb-0">Jhon Doe</h6>
@@ -59,12 +63,18 @@
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
-                <a href="{{ route('dashboord') }}" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
-                    <a href="{{ route('commandes') }}" class="nav-item nav-link"><i class="fas fa-list-alt me-2"></i>Commandes</a>
-                    <a href="{{ route('categories') }}" class="nav-item nav-link active"><i class="fas fa-folder me-2"></i>Catégoies</a>
-                    <a href="{{ route('produits') }}" class="nav-item nav-link"><i class="fas fa-shopping-cart me-2"></i>Produits</a>
-                    <a href="{{ route('opinions') }}" class="nav-item nav-link"><i class="fas fa-comments me-2"></i>Opinions</a>
-                    <a href="{{ route('parametres') }}" class="nav-item nav-link"><i class="fas fa-cogs me-2"></i>Paramètres</a>
+                    <a href="{{ route('dashboord') }}" class="nav-item nav-link"><i
+                            class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+                    <a href="{{ route('commandes') }}" class="nav-item nav-link"><i
+                            class="fas fa-list-alt me-2"></i>Commandes</a>
+                    <a href="{{ route('categories') }}" class="nav-item nav-link active"><i
+                            class="fas fa-folder me-2"></i>Catégoies</a>
+                    <a href="{{ route('produits') }}" class="nav-item nav-link"><i
+                            class="fas fa-shopping-cart me-2"></i>Produits</a>
+                    <a href="{{ route('opinions') }}" class="nav-item nav-link"><i
+                            class="fas fa-comments me-2"></i>Opinions</a>
+                    <a href="{{ route('parametres') }}" class="nav-item nav-link"><i
+                            class="fas fa-cogs me-2"></i>Paramètres</a>
                 </div>
             </nav>
         </div>
@@ -93,7 +103,8 @@
                         <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
                             <a href="#" class="dropdown-item">
                                 <div class="d-flex align-items-center">
-                                    <img class="rounded-circle" src="back/img/user.jpg" alt="" style="width: 40px; height: 40px;">
+                                    <img class="rounded-circle" src="back/img/user.jpg" alt=""
+                                        style="width: 40px; height: 40px;">
                                     <div class="ms-2">
                                         <h6 class="fw-normal mb-0">Jhon send you a message</h6>
                                         <small>15 minutes ago</small>
@@ -103,7 +114,8 @@
                             <hr class="dropdown-divider">
                             <a href="#" class="dropdown-item">
                                 <div class="d-flex align-items-center">
-                                    <img class="rounded-circle" src="back/img/user.jpg" alt="" style="width: 40px; height: 40px;">
+                                    <img class="rounded-circle" src="back/img/user.jpg" alt=""
+                                        style="width: 40px; height: 40px;">
                                     <div class="ms-2">
                                         <h6 class="fw-normal mb-0">Jhon send you a message</h6>
                                         <small>15 minutes ago</small>
@@ -113,7 +125,8 @@
                             <hr class="dropdown-divider">
                             <a href="#" class="dropdown-item">
                                 <div class="d-flex align-items-center">
-                                    <img class="rounded-circle" src="back/img/user.jpg" alt="" style="width: 40px; height: 40px;">
+                                    <img class="rounded-circle" src="back/img/user.jpg" alt=""
+                                        style="width: 40px; height: 40px;">
                                     <div class="ms-2">
                                         <h6 class="fw-normal mb-0">Jhon send you a message</h6>
                                         <small>15 minutes ago</small>
@@ -150,7 +163,8 @@
                     </div>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <img class="rounded-circle me-lg-2" src="back/img/user.jpg" alt="" style="width: 40px; height: 40px;">
+                            <img class="rounded-circle me-lg-2" src="back/img/user.jpg" alt=""
+                                style="width: 40px; height: 40px;">
                             <span class="d-none d-lg-inline-flex">John Doe</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
@@ -165,76 +179,104 @@
 
 
             <!-- Section Pour voir Les Détails d'un Telle Catégorie  -->
+            <!-- Section Pour voir Les Détails d'un Telle Catégorie -->
+            @php
+            $folderPath = public_path('storage/'.$category->repPhotos);
+            $imageFiles = File::allFiles($folderPath);
+            @endphp
+
             <div class="container py-5">
                 <div class="row mb-4">
-                    <div class="lc-block text-center">
-                        <div editable="rich">
-                            <h2 class="fw-bold display-2">{{ $category->label }}</h2>
-                        </div>
-                    </div>
-                    <div class="lc-block text-center">
-                        <div editable="rich">
-                            <p class="lead">{{ $category->description }}</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    @php
-                        $folderPath = public_path('storage/'.$category->repPhotos);
-                        $imageFiles = File::allFiles($folderPath);
-                    @endphp
-
-                    @foreach($imageFiles as $imageFile)
-                        <div class="col-md-6 col-lg-4 g-4">
-                            <div class="lc-block">
-                                <img class="img-fluid w-100 rounded-5" src="{{ asset('storage/' . $category->repPhotos . '/' . $imageFile->getFilename()) }}" style="height: 300px;" alt="Photo by Bekky Bekks" loading="lazy">
+                    <!-- Logo Section -->
+                    <div class="col-md-6">
+                        <div class="lc-block text-center">
+                            <div editable="rich">
+                                <h2 class="fw-bold display-2">{{ $category->label }}</h2>
                             </div>
-                            <!-- /lc-block -->
                         </div>
-                    @endforeach
-                </div>
-            </div> 
- 
-  
-
-
-            <!-- Footer Start -->
-            <div class="container-fluid pt-4 px-4">
-                <div class="bg-secondary rounded-top p-4">
-                    <div class="row">
-                        <div class="col-12 col-sm-6 text-center text-sm-start">
-                            &copy; <a href="#">Your Site Name</a>, All Right Reserved. 
+                        <img class="img-fluid w-100 rounded-5"
+                            src="{{ asset('storage/' . $category->repPhotos . '/' . $imageFiles[0]->getFilename()) }}"
+                            style="height: 300px;" alt="Category Photo" loading="lazy">
+                        <div class="lc-block text-center">
+                            <div editable="rich">
+                                <p class="lead">{{ $category->description }}</p>
+                            </div>
                         </div>
-                        <div class="col-12 col-sm-6 text-center text-sm-end">
-                            <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
-                            Designed By <a href="https://htmlcodex.com">HTML Codex</a>
-                            <br>Distributed By: <a href="https://themewagon.com" target="_blank">ThemeWagon</a>
+                    </div>
+                    <div class="col-md-6 justify-content-center align-items-center">
+                        <div class="col-md-6 col-lg-4 g-4">
+                            <div class="lc-block mt-5">
+                                <!-- Logo Image -->
+                                <!-- Form -->
+                                <form method="post" action="{{ route('categories.update', $category->id) }}"
+                                    enctype="multipart/form-data">
+                                    @csrf
+                                    @method('PATCH')
+
+                                    <!-- Add fields for editing information -->
+                                    <label for="label">Label:</label>
+                                    <input type="text" name="label" id="label" value="{{ $category->label }}"
+                                        class="form-control bg-light text-dark" required>
+
+                                    <label for="description">Description:</label>
+                                    <textarea name="description" id="description" class="form-control bg-light text-dark"
+                                        required>{{ $category->description }}</textarea>
+
+                                    <!-- Add field for updating the photo -->
+                                    <label for="categoryPhotos">Update Photos:</label>
+                                    <input type="file" name="categoryPhotos[]" id="categoryPhotos"
+                                        class="form-control-file bg-light text-dark" multiple>
+
+                                    <!-- Submit button -->
+                                    <button type="submit" class="btn btn-primary mt-3">Save Changes</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
+
+
+
+
+
+
+                <!-- Footer Start -->
+                <div class="container-fluid pt-4 px-4">
+                    <div class="bg-secondary rounded-top p-4">
+                        <div class="row">
+                            <div class="col-12 col-sm-6 text-center text-sm-start">
+                                &copy; <a href="#">Your Site Name</a>, All Right Reserved.
+                            </div>
+                            <div class="col-12 col-sm-6 text-center text-sm-end">
+                                <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
+                                Designed By <a href="https://htmlcodex.com">HTML Codex</a>
+                                <br>Distributed By: <a href="https://themewagon.com" target="_blank">ThemeWagon</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Footer End -->
             </div>
-            <!-- Footer End -->
+            <!-- Content End -->
+
+
+            <!-- Back to Top -->
+            <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
         </div>
-        <!-- Content End -->
 
+        <!-- JavaScript Libraries -->
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="{{ asset('back/lib/chart/chart.min.js') }}"></script>
+        <script src="{{ asset('back/lib/easing/easing.min.js') }}"></script>
+        <script src="{{ asset('back/lib/waypoints/waypoints.min.js') }}"></script>
+        <script src="{{ asset('back/lib/owlcarousel/owl.carousel.min.js') }}"></script>
+        <script src="{{ asset('back/lib/tempusdominus/js/moment.min.js') }}"></script>
+        <script src="{{ asset('back/lib/tempusdominus/js/moment-timezone.min.js') }}"></script>
+        <script src="{{ asset('back/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js') }}"></script>
 
-        <!-- Back to Top -->
-        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
-    </div>
-
-    <!-- JavaScript Libraries -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="{{ asset('back/lib/chart/chart.min.js') }}"></script>
-    <script src="{{ asset('back/lib/easing/easing.min.js') }}"></script>
-    <script src="{{ asset('back/lib/waypoints/waypoints.min.js') }}"></script>
-    <script src="{{ asset('back/lib/owlcarousel/owl.carousel.min.js') }}"></script>
-    <script src="{{ asset('back/lib/tempusdominus/js/moment.min.js') }}"></script>
-    <script src="{{ asset('back/lib/tempusdominus/js/moment-timezone.min.js') }}"></script>
-    <script src="{{ asset('back/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js') }}"></script>
-
-    <!-- Template Javascript -->
-    <script src="{{ asset('back/js/main.js') }}"></script>
+        <!-- Template Javascript -->
+        <script src="{{ asset('back/js/main.js') }}"></script>
 </body>
 
 </html>

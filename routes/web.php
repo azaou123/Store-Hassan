@@ -7,6 +7,9 @@ use App\Http\Controllers\ProduitController;
 use App\Http\Controllers\CommandeController;
 use App\Http\Controllers\OpinionController;
 use App\Http\Controllers\PartnerController;
+use App\Http\Controllers\ParametreController;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,12 +21,24 @@ use App\Http\Controllers\PartnerController;
 |
 */
 
-Route::get('/', [ManagerController::class, 'index']);
+Route::get('/', [ManagerController::class, 'index'])->name('index');
+
+
 
 
 // There are the routes of the Admin 
 // go to login page for admin 
-Route::get('/admin',function(){return view('admin.index');});
+Route::get('/admin', function () {
+    return view('admin.index');
+});
+Route::get('/search', [ProduitController::class, 'search'])->name('search');
+Route::get('/filter', [ProduitController::class, 'filter'])->name('filter');
+
+
+
+
+
+
 // Manager Login Route 
 Route::post('/dashboord', [ManagerController::class, 'dashboord'])->name('dashboord');
 Route::get('/profile', [ManagerController::class, 'profile'])->name('profile');
@@ -34,6 +49,7 @@ Route::get('/profile', [ManagerController::class, 'profile'])->name('profile');
 Route::get('/categories', [ManagerController::class, 'categories'])->name('categories');
 // View a specific category
 Route::get('/categories/{category}', [CategoryController::class, 'show'])->name('categories.show');
+Route::patch('categories/{category}', [CategoryController::class, 'update'])->name('categories.update');
 // Create a new category (show create form)
 Route::get('/categories.create', [CategoryController::class, 'create'])->name('categories.create');
 // Store a new category
@@ -43,7 +59,7 @@ Route::post('/categories', [CategoryController::class, 'store'])->name('categori
 // Update a category
 // Route::put('/categories/{category}', [CategoryController::class, 'update'])->name('categories.update');
 // Delete a category
-// Route::delete('/categories/{category}', [CategoryController::class, 'destroy'])->name('categories.destroy');
+Route::get('/categories.destroy/{category}', [CategoryController::class, 'destroy'])->name('categories.destroy');
 
 
 
@@ -51,6 +67,8 @@ Route::post('/categories', [CategoryController::class, 'store'])->name('categori
 Route::get('/produits', [ManagerController::class, 'produits'])->name('produits');
 // View a specific category
 Route::get('/produits/{produit}', [ProduitController::class, 'show'])->name('produits.show');
+Route::get('/produit-details/{produit}', [ProduitController::class, 'produitDetails'])->name('produitdetails');
+Route::post('/produits/search', [ProduitController::class, 'search'])->name('produits.search');
 // Create a new category (show create form)
 Route::get('/produits.create', [ProduitController::class, 'create'])->name('produits.create');
 // Store a new category
@@ -58,7 +76,8 @@ Route::post('/produits', [ProduitController::class, 'store'])->name('produits.st
 // Edit a product (show edit form)
 // Route::get('/produits/{category}/edit', [ProduitController::class, 'edit'])->name('produits.edit');
 // Update a product
-// Route::put('/produits/{category}', [ProduitController::class, 'update'])->name('produits.update');
+Route::post('/produits/{category}', [ProduitController::class, 'update'])->name('produits.update');
+Route::post('/deletePhoto/', [ProduitController::class, 'deletePhoto'])->name('deletePhoto');
 // Delete a product
 Route::get('produits.destroy/{produit}', [ProduitController::class, 'destroy'])->name('produits.destroy');
 
@@ -94,6 +113,7 @@ Route::delete('/partenaires/{id}', [PartnerController::class, 'destroy'])->name(
 
 // ****************************** Les Paramètres **********************************
 Route::get('/parametres', [ManagerController::class, 'parametres'])->name('parametres');
+Route::post('parametres/update', [ManagerController::class, 'update'])->name('parametres.update');
 
 
 

@@ -5,13 +5,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Categorie;
+use App\Models\Produit;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 
 
 class CategoryController extends Controller
 {
-    
+
 
     public function create()
     {
@@ -48,37 +49,63 @@ class CategoryController extends Controller
     }
 
 
-    public function edit(Category $category)
+    public function update(Request $request, Categorie $category)
     {
-        return view('categories.edit', compact('category'));
-    }
-
-    public function update(Request $request, Category $category)
-    {
-        // Validate the request
+        // Validate the incoming request data
         $request->validate([
-            'label' => 'required',
-            // Add other validation rules as needed
+            'label' => 'required|string',
+            'description' => 'required|string',
+            'categoryPhotos.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        // Update the category
-        $category->update($request->all());
+        // Update the category information
+        $category->label = $request->input('label');
+        $category->description = $request->input('description');
 
-        return redirect()->route('categories.index')->with('success', 'Category updated successfully');
+        // Check if new photos are provided
+        if ($request->hasFile('categoryPhotos')) {
+            // Delete old photos if they exist
+            $folderPath = public_path('storage/' . $category->repPhotos);
+
+            // Check if the directory exists before attempting deletion
+            if (File::exists($folderPath)) {
+                // Get all files in the directory
+                $imageFiles = File::allFiles($folderPath);
+
+                // Delete each file
+                foreach ($imageFiles as $photo) {
+                    File::delete($photo->getPathname());
+                }
+            }
+
+            // Store the new photos
+            $newPhotos = $request->file('categoryPhotos');
+            $categoryPhotosPath = 'uploads/categories/' . $category->id;
+            foreach ($newPhotos as $photo) {
+                $photoPath = $photo->storeAs($categoryPhotosPath, $photo->getClientOriginalName(), 'public');
+            }
+
+            // Update the category's repPhotos field with the directory name
+            $category->repPhotos = $categoryPhotosPath;
+        }
+
+        // Save the changes
+        $category->save();
+
+        // Redirect back with a success message
+        return redirect()->route('categories.show', $category->id)->with('success', 'Category updated successfully');
     }
 
-    public function destroy(Category $category)
+
+    public function destroy(Categorie $category)
     {
-        // Get the path to the category's photos directory
-        $categoryPhotosPath = 'uploads/categories/' . $category->id;
-
-        // Delete the directory and its contents
-        Storage::disk('public')->deleteDirectory($categoryPhotosPath);
-
-        // Delete the category
         $category->delete();
-
-        return redirect()->route('categories.index')->with('success', 'Category deleted successfully');
+        File::deleteDirectory('storage/' . $category->repPhotos);
+        $produits = Produit::where('id_categorie', '=', $category->id)->get();
+        foreach ($produits as $produit) {
+            echo '<script> alert("ok") </script>';
+        }
+        return back()->with('success', 'Category deleted successfully');
     }
 
     public function show(Categorie $category)

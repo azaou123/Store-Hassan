@@ -14,8 +14,9 @@
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Roboto:wght@500;700&display=swap" rel="stylesheet"> 
-    
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Roboto:wght@500;700&display=swap"
+        rel="stylesheet">
+
     <!-- Icon Font Stylesheet -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
@@ -37,7 +38,8 @@
 <body>
     <div class="container-fluid position-relative d-flex p-0">
         <!-- Spinner Start -->
-        <div id="spinner" class="show bg-dark position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div id="spinner"
+            class="show bg-dark position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
             <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
                 <span class="sr-only">Loading...</span>
             </div>
@@ -54,7 +56,9 @@
                 <div class="d-flex align-items-center ms-4 mb-4">
                     <div class="position-relative">
                         <img class="rounded-circle" src="back/img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                        <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
+                        <div
+                            class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1">
+                        </div>
                     </div>
                     <div class="ms-3">
                         <h6 class="mb-0">Jhon Doe</h6>
@@ -62,13 +66,20 @@
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
-                <a href="{{ route('profile') }}" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
-                    <a href="{{ route('commandes') }}" class="nav-item nav-link"><i class="fas fa-list-alt me-2"></i>Commandes</a>
-                    <a href="{{ route('categories') }}" class="nav-item nav-link"><i class="fas fa-folder me-2"></i>Catégoies</a>
-                    <a href="{{ route('produits') }}" class="nav-item nav-link"><i class="fas fa-shopping-cart me-2"></i>Produits</a>
-                    <a href="{{ route('opinions') }}" class="nav-item nav-link"><i class="fas fa-comments me-2"></i>Opinions</a>
-                    <a href="{{ route('partenaires') }}" class="nav-item nav-link"><i class="fa-solid fa-handshake me-2"></i></i>Partenaires</a>
-                    <a href="{{ route('parametres') }}" class="nav-item nav-link active"><i class="fas fa-cogs me-2"></i>Paramètres</a>
+                    <a href="{{ route('profile') }}" class="nav-item nav-link"><i
+                            class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+                    <a href="{{ route('commandes') }}" class="nav-item nav-link"><i
+                            class="fas fa-list-alt me-2"></i>Commandes</a>
+                    <a href="{{ route('categories') }}" class="nav-item nav-link"><i
+                            class="fas fa-folder me-2"></i>Catégoies</a>
+                    <a href="{{ route('produits') }}" class="nav-item nav-link"><i
+                            class="fas fa-shopping-cart me-2"></i>Produits</a>
+                    <a href="{{ route('opinions') }}" class="nav-item nav-link"><i
+                            class="fas fa-comments me-2"></i>Opinions</a>
+                    <a href="{{ route('partenaires') }}" class="nav-item nav-link"><i
+                            class="fa-solid fa-handshake me-2"></i></i>Partenaires</a>
+                    <a href="{{ route('parametres') }}" class="nav-item nav-link active"><i
+                            class="fas fa-cogs me-2"></i>Paramètres</a>
                 </div>
             </nav>
         </div>
@@ -97,7 +108,8 @@
                         <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
                             <a href="#" class="dropdown-item">
                                 <div class="d-flex align-items-center">
-                                    <img class="rounded-circle" src="back/img/user.jpg" alt="" style="width: 40px; height: 40px;">
+                                    <img class="rounded-circle" src="back/img/user.jpg" alt=""
+                                        style="width: 40px; height: 40px;">
                                     <div class="ms-2">
                                         <h6 class="fw-normal mb-0">Jhon send you a message</h6>
                                         <small>15 minutes ago</small>
@@ -107,7 +119,8 @@
                             <hr class="dropdown-divider">
                             <a href="#" class="dropdown-item">
                                 <div class="d-flex align-items-center">
-                                    <img class="rounded-circle" src="back/img/user.jpg" alt="" style="width: 40px; height: 40px;">
+                                    <img class="rounded-circle" src="back/img/user.jpg" alt=""
+                                        style="width: 40px; height: 40px;">
                                     <div class="ms-2">
                                         <h6 class="fw-normal mb-0">Jhon send you a message</h6>
                                         <small>15 minutes ago</small>
@@ -117,7 +130,8 @@
                             <hr class="dropdown-divider">
                             <a href="#" class="dropdown-item">
                                 <div class="d-flex align-items-center">
-                                    <img class="rounded-circle" src="back/img/user.jpg" alt="" style="width: 40px; height: 40px;">
+                                    <img class="rounded-circle" src="back/img/user.jpg" alt=""
+                                        style="width: 40px; height: 40px;">
                                     <div class="ms-2">
                                         <h6 class="fw-normal mb-0">Jhon send you a message</h6>
                                         <small>15 minutes ago</small>
@@ -154,7 +168,8 @@
                     </div>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <img class="rounded-circle me-lg-2" src="back/img/user.jpg" alt="" style="width: 40px; height: 40px;">
+                            <img class="rounded-circle me-lg-2" src="back/img/user.jpg" alt=""
+                                style="width: 40px; height: 40px;">
                             <span class="d-none d-lg-inline-flex">John Doe</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
@@ -173,12 +188,77 @@
                 <div class="bg-secondary text-center rounded p-4">
                     <div class="d-flex align-items-center justify-content-between mb-4">
                         <h6 class="mb-0">Les Paramètres de site web</h6>
-                        <a href="">
+                        <a href="#">
                             <i class="fa-solid fa-hammer"></i>
                         </a>
                     </div>
+
+                    <!-- Display current parameter values -->
+                    <div class="mb-4">
+                        <img src="{{ asset('storage/'.$parametres->logo) }}" alt="Logo" class="img-fluid rounded mb-2"
+                            style="width:500ps; height : 250px;">
+                        <!-- Add more fields as needed -->
+                    </div>
+
+                    @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    @endif
+
+                    <!-- Form for editing parametres -->
+                    <form action="{{ route('parametres.update') }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+
+                        <!-- Add input fields for editing -->
+                        <div class="mb-3">
+                            <label for="logo" class="form-label">Logo:</label>
+                            <input type="file" name="logo" value="{{ $parametres->logo }}" class="form-control">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="facebook" class="form-label">Facebook:</label>
+                            <input type="text" name="facebook" value="{{ $parametres->facebook }}" class="form-control"
+                                required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="twitter" class="form-label">Twitter:</label>
+                            <input type="text" name="twitter" value="{{ $parametres->twitter }}" class="form-control"
+                                required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="twitter" class="form-label">Email : </label>
+                            <input type="text" name="email" value="{{ $parametres->email }}" class="form-control"
+                                required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="twitter" class="form-label">Instagram : </label>
+                            <input type="text" name="insta" value="{{ $parametres->insta }}" class="form-control"
+                                required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="twitter" class="form-label">WhatsApp : </label>
+                            <input type="text" name="whatsapp" value="{{ $parametres->whatsapp }}" c
+                                class="form-control" required>
+                        </div>
+
+
+                        <!-- Add more input fields as needed -->
+
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </form>
                 </div>
             </div>
+            <!-- Recent Sales End -->
+
             <!-- Recent Sales End -->
 
 
@@ -188,7 +268,7 @@
                 <div class="bg-secondary rounded-top p-4">
                     <div class="row">
                         <div class="col-12 col-sm-6 text-center text-sm-start">
-                            &copy; <a href="#">Your Site Name</a>, All Right Reserved. 
+                            &copy; <a href="#">Your Site Name</a>, All Right Reserved.
                         </div>
                         <div class="col-12 col-sm-6 text-center text-sm-end">
                             <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->

@@ -8,6 +8,9 @@ use App\Models\Produit;
 use App\Models\Categorie;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
+use Illuminate\Pagination\LengthAwarePaginator;
+
 
 class ProduitController extends Controller
 {
@@ -16,10 +19,12 @@ class ProduitController extends Controller
         // Your index logic here
     }
 
+
+
     public function create()
     {
         $categories = Categorie::all();
-        return view('dashboard.produits.create',['categories' => $categories]);
+        return view('dashboard.produits.create', ['categories' => $categories]);
     }
 
     public function store(Request $request)
@@ -55,20 +60,91 @@ class ProduitController extends Controller
         return redirect()->route('produits')->with('success', 'Product created successfully');
     }
 
+
+
+
+    public function search(Request $request)
+    {
+        $searchResults = Produit::where('label', 'like', '%' . $request->searchInput . '%')->get();
+
+        foreach ($searchResults as $result) {
+            // Get the folder path for repPhotos
+            $folderPath = public_path('storage/' . $result->repPhotos);
+
+            // Get all image files in the folder
+            $imageFiles = File::allFiles($folderPath);
+
+            // Set the first image path in a new column
+            $result->firstImage = count($imageFiles) > 0 ? asset('storage/' . $result->repPhotos . '/' . $imageFiles[0]->getFilename()) : null;
+        }
+
+        // Return the results as JSON
+        return response()->json(['searchResults' => $searchResults]);
+    }
+
+
+    public function filter(Request $request)
+    {
+        $category = $request->filterCategorie;
+
+        if ($category == 'all') {
+            // Handle case when no specific category is selected
+            $filteredResults = Produit::all();
+
+            // Add firstImage attribute to each result
+            foreach ($filteredResults as $result) {
+                $this->addFirstImageAttribute($result);
+            }
+        } else {
+            // Handle case when a specific category is selected
+            $filteredResults = Produit::where('id_categorie', $category)->get();
+
+            // Add firstImage attribute to each result
+            foreach ($filteredResults as $result) {
+                $this->addFirstImageAttribute($result);
+            }
+        }
+
+        return response()->json(['filteredResults' => $filteredResults]);
+    }
+
+    private function addFirstImageAttribute($result)
+    {
+        // Get the folder path for repPhotos
+        $folderPath = public_path('storage/' . $result->repPhotos);
+
+        // Get all image files in the folder
+        $imageFiles = File::allFiles($folderPath);
+
+        // Set the first image path in a new column
+        $result->firstImage = count($imageFiles) > 0 ? asset('storage/' . $result->repPhotos . '/' . $imageFiles[0]->getFilename()) : null;
+    }
+
+
+
     public function show(Produit $produit)
     {
-        return view('dashboard.produits.show', compact('produit'));
+        // Get products from the same category
+        $categoryProducts = [];
+        $categoryProducts = Produit::where('id_categorie', $produit->id_categorie)
+            ->where('id', '!=', $produit->id) // Exclude the current product
+            ->get();
+        // Get 4 products with names similar to the given product
+        $similarNameProducts = [];
+        $similarNameProducts = Produit::where('label', 'like', '%' . $produit->label . '%')
+            ->where('id', '!=', $produit->id) // Exclude the current product
+            ->limit(4)
+            ->get();
+        $categories = Categorie::all();
+        return view('dashboard.produits.show', compact('produit', 'categories', 'categoryProducts', 'similarNameProducts'));
     }
 
-    public function edit(Produit $produit)
+    public function produitDetails(Produit $produit)
     {
-        // Your edit logic here
+        return view('produit', compact('produit'));
     }
 
-    public function update(Request $request, Produit $produit)
-    {
-        // Your update logic here
-    }
+
 
     public function destroy(Produit $produit)
     {
@@ -79,5 +155,83 @@ class ProduitController extends Controller
         // Delete the product
         $produit->delete();
         return redirect()->route('produits')->with('success', 'Product deleted successfully');
+    }
+
+    public function update(Request $request)
+    {
+
+        // Validate the incoming request data
+        $request->validate([
+            'label' => 'required|string',
+            'description' => 'required|string',
+            'price' => 'required|numeric',
+            'oldPrice' => 'nullable|numeric',
+            'nbrAchats' => 'required|numeric',
+            'id_categorie' => 'required|exists:categories,id',
+            'productPhotos.*' => 'nullable',
+        ]);
+        $produit = Produit::where('id', '=', $request->id)->first();
+
+        // Update the product information
+        $produit->label = $request->input('label');
+        $produit->description = $request->input('description');
+        $produit->price = $request->input('price');
+        $produit->oldPrice = $request->input('oldPrice');
+        $produit->nbrAchats = $request->input('nbrAchats');
+        $produit->id_categorie = $request->input('id_categorie');
+
+        // Check if new photos are provided
+        if ($request->hasFile('productPhotos')) {
+            // Delete old photos if they exist
+            $folderPath = public_path('storage/' . $produit->repPhotos);
+
+            // Check if the directory exists before attempting deletion
+            if (File::exists($folderPath)) {
+                // Get all files in the directory
+                $imageFiles = File::allFiles($folderPath);
+
+                // Delete each file
+                foreach ($imageFiles as $photo) {
+                    File::delete($photo->getPathname());
+                }
+            }
+
+            // Store the new photos
+            $newPhotos = $request->file('productPhotos');
+            $produitPhotosPath = 'uploads/produits/' . $produit->id;
+            foreach ($newPhotos as $photo) {
+                $photoPath = $photo->storeAs($produitPhotosPath, $photo->getClientOriginalName(), 'public');
+            }
+
+            // Update the produit's repPhotos field with the directory name
+            $produit->repPhotos = $produitPhotosPath;
+        }
+
+        // Save the changes
+        $produit->save();
+
+        // Redirect back with a success message
+        return redirect()->back()->with('success', 'Product updated successfully');
+    }
+
+
+    public function deletePhoto(Request $request)
+    {
+        $produit = Produit::findOrFail($request->idProd); // Use findOrFail to handle model not found
+        $folderPath = public_path('storage/' . $produit->repPhotos);
+
+        // Check if the directory exists before attempting deletion
+        if (File::exists($folderPath)) {
+            // Get all files in the directory
+            $imageFiles = File::allFiles($folderPath);
+
+            // Delete the specified file
+            $orderPhoto = $request->orderPhoto - 1; // Adjust order to array index
+            if (isset($imageFiles[$orderPhoto])) {
+                File::delete($imageFiles[$orderPhoto]->getPathname());
+            }
+        }
+
+        return redirect()->back()->with('success', 'Photo deleted successfully');
     }
 }

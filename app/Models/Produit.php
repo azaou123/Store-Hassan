@@ -5,6 +5,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Produit extends Model
 {
@@ -17,8 +18,10 @@ class Produit extends Model
         return $this->belongsTo(Categorie::class, 'id_categorie');
     }
 
-    public function getLabel(){
-        return $this->label ;
+    public function getLabel()
+    {
+        return $this->label;
     }
+
 
 }
