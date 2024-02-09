@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Categorie;
 use App\Models\Produit;
+use App\Models\Commande;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 
@@ -16,7 +17,8 @@ class CategoryController extends Controller
 
     public function create()
     {
-        return view('dashboard.categories.create');
+        $nbr = Commande::where('statut', '=', 'Envoyée')->count();
+        return view('dashboard.categories.create', compact('nbr'));
     }
 
     public function store(Request $request)
@@ -110,7 +112,8 @@ class CategoryController extends Controller
 
     public function show(Categorie $category)
     {
-        return view('dashboard.categories.show', compact('category'));
+        $nbr = Commande::where('statut', '=', 'Envoyée')->count();
+        return view('dashboard.categories.show', compact('category', 'nbr'));
     }
 }
 

@@ -7,27 +7,22 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
-
     <!-- Favicon -->
     <link href="back/img/favicon.ico" rel="icon">
-
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Roboto:wght@500;700&display=swap"
         rel="stylesheet">
-
     <!-- Icon Font Stylesheet -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
-
     <!-- Libraries Stylesheet -->
     <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
     <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <!-- Customized Bootstrap Stylesheet -->
     <link href="back/css/bootstrap.min.css" rel="stylesheet">
-
     <!-- Template Stylesheet -->
     <link href="back/css/style.css" rel="stylesheet">
 </head>
@@ -41,16 +36,12 @@
             document.getElementById('c').innerText = c;
             document.getElementById('listProducts').innerHTML = '';
             document.getElementById('total').innerText = '0';
-
             var modal = document.getElementById('productModal');
             var listProducts = document.getElementById('listProducts');
             modal.style.display = 'block';
-
             // Split the string into an array
             var productList = listeProduits.split('_');
-
             let produits = @json($produits);
-
             function getProductById(id) {
                 for (var i = 0; i < produits.length; i++) {
                     if (produits[i].id == id) {
@@ -59,7 +50,6 @@
                 }
                 return null;
             }
-
             function createTr(p1, p2, p3) {
                 const newRow = document.createElement('tr');
                 const cell1 = document.createElement('td');
@@ -125,140 +115,16 @@
         <!-- Spinner End -->
 
 
+        @if(Session::has('manager'))
+        @php
+        $manager = Session::get('manager')
+        @endphp
+        @endif
         <!-- Sidebar Start -->
-        <div class="sidebar pe-4 pb-3">
-            <nav class="navbar bg-secondary navbar-dark">
-                <a href="index.html" class="navbar-brand mx-4 mb-3">
-                    <h3 class="text-primary"><i class="fa fa-user-edit me-2"></i>StoreDrog</h3>
-                </a>
-                <div class="d-flex align-items-center ms-4 mb-4">
-                    <div class="position-relative">
-                        <img class="rounded-circle" src="back/img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                        <div
-                            class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1">
-                        </div>
-                    </div>
-                    <div class="ms-3">
-                        <h6 class="mb-0">Jhon Doe</h6>
-                        <span>Admin</span>
-                    </div>
-                </div>
-                <div class="navbar-nav w-100">
-                    <a href="{{ route('profile') }}" class="nav-item nav-link"><i
-                            class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
-                    <a href="{{ route('commandes') }}" class="nav-item nav-link active"><i
-                            class="fas fa-list-alt me-2"></i>Commandes</a>
-                    <a href="{{ route('categories') }}" class="nav-item nav-link"><i
-                            class="fas fa-folder me-2"></i>Catégoies</a>
-                    <a href="{{ route('produits') }}" class="nav-item nav-link"><i
-                            class="fas fa-shopping-cart me-2"></i>Produits</a>
-                    <a href="{{ route('opinions') }}" class="nav-item nav-link"><i
-                            class="fas fa-comments me-2"></i>Opinions</a>
-                    <a href="{{ route('opinions') }}" class="nav-item nav-link"><i
-                            class="fa-solid fa-handshake"></i></i>Partenaires</a>
-                    <a href="{{ route('parametres') }}" class="nav-item nav-link"><i
-                            class="fas fa-cogs me-2"></i>Paramètres</a>
-                </div>
-            </nav>
-        </div>
-        <!-- Sidebar End -->
-
-
-        <!-- Content Start -->
+        @include('dashboard.sidebar')
         <div class="content">
             <!-- Navbar Start -->
-            <nav class="navbar navbar-expand bg-secondary navbar-dark sticky-top px-4 py-0">
-                <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
-                    <h2 class="text-primary mb-0"><i class="fa fa-user-edit"></i></h2>
-                </a>
-                <a href="#" class="sidebar-toggler flex-shrink-0">
-                    <i class="fa fa-bars"></i>
-                </a>
-                <form class="d-none d-md-flex ms-4">
-                    <input class="form-control bg-dark border-0" type="search" placeholder="Search">
-                </form>
-                <div class="navbar-nav align-items-center ms-auto">
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <i class="fa fa-envelope me-lg-2"></i>
-                            <span class="d-none d-lg-inline-flex">Message</span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
-                            <a href="#" class="dropdown-item">
-                                <div class="d-flex align-items-center">
-                                    <img class="rounded-circle" src="back/img/user.jpg" alt=""
-                                        style="width: 40px; height: 40px;">
-                                    <div class="ms-2">
-                                        <h6 class="fw-normal mb-0">Jhon send you a message</h6>
-                                        <small>15 minutes ago</small>
-                                    </div>
-                                </div>
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item">
-                                <div class="d-flex align-items-center">
-                                    <img class="rounded-circle" src="back/img/user.jpg" alt=""
-                                        style="width: 40px; height: 40px;">
-                                    <div class="ms-2">
-                                        <h6 class="fw-normal mb-0">Jhon send you a message</h6>
-                                        <small>15 minutes ago</small>
-                                    </div>
-                                </div>
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item">
-                                <div class="d-flex align-items-center">
-                                    <img class="rounded-circle" src="back/img/user.jpg" alt=""
-                                        style="width: 40px; height: 40px;">
-                                    <div class="ms-2">
-                                        <h6 class="fw-normal mb-0">Jhon send you a message</h6>
-                                        <small>15 minutes ago</small>
-                                    </div>
-                                </div>
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item text-center">See all message</a>
-                        </div>
-                    </div>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <i class="fa fa-bell me-lg-2"></i>
-                            <span class="d-none d-lg-inline-flex">Notificatin</span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
-                            <a href="#" class="dropdown-item">
-                                <h6 class="fw-normal mb-0">Profile updated</h6>
-                                <small>15 minutes ago</small>
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item">
-                                <h6 class="fw-normal mb-0">New user added</h6>
-                                <small>15 minutes ago</small>
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item">
-                                <h6 class="fw-normal mb-0">Password changed</h6>
-                                <small>15 minutes ago</small>
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item text-center">See all notifications</a>
-                        </div>
-                    </div>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <img class="rounded-circle me-lg-2" src="back/img/user.jpg" alt=""
-                                style="width: 40px; height: 40px;">
-                            <span class="d-none d-lg-inline-flex">John Doe</span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
-                            <a href="#" class="dropdown-item">My Profile</a>
-                            <a href="#" class="dropdown-item">Settings</a>
-                            <a href="#" class="dropdown-item">Log Out</a>
-                        </div>
-                    </div>
-                </div>
-            </nav>
-            <!-- Navbar End -->
+            @include('dashboard.navbar')
 
 
             <!-- Recent Sales Start -->
@@ -268,7 +134,7 @@
                         <h6 class="mb-0">Les Commandes</h6>
                         <div class="mb-3">
                             <label for="filterStatut" class="form-label">Filtrer : </label>
-                            <select class="form-select" id="filterStatut">
+                            <select class="form-select" id="filterStatut" onchange="filterCommands()">
                                 <option value="all">Tous</option>
                                 <option value="Envoyée">Envoyée</option>
                                 <option value="Validée">Validée</option>
@@ -302,7 +168,6 @@
                             <div class="alert alert-success">
                                 <p id="totalAmount">Total à payer : <strong id="total"> 0 </strong> DH</p>
                             </div>
-
                         </div>
                     </div>
                     <div class="table-responsive">
@@ -355,6 +220,21 @@
                     </div>
                 </div>
             </div>
+            <script>
+                function filterCommands() {
+                    var selectedStatut = document.getElementById('filterStatut').value;
+                    var rows = document.querySelectorAll('.command-row');
+
+                    rows.forEach(function (row) {
+                        var rowStatut = row.getAttribute('data-statut');
+                        if (selectedStatut === 'all' || rowStatut === selectedStatut) {
+                            row.style.display = 'table-row';
+                        } else {
+                            row.style.display = 'none';
+                        }
+                    });
+                }
+            </script>
             <!-- Recent Sales End -->
 
 
@@ -363,13 +243,8 @@
             <div class="container-fluid pt-4 px-4">
                 <div class="bg-secondary rounded-top p-4">
                     <div class="row">
-                        <div class="col-12 col-sm-6 text-center text-sm-start">
-                            &copy; <a href="#">Your Site Name</a>, All Right Reserved.
-                        </div>
-                        <div class="col-12 col-sm-6 text-center text-sm-end">
-                            <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
-                            Designed By <a href="https://htmlcodex.com">HTML Codex</a>
-                            <br>Distributed By: <a href="https://themewagon.com" target="_blank">ThemeWagon</a>
+                        <div class="col-12 col-sm-6 text-center text-sm-start text-center">
+                            &copy; <a href="#">Luxmar Maroc 2024</a>, All Right Reserved.
                         </div>
                     </div>
                 </div>
@@ -397,41 +272,7 @@
     <!-- Template Javascript -->
     <script src="back/js/main.js"></script>
 
-    <style>
-        /* Style the modal */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 50%;
-            margin-left: 25%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
-        }
 
-        .modal-content {
-            background-color: #fefefe;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%;
-        }
-
-        /* Style the close button */
-        .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-        }
-
-        .close:hover,
-        .close:focus {
-            color: black;
-            text-decoration: none;
-            cursor: pointer;
-        }
-    </style>
 </body>
 
 </html>

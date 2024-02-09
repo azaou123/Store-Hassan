@@ -22,103 +22,74 @@ use App\Http\Controllers\ParametreController;
 */
 
 Route::get('/', [ManagerController::class, 'index'])->name('index');
-
-
-
-
-// There are the routes of the Admin 
-// go to login page for admin 
 Route::get('/admin', function () {
     return view('admin.index');
 });
 Route::get('/search', [ProduitController::class, 'search'])->name('search');
 Route::get('/filter', [ProduitController::class, 'filter'])->name('filter');
-
-
-
-
-
-
-// Manager Login Route 
-Route::post('/dashboord', [ManagerController::class, 'dashboord'])->name('dashboord');
-Route::get('/profile', [ManagerController::class, 'profile'])->name('profile');
-
-
-
-//************************************* Categories ****************************************************************
-Route::get('/categories', [ManagerController::class, 'categories'])->name('categories');
-// View a specific category
-Route::get('/categories/{category}', [CategoryController::class, 'show'])->name('categories.show');
-Route::patch('categories/{category}', [CategoryController::class, 'update'])->name('categories.update');
-// Create a new category (show create form)
-Route::get('/categories.create', [CategoryController::class, 'create'])->name('categories.create');
-// Store a new category
-Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
-// Edit a category (show edit form)
-// Route::get('/categories/{category}/edit', [CategoryController::class, 'edit'])->name('categories.edit');
-// Update a category
-// Route::put('/categories/{category}', [CategoryController::class, 'update'])->name('categories.update');
-// Delete a category
-Route::get('/categories.destroy/{category}', [CategoryController::class, 'destroy'])->name('categories.destroy');
-
-
-
-//************************************* Produits ****************************************************************//
-Route::get('/produits', [ManagerController::class, 'produits'])->name('produits');
-// View a specific category
-Route::get('/produits/{produit}', [ProduitController::class, 'show'])->name('produits.show');
+Route::get('/about', [ManagerController::class, 'about'])->name('about');
+Route::post('/contact', [ManagerController::class, 'contact'])->name('contact');
 Route::get('/produit-details/{produit}', [ProduitController::class, 'produitDetails'])->name('produitdetails');
-Route::post('/produits/search', [ProduitController::class, 'search'])->name('produits.search');
-// Create a new category (show create form)
-Route::get('/produits.create', [ProduitController::class, 'create'])->name('produits.create');
-// Store a new category
-Route::post('/produits', [ProduitController::class, 'store'])->name('produits.store');
-// Edit a product (show edit form)
+Route::post('/dashboord', [ManagerController::class, 'dashboord'])->name('dashboord');
+Route::post('addCommande', [CommandeController::class, 'addCommande'])->name('addCommande');
+
+
+
+
+
+Route::group(['middleware' => 'manager'], function () {
+
+    // Manager Auth Routes 
+
+    Route::get('/profile', [ManagerController::class, 'profile'])->name('profile');
+    Route::get('/logout', [ManagerController::class, 'logout'])->name('logout');
+    Route::get('/messages', [ManagerController::class, 'messages'])->name('messages');
+    //************************************* Categories ****************************************************************
+    Route::get('/categories', [ManagerController::class, 'categories'])->name('categories');
+    // View a specific category
+    Route::get('/categories/{category}', [CategoryController::class, 'show'])->name('categories.show');
+    Route::patch('categories/{category}', [CategoryController::class, 'update'])->name('categories.update');
+    // Create a new category (show create form)
+    Route::get('/categories.create', [CategoryController::class, 'create'])->name('categories.create');
+    // Store a new category
+    Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
+    Route::get('/categories.destroy/{category}', [CategoryController::class, 'destroy'])->name('categories.destroy');
+
+
+    //************************************* Produits ****************************************************************//
+    Route::get('/produits', [ManagerController::class, 'produits'])->name('produits');
+    // View a specific category
+    Route::get('/produits/{produit}', [ProduitController::class, 'show'])->name('produits.show');
+    Route::post('/produits/search', [ProduitController::class, 'search'])->name('produits.search');
+    // Create a new category (show create form)
+    Route::get('/produits.create', [ProduitController::class, 'create'])->name('produits.create');
+    // Store a new category
+    Route::post('/produits', [ProduitController::class, 'store'])->name('produits.store');
+    // Edit a product (show edit form)
 // Route::get('/produits/{category}/edit', [ProduitController::class, 'edit'])->name('produits.edit');
 // Update a product
-Route::post('/produits/{category}', [ProduitController::class, 'update'])->name('produits.update');
-Route::post('/deletePhoto/', [ProduitController::class, 'deletePhoto'])->name('deletePhoto');
-// Delete a product
-Route::get('produits.destroy/{produit}', [ProduitController::class, 'destroy'])->name('produits.destroy');
+    Route::post('/produits/{category}', [ProduitController::class, 'update'])->name('produits.update');
+    Route::post('/deletePhoto/', [ProduitController::class, 'deletePhoto'])->name('deletePhoto');
+    // Delete a product
+    Route::get('produits.destroy/{produit}', [ProduitController::class, 'destroy'])->name('produits.destroy');
+    // ************************************************ Commandes **********************************************************
+    Route::get('/commandes', [ManagerController::class, 'commandes'])->name('commandes');
+    Route::get('commande.validate/{commande}', [CommandeController::class, 'validateCommande'])->name('commande.validate');
+    Route::get('commande.delete/{commande}', [CommandeController::class, 'deleteCommande'])->name('commande.delete');
+    Route::get('commande.discard/{commande}', [CommandeController::class, 'discardCommande'])->name('commande.discard');
+    // **************************************** Opinions *******************************************
+    Route::get('/opinions', [ManagerController::class, 'opinions'])->name('opinions');
+    Route::post('addOpinion', [OpinionController::class, 'addOpinion'])->name('addOpinion');
+    Route::delete('/opinions/{id}', [OpinionController::class, 'destroy'])->name('opinions.destroy');
+    // **************************************** Partenaire *************************************
+    Route::get('/partenaires', [ManagerController::class, 'partenaires'])->name('partenaires');
+    Route::post('addPartner', [PartnerController::class, 'addPartner'])->name('addPartner');
+    Route::delete('/partenaires/{id}', [PartnerController::class, 'destroy'])->name('partenaires.destroy');
+    // ****************************** Les Paramètres **********************************
+    Route::get('/parametres', [ManagerController::class, 'parametres'])->name('parametres');
+    Route::post('parametres/update', [ManagerController::class, 'update'])->name('parametres.update');
+});
 
-
-
-
-
-// ************************************************ Commandes **********************************************************
-Route::get('/commandes', [ManagerController::class, 'commandes'])->name('commandes');
-Route::post('addCommande', [CommandeController::class, 'addCommande'])->name('addCommande');
-Route::get('commande.validate/{commande}', [CommandeController::class, 'validateCommande'])->name('commande.validate');
-Route::get('commande.delete/{commande}', [CommandeController::class, 'deleteCommande'])->name('commande.delete');
-Route::get('commande.discard/{commande}', [CommandeController::class, 'discardCommande'])->name('commande.discard');
-
-
-
-
-
-
-// **************************************** Opinions *******************************************
-Route::get('/opinions', [ManagerController::class, 'opinions'])->name('opinions');
-Route::post('addOpinion', [OpinionController::class, 'addOpinion'])->name('addOpinion');
-Route::delete('/opinions/{id}', [OpinionController::class, 'destroy'])->name('opinions.destroy');
-
-
-
-// **************************************** Partenaire *************************************
-Route::get('/partenaires', [ManagerController::class, 'partenaires'])->name('partenaires');
-Route::post('addPartner', [PartnerController::class, 'addPartner'])->name('addPartner');
-Route::delete('/partenaires/{id}', [PartnerController::class, 'destroy'])->name('partenaires.destroy');
-
-
-
-// ****************************** Les Paramètres **********************************
-Route::get('/parametres', [ManagerController::class, 'parametres'])->name('parametres');
-Route::post('parametres/update', [ManagerController::class, 'update'])->name('parametres.update');
-
-
-
-// Contact Route : 
-Route::post('/contact', [ManagerController::class, 'contact'])->name('contact');
 
 
 

@@ -27,9 +27,12 @@
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="back/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
     <!-- Template Stylesheet -->
     <link href="back/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- CDN Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
 
 <body>
@@ -42,8 +45,6 @@
             </div>
         </div>
         <!-- Spinner End -->
-
-
         @if(Session::has('manager'))
         @php
         $manager = Session::get('manager')
@@ -54,63 +55,46 @@
         <div class="content">
             <!-- Navbar Start -->
             @include('dashboard.navbar')
-
-
             <!-- Recent Sales Start -->
-            <div class="container-fluid pt-4 px-4">
-                <div class="bg-secondary text-center rounded p-4">
-                    <div class="d-flex align-items-center justify-content-between mb-4">
-                        <h6 class="mb-0">Les Produits</h6>
-                        <!-- Add Category  -->
-                        <a href="{{ route('produits.create') }}" class="text-success mx-2">
-                            <i class="fas fa-plus-circle me-2 fs-3"></i>
-                        </a>
-                    </div>
-                    <div class="table-responsive">
-                        <table class="table text-start align-middle table-bordered table-hover mb-0">
-                            <thead>
-                                <tr class="text-white">
-                                    <th scope="col">Produit</th>
-                                    <th scope="col">Catégorie</th>
-                                    <th scope="col">Prix</th>
-                                    <th scope="col">Nbr Achat</th>
-                                    <th scope="col">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($produits as $produit)
-                                <tr>
-                                    <td>{{ $produit->label }}</td>
-                                    <td>{{ $produit->category['label'] }}</td>
-                                    <td>{{ $produit->price }}</td>
-                                    <td>{{ $produit->label }}</td>
-                                    <td>{{ $produit->label }}</td>
-                                    <td class"row">
-                                        <a class="col-3" href="{{ route('produits.show', ['produit'=>$produit->id]) }}">
-                                            <i class="fas fa-eye me-2 text-success"></i>
-                                        </a>
-                                        <a class="col-3"
-                                            href="{{ route('produits.destroy', ['produit'=>$produit->id]) }}">
-                                            <i class="fas fa-trash-alt me-2"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <!-- Recent Sales End -->
 
+            <div class="container mt-4">
+                <h2>Messages Des visiteurs</h2>
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Nom Complet</th>
+                            <th scope="col">Téléphone</th>
+                            <th scope="col">Message</th>
+                            <th scope="col">Created At</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($messages as $message)
+                        <tr>
+                            <td>{{ $message->id }}</td>
+                            <td>{{ $message->nomComplet }}</td>
+                            <td>{{ $message->telephone }}</td>
+                            <td>{{ $message->message }}</td>
+                            <td>{{ $message->created_at }}</td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
 
 
             <!-- Footer Start -->
             <div class="container-fluid pt-4 px-4">
                 <div class="bg-secondary rounded-top p-4">
                     <div class="row">
-                        <div class="col-12 col-sm-6 text-center text-sm-start text-center">
-                            &copy; <a href="#">Luxmar Maroc 2024</a>, All Right Reserved.
+                        <div class="col-12 col-sm-6 text-center text-sm-start">
+                            &copy; <a href="#">Your Site Name</a>, All Right Reserved.
+                        </div>
+                        <div class="col-12 col-sm-6 text-center text-sm-end">
+                            <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
+                            Designed By <a href="https://htmlcodex.com">HTML Codex</a>
+                            <br>Distributed By: <a href="https://themewagon.com" target="_blank">ThemeWagon</a>
                         </div>
                     </div>
                 </div>

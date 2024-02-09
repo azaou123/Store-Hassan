@@ -3,29 +3,67 @@
         <div class="container-fluid">
             <div class="top_nav_container">
                 <div class="contact_nav">
-                    <a href="tel:{{ $parametres->whatsapp }}">
+                    <a href="tel:{{ $parametres->whatsapp }}" class="mx-2" target="_blanc">
                         <i class="fa fa-phone" aria-hidden="true"></i>
                         <span>
                             Télé : {{ $parametres->whatsapp }}
                         </span>
                     </a>
-                    <a href="mailto:{{ $parametres->email }}">
+                    <a href="mailto:{{ $parametres->email }}" class="mx-2" target="_blanc">
                         <i class="fa fa-envelope" aria-hidden="true"></i>
                         <span>
                             Email : {{ $parametres->email }}
                         </span>
                     </a>
+                    <a href="{{ $parametres->facebook }}" class="mx-2" target="_blanc">
+                        <i class="fa fa-facebook" aria-hidden="true"></i>
+                        <span>
+                            Facebbok : {{ $parametres->facebook }}
+                        </span>
+                    </a>
+                    <a href="{{ $parametres->address }}" class="mx-2" target="_blanc">
+                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                        <span>
+                            Adresse : {{ $parametres->address }}
+                        </span>
+                    </a>
                 </div>
-                <form class="search_form">
-                    <input type="text" class="form-control" placeholder="Chercher...">
-                    <button class="" type="submit">
-                        <i class="fa fa-search" aria-hidden="true"></i>
-                    </button>
-                </form>
                 <!-- Removed the "user_option_box" containing "My Account" and "Cart" links -->
             </div>
         </div>
     </div>
+    <div class="header_top_prime" style="display:none;">
+        <div class="container-fluid">
+            <div class="top_nav_container">
+                <div class="contact_nav">
+                    <a href="tel:{{ $parametres->whatsapp }}" target="_blanc">
+                        <i class="fa fa-phone" aria-hidden="true"></i>
+                    </a>
+                    <a href="mailto:{{ $parametres->email }}" target="_blanc">
+                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                    </a>
+                    <a href="mailto:{{ $parametres->facebook }}" target="_blanc">
+                        <i class="fa fa-facebbok" aria-hidden="true"></i>
+                    </a>
+                    <a href="mailto:{{ $parametres->insta }}" target="_blanc">
+                        <i class="fa fa-instagram" aria-hidden="true"></i>
+                    </a>
+                </div>
+                <!-- Removed the "user_option_box" containing "My Account" and "Cart" links -->
+            </div>
+        </div>
+    </div>
+    <style>
+        @media only screen and (max-width: 767px) {
+            .header_top {
+                display: none;
+            }
+
+            .header_top_prime {
+                display: flex;
+            }
+        }
+    </style>
     <div class="header_bottom">
         <div class="container-fluid">
             <nav class="navbar navbar-expand-lg custom_nav-container ">
@@ -46,16 +84,7 @@
                                     class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('index') }}"> About</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('index') }}">Produits</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('index') }}">Why Us</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('index') }}">Testimonial</a>
+                            <a class="nav-link" href="{{ route('about') }}"> A Propos</a>
                         </li>
                     </ul>
                 </div>

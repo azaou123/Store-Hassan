@@ -5,8 +5,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Produit;
+use App\Models\Commande;
 use App\Models\Categorie;
 use Illuminate\Http\Request;
+use App\Models\Parametre;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -24,13 +26,16 @@ class ProduitController extends Controller
     public function create()
     {
         $categories = Categorie::all();
-        return view('dashboard.produits.create', ['categories' => $categories]);
+        $nbr = Commande::where('statut', '=', 'Envoyée')->count();
+        return view('dashboard.produits.create', compact('categories', 'nbr'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
             'label' => 'required',
+            'oldPrice' => 'required',
+            'price' => 'required',
             'description' => 'required',
             'id_categorie' => 'required|exists:categories,id', // Ensure the selected category exists
             'photos.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
@@ -39,10 +44,10 @@ class ProduitController extends Controller
         // Create the product
         $product = Produit::create([
             'label' => $request->label,
+            'oldPrice' => $request->oldPrice,
+            'price' => $request->price,
             'description' => $request->description,
             'id_categorie' => $request->id_categorie,
-            'oldPrice' => 0, // Add your logic for oldPrice and price
-            'price' => 0,
             'repPhotos' => '',
         ]);
 
@@ -136,12 +141,14 @@ class ProduitController extends Controller
             ->limit(4)
             ->get();
         $categories = Categorie::all();
-        return view('dashboard.produits.show', compact('produit', 'categories', 'categoryProducts', 'similarNameProducts'));
+        $nbr = Commande::where('statut', '=', 'Envoyée')->count();
+        return view('dashboard.produits.show', compact('produit', 'categories', 'categoryProducts', 'similarNameProducts', 'nbr'));
     }
 
     public function produitDetails(Produit $produit)
     {
-        return view('produit', compact('produit'));
+        $parametres = Parametre::first();
+        return view('produit', compact('produit', 'parametres'));
     }
 
 

@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\DB;
 
 class ManagerController extends Controller
 {
@@ -28,8 +29,21 @@ class ManagerController extends Controller
         $categories = Categorie::all();
         $opinions = Opinion::all();
         $partenaires = Partenaire::all();
-        return view('index', compact('produits', 'categories', 'opinions', 'partenaires'));
+        $parametres = Parametre::first();
+        return view('index', compact('produits', 'categories', 'opinions', 'partenaires', 'parametres'));
     }
+    public function about()
+    {
+        $perPage = 8;
+        $produits = Produit::paginate($perPage);
+        $categories = Categorie::all();
+        $opinions = Opinion::all();
+        $partenaires = Partenaire::all();
+        $parametres = Parametre::first();
+        return view('about', compact('produits', 'categories', 'opinions', 'partenaires', 'parametres'));
+    }
+
+
 
     public function dashboord(Request $request)
     {
@@ -49,24 +63,49 @@ class ManagerController extends Controller
     public function profile()
     {
         if (Session::has('manager')) {
-            return view('dashboard.index');
+            $nbr = Commande::where('statut', '=', 'Envoyée')->count();
+            $tables = DB::select('SHOW TABLES');
+            // Extract the table names from the result
+            $tableNames = array_map('current', json_decode(json_encode($tables), true));
+
+            // Fetch the content of each table
+            $tableData = [];
+            foreach ($tableNames as $tableName) {
+                $tableData[$tableName] = DB::table($tableName)->get();
+            }
+            return view('dashboard.index', compact('nbr', 'tableData'));
         }
+
         return back();
     }
+    public function logout()
+    {
+        Session::forget('manager');
+        return redirect('/')->with('success', 'Logout successful');
+    }
+
     public function commandes()
     {
         if (Session::has('manager')) {
-            $commands = Commande::where('statut', '!=', 'Archivée')->orderBy('created_at', 'desc')->get();
+            $nbr = Commande::where('statut', '=', 'Envoyée')->count();
+            $commands = Commande::orderBy('created_at', 'desc')->get();
             $produits = Produit::all();
-            return view('dashboard.commandes', compact('commands', 'produits'));
+            return view('dashboard.commandes', compact('commands', 'produits', 'nbr'));
         }
         return back();
+    }
+    public function getFilteredCommands(Request $request)
+    {
+        $selectedStatut = $request->input('statut');
+        $commands = Commande::where('statut', 'Envoyée')->orderBy('created_at', 'desc')->get();
+        return response()->json(['filteredData' => $commands]);
     }
     public function categories()
     {
         if (Session::has('manager')) {
             $categories = Categorie::all();
-            return view('dashboard.categories', compact('categories'));
+            $nbr = Commande::where('statut', '=', 'Envoyée')->count();
+            return view('dashboard.categories', compact('categories', 'nbr'));
         }
         return back();
     }
@@ -74,7 +113,8 @@ class ManagerController extends Controller
     {
         if (Session::has('manager')) {
             $produits = Produit::all();
-            return view('dashboard.produits', compact('produits'));
+            $nbr = Commande::where('statut', '=', 'Envoyée')->count();
+            return view('dashboard.produits', compact('produits', 'nbr'));
         }
         return back();
     }
@@ -82,9 +122,8 @@ class ManagerController extends Controller
     {
         if (Session::has('manager')) {
             $opinions = Opinion::all();
-            return view('dashboard.opinions', compact('opinions'));
-        } else {
-            return back();
+            $nbr = Commande::where('statut', '=', 'Envoyée')->count();
+            return view('dashboard.opinions', compact('opinions', 'nbr'));
         }
         return back();
     }
@@ -92,9 +131,8 @@ class ManagerController extends Controller
     {
         if (Session::has('manager')) {
             $partenaires = Partenaire::all();
-            return view('dashboard.partenaires', compact('partenaires'));
-        } else {
-            return back();
+            $nbr = Commande::where('statut', '=', 'Envoyée')->count();
+            return view('dashboard.partenaires', compact('partenaires', 'nbr'));
         }
         return back();
     }
@@ -102,7 +140,18 @@ class ManagerController extends Controller
     {
         if (Session::has('manager')) {
             $parametres = Parametre::first();
-            return view('dashboard.parametres', compact('parametres'));
+            $nbr = Commande::where('statut', '=', 'Envoyée')->count();
+            return view('dashboard.parametres', compact('parametres', 'nbr'));
+        }
+        return back();
+    }
+
+    public function messages()
+    {
+        if (Session::has('manager')) {
+            $messages = Message::orderBy('created_at', 'desc')->get();
+            $nbr = Commande::where('statut', '=', 'Envoyée')->count();
+            return view('dashboard.messages', compact('messages', 'nbr'));
         }
         return back();
     }
@@ -121,6 +170,8 @@ class ManagerController extends Controller
             'email' => 'required|string|email|max:255',
             'insta' => 'required|string|max:255',
             'whatsapp' => 'required|string|max:255',
+            'address' => 'required|string|max:255',
+            'googlemaps' => 'required|string|max:255',
             // Add more validation rules for other fields as needed
         ]);
 
@@ -142,6 +193,8 @@ class ManagerController extends Controller
         $parametre->email = $request->input('email');
         $parametre->insta = $request->input('insta');
         $parametre->whatsapp = $request->input('whatsapp');
+        $parametre->googlemaps = $request->input('googlemaps');
+        $parametre->address = $request->input('address');
         // Add more fields as needed
 
         $parametre->save();

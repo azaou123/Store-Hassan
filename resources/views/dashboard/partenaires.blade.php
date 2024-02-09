@@ -14,8 +14,9 @@
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Roboto:wght@500;700&display=swap" rel="stylesheet"> 
-    
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Roboto:wght@500;700&display=swap"
+        rel="stylesheet">
+
     <!-- Icon Font Stylesheet -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
@@ -26,7 +27,7 @@
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="back/css/bootstrap.min.css" rel="stylesheet">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <!-- Template Stylesheet -->
     <link href="back/css/style.css" rel="stylesheet">
 </head>
@@ -34,7 +35,8 @@
 <body>
     <div class="container-fluid position-relative d-flex p-0">
         <!-- Spinner Start -->
-        <div id="spinner" class="show bg-dark position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div id="spinner"
+            class="show bg-dark position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
             <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
                 <span class="sr-only">Loading...</span>
             </div>
@@ -42,127 +44,16 @@
         <!-- Spinner End -->
 
 
+        @if(Session::has('manager'))
+        @php
+        $manager = Session::get('manager')
+        @endphp
+        @endif
         <!-- Sidebar Start -->
-        <div class="sidebar pe-4 pb-3">
-            <nav class="navbar bg-secondary navbar-dark">
-                <a href="index.html" class="navbar-brand mx-4 mb-3">
-                    <h3 class="text-primary"><i class="fa fa-user-edit me-2"></i>StoreDrog</h3>
-                </a>
-                <div class="d-flex align-items-center ms-4 mb-4">
-                    <div class="position-relative">
-                        <img class="rounded-circle" src="back/img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                        <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
-                    </div>
-                    <div class="ms-3">
-                        <h6 class="mb-0">Jhon Doe</h6>
-                        <span>Admin</span>
-                    </div>
-                </div>
-                <div class="navbar-nav w-100">
-                <a href="{{ route('profile') }}" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
-                    <a href="{{ route('commandes') }}" class="nav-item nav-link"><i class="fas fa-list-alt me-2"></i>Commandes</a>
-                    <a href="{{ route('categories') }}" class="nav-item nav-link"><i class="fas fa-folder me-2"></i>Catégoies</a>
-                    <a href="{{ route('produits') }}" class="nav-item nav-link"><i class="fas fa-shopping-cart me-2"></i>Produits</a>
-                    <a href="{{ route('opinions') }}" class="nav-item nav-link"><i class="fas fa-comments me-2"></i>Opinions</a>
-                    <a href="{{ route('partenaires') }}" class="nav-item nav-link active"><i class="fas fa-handshake me-2"></i>Partenaires</a>
-                    <a href="{{ route('parametres') }}" class="nav-item nav-link"><i class="fas fa-cogs me-2"></i>Paramètres</a>
-                </div>
-            </nav>
-        </div>
-        <!-- Sidebar End -->
-
-
-        <!-- Content Start -->
+        @include('dashboard.sidebar')
         <div class="content">
             <!-- Navbar Start -->
-            <nav class="navbar navbar-expand bg-secondary navbar-dark sticky-top px-4 py-0">
-                <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
-                    <h2 class="text-primary mb-0"><i class="fa fa-user-edit"></i></h2>
-                </a>
-                <a href="#" class="sidebar-toggler flex-shrink-0">
-                    <i class="fa fa-bars"></i>
-                </a>
-                <form class="d-none d-md-flex ms-4">
-                    <input class="form-control bg-dark border-0" type="search" placeholder="Search">
-                </form>
-                <div class="navbar-nav align-items-center ms-auto">
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <i class="fa fa-envelope me-lg-2"></i>
-                            <span class="d-none d-lg-inline-flex">Message</span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
-                            <a href="#" class="dropdown-item">
-                                <div class="d-flex align-items-center">
-                                    <img class="rounded-circle" src="back/img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                                    <div class="ms-2">
-                                        <h6 class="fw-normal mb-0">Jhon send you a message</h6>
-                                        <small>15 minutes ago</small>
-                                    </div>
-                                </div>
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item">
-                                <div class="d-flex align-items-center">
-                                    <img class="rounded-circle" src="back/img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                                    <div class="ms-2">
-                                        <h6 class="fw-normal mb-0">Jhon send you a message</h6>
-                                        <small>15 minutes ago</small>
-                                    </div>
-                                </div>
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item">
-                                <div class="d-flex align-items-center">
-                                    <img class="rounded-circle" src="back/img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                                    <div class="ms-2">
-                                        <h6 class="fw-normal mb-0">Jhon send you a message</h6>
-                                        <small>15 minutes ago</small>
-                                    </div>
-                                </div>
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item text-center">See all message</a>
-                        </div>
-                    </div>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <i class="fa fa-bell me-lg-2"></i>
-                            <span class="d-none d-lg-inline-flex">Notificatin</span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
-                            <a href="#" class="dropdown-item">
-                                <h6 class="fw-normal mb-0">Profile updated</h6>
-                                <small>15 minutes ago</small>
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item">
-                                <h6 class="fw-normal mb-0">New user added</h6>
-                                <small>15 minutes ago</small>
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item">
-                                <h6 class="fw-normal mb-0">Password changed</h6>
-                                <small>15 minutes ago</small>
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item text-center">See all notifications</a>
-                        </div>
-                    </div>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <img class="rounded-circle me-lg-2" src="back/img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                            <span class="d-none d-lg-inline-flex">John Doe</span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
-                            <a href="#" class="dropdown-item">My Profile</a>
-                            <a href="#" class="dropdown-item">Settings</a>
-                            <a href="#" class="dropdown-item">Log Out</a>
-                        </div>
-                    </div>
-                </div>
-            </nav>
-            <!-- Navbar End -->
+            @include('dashboard.navbar')
 
 
             <!-- Recent Sales Start -->
@@ -171,71 +62,84 @@
                     <div class="d-flex align-items-center justify-content-between mb-4">
                         <h6 class="mb-0 ">Partenaires : </h6>
                         <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                        Ajouter
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#staticBackdrop">
+                            Ajouter
                         </button>
 
                         <!-- Modal -->
-                        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
+                            tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title text-dark" id="staticBackdropLabel">Ajouter Partenaire</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                <form action="{{ route('addPartner') }}" method="post" enctype="multipart/form-data">
-                                    @csrf
-                                    <div class="mb-3">
-                                        <label for="name" class="form-label">Lebelle de partenaire : </label>
-                                        <input type="text" class="form-control bg-light text-dark" id="name" name="name" required>
+                                    <div class="modal-header">
+                                        <h5 class="modal-title text-dark" id="staticBackdropLabel">Ajouter Partenaire
+                                        </h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
                                     </div>
-                                    <div class="mb-3">
-                                        <label for="photo" class="form-label">Logo de partenaire : </label>
-                                        <input type="file" class="form-control bg-light text-dark" id="photo" name="photo" required>
+                                    <div class="modal-body">
+                                        <form action="{{ route('addPartner') }}" method="post"
+                                            enctype="multipart/form-data">
+                                            @csrf
+                                            <div class="mb-3">
+                                                <label for="name" class="form-label">Lebelle de partenaire : </label>
+                                                <input type="text" class="form-control bg-light text-dark" id="name"
+                                                    name="name" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="photo" class="form-label">Logo de partenaire : </label>
+                                                <input type="file" class="form-control bg-light text-dark" id="photo"
+                                                    name="photo" required>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                        </form>
                                     </div>
-                                    <button type="submit" class="btn btn-primary">Submit</button>
-                                </form>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-                                    <button type="button" class="btn btn-primary">Enregistrer</button>
-                                </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Fermer</button>
+                                        <button type="button" class="btn btn-primary">Enregistrer</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <section>
                         <div class="row d-flex justify-content-center">
-                        <table class="table">
-                        <thead>
-                            <th>ID</th>
-                            <th>Partenaire</th>
-                            <th>Logo</th>
-                            <th>Action</th>
-                        </thead>
-                        <tbody>
-                            @foreach ($partenaires as $partenaire)
-                            <tr>
-                                <td>{{ $partenaire->id }}</td>
-                                <td>{{ $partenaire->label }}</td>
-                                <td>
-                                    <img src="{{ asset('storage/'.$partenaire->logo) }}" alt="not found" width="50" class="rounded-circle">
-                                </td>
-                                <td>
-                                    <a class="col-3 fs-4" href="{{ route('opinions.destroy', ['id' => $partenaire->id]) }}" onclick="event.preventDefault(); document.getElementById('delete-form-{{ $partenaire->id }}').submit();">
-                                        <i class="fas fa-trash-alt"></i>
-                                    </a>
-                                    <!-- Form for deletion -->
-                                    <form id="delete-form-{{ $partenaire->id }}" action="{{ route('partenaires.destroy', ['id' => $partenaire->id]) }}" method="POST" style="display: none;">
-                                        @csrf
-                                        @method('DELETE')
-                                    </form>
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                        </table>
+                            <table class="table">
+                                <thead>
+                                    <th>ID</th>
+                                    <th>Partenaire</th>
+                                    <th>Logo</th>
+                                    <th>Action</th>
+                                </thead>
+                                <tbody>
+                                    @foreach ($partenaires as $partenaire)
+                                    <tr>
+                                        <td>{{ $partenaire->id }}</td>
+                                        <td>{{ $partenaire->label }}</td>
+                                        <td>
+                                            <img src="{{ asset('storage/'.$partenaire->logo) }}" alt="not found"
+                                                width="50" class="rounded-circle">
+                                        </td>
+                                        <td>
+                                            <a class="col-3 fs-4"
+                                                href="{{ route('opinions.destroy', ['id' => $partenaire->id]) }}"
+                                                onclick="event.preventDefault(); document.getElementById('delete-form-{{ $partenaire->id }}').submit();">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </a>
+                                            <!-- Form for deletion -->
+                                            <form id="delete-form-{{ $partenaire->id }}"
+                                                action="{{ route('partenaires.destroy', ['id' => $partenaire->id]) }}"
+                                                method="POST" style="display: none;">
+                                                @csrf
+                                                @method('DELETE')
+                                            </form>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
                         </div>
                     </section>
                 </div>
@@ -248,13 +152,8 @@
             <div class="container-fluid pt-4 px-4">
                 <div class="bg-secondary rounded-top p-4">
                     <div class="row">
-                        <div class="col-12 col-sm-6 text-center text-sm-start">
-                            &copy; <a href="#">Your Site Name</a>, All Right Reserved. 
-                        </div>
-                        <div class="col-12 col-sm-6 text-center text-sm-end">
-                            <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
-                            Designed By <a href="https://htmlcodex.com">HTML Codex</a>
-                            <br>Distributed By: <a href="https://themewagon.com" target="_blank">ThemeWagon</a>
+                        <div class="col-12 col-sm-6 text-center text-sm-start text-center">
+                            &copy; <a href="#">Luxmar Maroc 2024</a>, All Right Reserved.
                         </div>
                     </div>
                 </div>

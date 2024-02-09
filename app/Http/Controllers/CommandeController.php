@@ -18,7 +18,7 @@ class CommandeController extends Controller
         // Create a new order
         $commande = Commande::create($request->all());
         // Additional logic if needed
-        return back()->with('success', 'Order added successfully');
+        return back()->with('successCommande', true);
     }
 
     public function validateCommande(Commande $commande)

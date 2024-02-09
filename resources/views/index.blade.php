@@ -8,12 +8,12 @@
   <!-- Mobile Metas -->
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <!-- Site Metas -->
-  <link rel="icon" href="images/fevicon.png" type="image/gif" />
+  <link rel="shortcut icon" href="{{asset('fav.png')}}" type="image/x-icon">
   <meta name="keywords" content="" />
   <meta name="description" content="" />
   <meta name="author" content="" />
 
-  <title>Minics</title>
+  <title>LuxMar</title>
 
 
   <!-- bootstrap core css -->
@@ -25,7 +25,7 @@
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <!-- range slider -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
+  <link rel="shortcut icon" href="{{asset('fav.png')}}" type="image/x-icon">
   <!-- font awesome style -->
   <link href="front/css/font-awesome.min.css" rel="stylesheet" />
 
@@ -36,7 +36,7 @@
 
 </head>
 
-<body>
+<body style="overflow:scroll;">
 
   <div class="hero_area">
     <!-- header section strats -->
@@ -174,11 +174,11 @@
                       Bienvenue dans notre boutique
                     </h1>
                     <p>
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iste quam velit saepe dolorem deserunt
-                      quo quidem ad optio.
+                      Découvrez notre boutique en ligne spécialisée dans les matériaux électriques. Trouvez tout ce dont
+                      vous avez besoin pour vos projets électriques avec facilité et qualité.
                     </p>
-                    <a href="">
-                      Lire la suite
+                    <a href="{{ route('index') }}">
+                      Commander
                     </a>
                   </div>
                 </div>
@@ -190,71 +190,23 @@
               </div>
             </div>
           </div>
-          <div class="carousel-item">
-            <div class="container">
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="detail-box">
-                    <h1>
-                      Bienvenue dans notre boutique
-                    </h1>
-                    <p>
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iste quam velit saepe dolorem deserunt
-                      quo quidem ad optio.
-                    </p>
-                    <a href="">
-                      Lire la suite
-                    </a>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="img-box">
-                    <img src="images/slider-img.png" alt="">
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="carousel-item">
-            <div class="container">
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="detail-box">
-                    <h1>
-                      Bienvenue dans notre boutique
-                    </h1>
-                    <p>
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iste quam velit saepe dolorem deserunt
-                      quo quidem ad optio.
-                    </p>
-                    <a href="">
-                      Lire la suite
-                    </a>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="img-box">
-                    <img src="images/slider-img.png" alt="">
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
-        <div class="carousel_btn_box">
-          <a class="carousel-control-prev" href="#customCarousel1" role="button" data-slide="prev">
-            <i class="fa fa-angle-left" aria-hidden="true"></i>
-            <span class="sr-only">Précédent</span>
-          </a>
-          <a class="carousel-control-next" href="#customCarousel1" role="button" data-slide="next">
-            <i class="fa fa-angle-right" aria-hidden="true"></i>
-            <span class="sr-only">Suivant</span>
-          </a>
-        </div>
-      </div>
     </section>
     <!-- end slider section -->
 
+    @if(session('successCommande'))
+    <script>
+      // Show alert with z-index 2
+      alert('La Commande Est Envoyé Avec succès, Merci !');
+      localStorage.clear();
+      // Delete the session variable after 5 seconds
+      setTimeout(function () {
+        @php
+        session() -> forget('successCommande');
+        @endphp
+      }, 5000);
+    </script>
+    @endif
 
 
     <!-- Section-->
@@ -278,7 +230,6 @@
           <div class="col-10">
             <form id="filterForm">
               <div class="input-group mb-3">
-                <label class="input-group-text" for="filterCategorie">Catégorie</label>
                 <select class="form-select" id="filterCategorie" name="filterCategorie">
                   <option value="all">Tous</option>
                   @foreach ($categories as $cat)
@@ -385,7 +336,10 @@
             btnAddToCart.onclick = function () { addToCart(result.id, result.label, result.price); };
             btnAddToCart.innerHTML = '<i class="fas fa-cart-plus"></i>'; var btnInfo = document.createElement('a');
             btnInfo.className = 'btn btn-success text-light fw-bold fs-6 btn-outline-dark mt-auto mx-1';
-            btnInfo.href = '{{ route('produitdetails', ['produit'=> ' + result.id + ']) }}';
+            // btnInfo.href = '{{ route('produitdetails', ['produit'=> ' + result.id + ']) }}';
+            var url = '{{ route("produitdetails", ":id") }}';
+            url = url.replace(':id', result.id);
+            btnInfo.href = url;
             btnInfo.innerHTML = '<i class="fas fa-info-circle"></i>';
 
             textCenterFooter.appendChild(btnAddToCart);
@@ -417,7 +371,7 @@
 
       <div class="container px-4 px-lg-5 mt-5">
         <div id="productContainer"
-          class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+          class="row gx-4 gx-lg-5 row-cols-1 row-cols-md-2 row-cols-xl-4 justify-content-center">
           @foreach ($produits as $produit)
           <div class="col mb-5">
             <div class="card h-100">
@@ -471,66 +425,61 @@
           @endforeach
         </div>
       </div>
-
-
-
-
-
     </section>
     <!-- Button to Open the Modal -->
 
 
     <!-- why us section -->
 
-    <section class="why_us_section layout_padding">
+    <section class="section_pourquoi_nous layout_padding">
       <div class="container">
         <div class="heading_container heading_center">
           <h2>
-            Why Choose Us
+            Pourquoi Nous Choisir
           </h2>
         </div>
         <div class="row">
           <div class="col-md-4">
-            <div class="box ">
+            <div class="box">
               <div class="img-box">
                 <img src="images/w1.png" alt="">
               </div>
               <div class="detail-box">
                 <h5>
-                  Fast Delivery
+                  Livraison Rapide
                 </h5>
                 <p>
-                  variations of passages of Lorem Ipsum available
+                  Variations du passage de Lorem Ipsum disponibles
                 </p>
               </div>
             </div>
           </div>
           <div class="col-md-4">
-            <div class="box ">
+            <div class="box">
               <div class="img-box">
                 <img src="images/w2.png" alt="">
               </div>
               <div class="detail-box">
                 <h5>
-                  Free Shiping
+                  Sercices
                 </h5>
                 <p>
-                  variations of passages of Lorem Ipsum available
+                  Variations du services et produits poue n'importe quel projet ...
                 </p>
               </div>
             </div>
           </div>
           <div class="col-md-4">
-            <div class="box ">
+            <div class="box">
               <div class="img-box">
                 <img src="images/w3.png" alt="">
               </div>
               <div class="detail-box">
                 <h5>
-                  Best Quality
+                  Meilleure Qualité
                 </h5>
                 <p>
-                  variations of passages of Lorem Ipsum available
+                  Variations du passage de Lorem Ipsum disponibles
                 </p>
               </div>
             </div>
@@ -538,6 +487,7 @@
         </div>
       </div>
     </section>
+
 
     <!-- end why us section -->
 
