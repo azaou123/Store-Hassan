@@ -35,7 +35,7 @@
             </a>
             <a href="{{ route('partenaires') }}"
                 class="nav-item nav-link {{ request()->is('partenaires') ? 'active' : '' }}">
-                <i class="fa-solid fa-handshake"></i>Partenaires
+                <i class="fa-solid fa-handshake me-2"></i>Partenaires
             </a>
             <a href="{{ route('parametres') }}"
                 class="nav-item nav-link {{ request()->is('parametres') ? 'active' : '' }}">

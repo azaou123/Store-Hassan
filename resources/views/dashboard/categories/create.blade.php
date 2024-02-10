@@ -66,18 +66,18 @@
                         <h6 class="mb-4">Enter Category Information:</h6>
                         <div class="form-floating mb-3">
                             <input type="text" class="form-control bg-light text-dark" name="label" id="floatingInput"
-                                placeholder="Category Name">
+                                placeholder="Category Name" required>
                             <label for="floatingInput" class="text-dark">Nom catégorie</label>
                         </div>
                         <div class="form-floating my-2">
                             <textarea class="form-control bg-light text-dark" name="description"
-                                placeholder="Leave a comment here" id="floatingTextarea"
-                                style="height: 150px;"></textarea>
+                                placeholder="Leave a comment here" id="floatingTextarea" style="height: 150px;"
+                                required></textarea>
                             <label for="floatingTextarea" class="text-dark">Description de catégorie</label>
                         </div>
                         <div class="my-2">
                             <input type="file" class="form-control bg-light text-dark" name="photos[]" id="photos"
-                                multiple>
+                                multiple required>
                             <label for="photos">Photos</label>
                         </div>
                         <div class="row">

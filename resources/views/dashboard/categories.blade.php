@@ -78,7 +78,7 @@
                                 @foreach ($categories as $categorie)
                                 <tr>
                                     <td>{{ $categorie->label }}</td>
-                                    <td>{{ count($categories) }}</td>
+                                    <td>{{ count($categorie->produits) }}</td>
                                     <td class"row">
                                         <a class="col-3"
                                             href="{{ route('categories.show', ['category'=>$categorie->id]) }}">

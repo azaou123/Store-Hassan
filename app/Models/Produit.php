@@ -10,18 +10,13 @@ use Illuminate\Support\Facades\Storage;
 class Produit extends Model
 {
     use HasFactory;
-
-    protected $fillable = ['label', 'description', 'repPhotos', 'oldPrice', 'price', 'id_categorie'];
-
+    protected $fillable = ['label', 'description', 'repPhotos', 'oldPrice', 'price', 'id_categorie', 'fech_tech'];
     public function category()
     {
         return $this->belongsTo(Categorie::class, 'id_categorie');
     }
-
     public function getLabel()
     {
         return $this->label;
     }
-
-
 }

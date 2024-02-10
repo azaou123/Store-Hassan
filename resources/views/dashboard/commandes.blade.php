@@ -73,13 +73,11 @@
                 }
             }
         }
-
         // Close the modal when the close button is clicked
         function closeModal() {
             var modal = document.getElementById('productModal');
             modal.style.display = 'none';
         }
-
         // Close the modal if the user clicks outside of it
         window.onclick = function (event) {
             var modal = document.getElementById('productModal');
@@ -87,21 +85,6 @@
                 modal.style.display = 'none';
             }
         };
-
-        document.getElementById('filterStatut').addEventListener('change', function () {
-            var selectedStatut = this.value.toLowerCase();
-            var commands = document.querySelectorAll('.command-row');
-
-            commands.forEach(function (command) {
-                var statut = command.dataset.statut.toLowerCase();
-
-                if (selectedStatut === 'all' || statut === selectedStatut) {
-                    command.style.display = 'table-row';
-                } else {
-                    command.style.display = 'none';
-                }
-            });
-        });
     </script>
 
     <div class="container-fluid position-relative d-flex p-0">

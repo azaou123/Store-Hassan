@@ -65,51 +65,47 @@
             @endphp
 
             <div class="container py-5">
-                <div class="row mb-4">
-                    <!-- Logo Section -->
-                    <div class="col-md-6">
-                        <div class="lc-block text-center">
-                            <div editable="rich">
-                                <h2 class="fw-bold display-2">{{ $category->label }}</h2>
-                            </div>
-                        </div>
-                        <img class="img-fluid w-100 rounded-5"
-                            src="{{ asset('storage/' . $category->repPhotos . '/' . $imageFiles[0]->getFilename()) }}"
-                            style="height: 300px;" alt="Category Photo" loading="lazy">
-                        <div class="lc-block text-center">
-                            <div editable="rich">
-                                <p class="lead">{{ $category->description }}</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 justify-content-center align-items-center">
-                        <div class="col-md-6 col-lg-4 g-4">
-                            <div class="lc-block mt-5">
-                                <!-- Logo Image -->
-                                <!-- Form -->
-                                <form method="post" action="{{ route('categories.update', $category->id) }}"
-                                    enctype="multipart/form-data">
-                                    @csrf
-                                    @method('PATCH')
-
-                                    <!-- Add fields for editing information -->
-                                    <label for="label">Label:</label>
-                                    <input type="text" name="label" id="label" value="{{ $category->label }}"
-                                        class="form-control bg-light text-dark" required>
-
-                                    <label for="description">Description:</label>
-                                    <textarea name="description" id="description"
-                                        class="form-control bg-light text-dark"
-                                        required>{{ $category->description }}</textarea>
-
-                                    <!-- Add field for updating the photo -->
-                                    <label for="categoryPhotos">Update Photos:</label>
-                                    <input type="file" name="categoryPhotos[]" id="categoryPhotos"
-                                        class="form-control-file bg-light text-dark" multiple>
-
-                                    <!-- Submit button -->
-                                    <button type="submit" class="btn btn-primary mt-3">Save Changes</button>
-                                </form>
+                <div class="row justify-content-center">
+                    <div class="col-md-12">
+                        <div class="card bg-secondary">
+                            <div class="card-body">
+                                <h4 class="fw-bold display-4 text-center">{{ $category->label }}</h4>
+                                <div class="row mt-4">
+                                    <div class="col-2"></div>
+                                    <div class="col-md-8">
+                                        <img class="img-fluid rounded-5"
+                                            src="{{ asset('storage/' . $category->repPhotos . '/' . $imageFiles[0]->getFilename()) }}"
+                                            style="" alt="Category Photo" loading="lazy">
+                                    </div>
+                                </div>
+                                <div class="text-center mt-4">
+                                    <p class="lead">{{ $category->description }}</p>
+                                </div>
+                                <div class="mt-5">
+                                    <div class="lc-block">
+                                        <form method="post" action="{{ route('categories.update', $category->id) }}"
+                                            enctype="multipart/form-data">
+                                            @csrf
+                                            @method('PATCH')
+                                            <div class="mb-3">
+                                                <label for="label" class="form-label">Label:</label>
+                                                <input type="text" name="label" id="label"
+                                                    value="{{ $category->label }}" class="form-control" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="description" class="form-label">Description:</label>
+                                                <textarea name="description" id="description" class="form-control"
+                                                    required>{{ $category->description }}</textarea>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="categoryPhotos" class="form-label">Update Photos:</label>
+                                                <input type="file" name="categoryPhotos[]" id="categoryPhotos"
+                                                    class="form-control-file" multiple>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">Sauvegarder</button>
+                                        </form>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -125,7 +121,7 @@
                     <div class="bg-secondary rounded-top p-4">
                         <div class="row">
                             <div class="col-12 col-sm-6 text-center text-sm-start text-center">
-                                &copy; <a href="#">Luxmar Maroc 2024</a>, All Right Reserved.
+                                &copy; <a href="#">Luxmar Maroc 2024</a>, Tous Les Droits Sont Réservés.
                             </div>
                         </div>
                     </div>

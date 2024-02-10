@@ -59,6 +59,7 @@
 
 
   <!-- Navigation-->
+  <!-- Navigation-->
   <div class="fixed-buttons bg-warning mt-5 rounded-5">
     <form class="d-flex">
       <button class="btn btn-outline-dark" onclick="showCart()">
@@ -168,13 +169,16 @@
     </div>
   </div>
   @if(session('successCommande'))
-  <script>    / Show alert with z-index 2
-     rt('La Commande Est Envoyé Avec succès, Merci !');
-       Storage.clear();
-    /    te the session variable after 5 seconds
-    set    t(function () {
-      @ph      sessi      forget('successCommande');
-      @endphp      5000);
+  <script>
+    // Show alert with z-index 2
+    alert('La Commande Est Envoyé Avec succès, Merci !');
+    localStorage.clear();
+    // Delete the session variable after 5 seconds
+    setTimeout(function () {
+      @php
+      session() -> forget('successCommande');
+      @endphp
+    }, 5000);
   </script>
   @endif
 

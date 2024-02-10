@@ -22,14 +22,14 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
     <!-- Libraries Stylesheet -->
-    <link href="{{asset ('lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
-    <link href="{{asset ('lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css') }}" rel="stylesheet" />
 
     <!-- Customized Bootstrap Stylesheet -->
-    <link href="{{asset ('back/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('back/css/bootstrap.min.css') }}" rel="stylesheet">
 
     <!-- Template Stylesheet -->
-    <link href="{{asset ('back/css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('back/css/style.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 
@@ -126,24 +126,45 @@
                         <input type="file" class="form-control bg-light text-dark" name="productPhotos[]" multiple>
                     </div>
 
+                    <div class="mb-3">
+                        <label for="fiche_tech" class="form-label">Fiche Technique (Optional)</label>
+                        <input type="file" class="form-control bg-light text-dark" name="fiche_tech">
+                    </div>
+
 
 
                     <!-- Submit Button -->
-                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                    <button type="submit" class="btn btn-primary">Sauvegarder</button>
                 </form>
 
                 <!-- Existing Photos -->
                 @php
-                $folderPath = public_path('storage/'.$produit->repPhotos);
+                $folderPath = public_path('storage/' . $produit->repPhotos);
                 $imageFiles = File::allFiles($folderPath);
-                $i=1;
+                $i = 1;
                 @endphp
+
+                @if ($produit->fiche_tech)
+                <div class="container py-3">
+                    <h5 class="fw-bold">Fiche Technique</h5>
+                    <!-- Display the fiche_tech here -->
+                    <embed src="{{ asset('storage/' . $produit->fiche_tech) }}" type="application/pdf" width="100%"
+                        height="600px" />
+                    <!-- Button to delete fiche_tech -->
+                    <button class="btn btn-danger btn-sm mt-2" onclick="deleteFicheTech(<?php echo $produit->id; ?>)">
+                        <i class="bi bi-trash"></i> Supprimer Fiche Technique
+                    </button>
+                </div>
+                @endif
+
                 <div class="mb-3">
-                    <label>Existing Photos</label>
+                    <h4 class="my-2">Les Photos : </h4>
                     <div class="row">
                         @foreach($imageFiles as $imageFile)
+                        @if (in_array(strtolower(pathinfo($imageFile, PATHINFO_EXTENSION)), ['jpg', 'jpeg', 'png',
+                        'gif']))
                         <div class="col-md-3 mb-3">
-                            <img src="{{ asset('storage/' . $produit->repPhotos . '/' . $imageFile->getFilename()) }}"
+                            <img src="{{ asset('storage/' . $produit->repPhotos . '/' . basename($imageFile)) }}"
                                 class="img-fluid rounded" alt="Product Photo" style="width:250px; height:200px;">
                             <a class="btn btn-danger btn-sm mt-2"
                                 onclick="deletePhoto(<?php echo $produit->id.','.$i ; ?>)">
@@ -153,6 +174,7 @@
                         @php
                         $i++;
                         @endphp
+                        @endif
                         @endforeach
                     </div>
                 </div>

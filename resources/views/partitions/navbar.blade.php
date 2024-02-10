@@ -64,8 +64,8 @@
             }
         }
     </style>
-    <div class="header_bottom">
-        <div class="container-fluid">
+    <div class="header_bottom" style="background-color:#EEEDED;">
+        <div class="container-fluid ">
             <nav class="navbar navbar-expand-lg custom_nav-container ">
                 <a class="navbar-brand" href="{{ route('index') }}">
                     <img src="{{ asset('storage/'.$parametres->logo) }}" alt="Logo" class="img-fluid rounded mb-2"
@@ -78,13 +78,13 @@
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ml-auto"> <!-- Align the menu to the right -->
+                    <ul class="navbar-nav ml-auto text-dark"> <!-- Align the menu to the right -->
                         <li class="nav-item active">
-                            <a class="nav-link" href="{{ route('index') }}">Accuiel <span
+                            <a class="nav-link text-dark" href="{{ route('index') }}">Accuiel <span
                                     class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('about') }}"> A Propos</a>
+                            <a class="nav-link text-dark" href="{{ route('about') }}"> A Propos</a>
                         </li>
                     </ul>
                 </div>

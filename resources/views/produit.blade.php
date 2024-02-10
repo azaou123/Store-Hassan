@@ -70,6 +70,7 @@
 
 
 
+  <!-- Navigation-->
   <div class="fixed-buttons bg-warning mt-5 rounded-5">
     <form class="d-flex">
       <button class="btn btn-outline-dark" onclick="showCart()">
@@ -169,6 +170,7 @@
                     document.getElementById("btnEnvoyer").style.display="none";
                 ' style="display:none;">Retourner</button>
           <button type="button" id="btnEnvoyer" class="btn btn-danger" onclick="
+                    document.getElementById('liste').value = liste.join('_')
                     var form = document.getElementById('formulaire').querySelector('form');
                     form.submit();
                 " style="display:none;">Envoyer</button>
@@ -200,7 +202,7 @@
           <!-- Main product image -->
           <img class="card-img-top mb-5 mb-md-0"
             src="{{ asset('storage/' . $produit->repPhotos . '/' . $imageFiles[0]->getFilename()) }}"
-            alt="Main Product Image" id="mainProductImage" style="width: 500px; height: 400px;">
+            alt="Main Product Image" id="mainProductImage" style="width: 300px; height: 400px;">
 
           <!-- Additional product images as thumbnails -->
           <div class="row mt-3">
@@ -236,6 +238,18 @@
       </div>
     </div>
 
+    <!-- Fiche Technique Section -->
+    @if ($produit->fiche_tech)
+    <div class="container py-3">
+      <h5 class="fw-bold">Fiche Technique</h5>
+      <!-- Display the fiche_tech here -->
+      <embed src="{{ asset('storage/' . $produit->fiche_tech) }}" type="application/pdf" width="100%" height="600px" />
+      <!-- Download button for Fiche Technique -->
+      <a href="{{ asset('storage/' . $produit->fiche_tech) }}" class="btn btn-success mt-3" download>Télécharger Fiche
+        Technique</a>
+    </div>
+    @endif
+
     <script>
       // Function to change the main product image when a thumbnail is clicked
       function changeImage(thumbnail) {
@@ -245,9 +259,10 @@
   </section>
 
 
+
   <section class="py-5 bg-light">
     <div class="container px-4 px-lg-5 mt-5">
-      <h2 class="fw-bolder mb-4">Related products</h2>
+      <h2 class="fw-bolder mb-4">Produits En Relation </h2>
       <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
         @if(!empty($categoryProducts))
         @foreach ($categoryProducts as $relpro)
@@ -303,122 +318,9 @@
   <!-- end product section -->
 
 
-  <!-- info section -->
-  <section class="info_section ">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-3">
-          <div class="info_contact">
-            <h5>
-              <a href="" class="navbar-brand">
-                <span>
-                  Minics
-                </span>
-              </a>
-            </h5>
-            <p>
-              <i class="fa fa-map-marker" aria-hidden="true"></i>
-              Address
-            </p>
-            <p>
-              <i class="fa fa-phone" aria-hidden="true"></i>
-              +01 1234567890
-            </p>
-            <p>
-              <i class="fa fa-envelope" aria-hidden="true"></i>
-              demo@gmail.com
-            </p>
-          </div>
-        </div>
-        <div class="col-md-3">
-          <div class="info_info">
-            <h5>
-              Information
-            </h5>
-            <p>
-              Eligendi sunt, provident, debitis nemo, facilis cupiditate velit libero dolorum aperiam enim nulla iste
-              maxime corrupti ad illo libero minus.
-            </p>
-          </div>
-        </div>
-        <div class="col-md-3">
-          <div class="info_links">
-            <h5>
-              Useful Link
-            </h5>
-            <ul>
-              <li>
-                <a href="index.html">
-                  Home
-                </a>
-              </li>
-              <li>
-                <a href="about.html">
-                  About
-                </a>
-              </li>
-              <li>
-                <a href="product.html">
-                  Products
-                </a>
-              </li>
-              <li>
-                <a href="why.html">
-                  Why Us
-                </a>
-              </li>
-              <li>
-                <a href="testimonial.html">
-                  Testimonial
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="col-md-3">
-          <div class="info_form ">
-            <h5>
-              Newsletter
-            </h5>
-            <form action="">
-              <input type="email" placeholder="Enter your email">
-              <button>
-                Subscribe
-              </button>
-            </form>
-            <div class="social_box">
-              <a href="">
-                <i class="fa fa-facebook" aria-hidden="true"></i>
-              </a>
-              <a href="">
-                <i class="fa fa-twitter" aria-hidden="true"></i>
-              </a>
-              <a href="">
-                <i class="fa fa-instagram" aria-hidden="true"></i>
-              </a>
-              <a href="">
-                <i class="fa fa-youtube" aria-hidden="true"></i>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- end info_section -->
-
 
   <!-- footer section -->
-  <footer class="footer_section">
-    <div class="container">
-      <p>
-        &copy; <span id="displayYear"></span> All Rights Reserved By
-        <a href="https://html.design/">Free Html Templates</a>
-      </p>
-    </div>
-  </footer>
-  <!-- footer section -->
+  @include('partitions.footer')
 
   <!-- jQery -->
   <script src="{{ asset('front/js/jquery-3.4.1.min.js') }}"></script>

@@ -38,7 +38,8 @@ class ProduitController extends Controller
             'price' => 'required',
             'description' => 'required',
             'id_categorie' => 'required|exists:categories,id', // Ensure the selected category exists
-            'photos.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'photos.*' => 'image|mimes:jpeg,png,jpg,gif',
+            'fiche_tech' => 'file|mimes:pdf,doc,docx|max:2048', // Adjust allowed file types as needed
         ]);
 
         // Create the product
@@ -59,6 +60,15 @@ class ProduitController extends Controller
             }
             // Update the product's repPhotos field with the directory name
             $product->repPhotos = $productPhotosPath;
+            $product->save();
+        }
+
+        // Handle fiche_tech
+        if ($request->hasFile('fiche_tech')) {
+            $ficheTechPath = $productPhotosPath; // Save in the same directory as photos
+            $ficheTechName = uniqid('fiche_') . '.' . $request->file('fiche_tech')->getClientOriginalExtension();
+            $request->file('fiche_tech')->storeAs($ficheTechPath, $ficheTechName, 'public');
+            $product->fiche_tech = $ficheTechPath . '/' . $ficheTechName;
             $product->save();
         }
 
@@ -186,6 +196,23 @@ class ProduitController extends Controller
         $produit->oldPrice = $request->input('oldPrice');
         $produit->nbrAchats = $request->input('nbrAchats');
         $produit->id_categorie = $request->input('id_categorie');
+
+        // Check if new fiche_tech is provided
+        if ($request->hasFile('fiche_tech')) {
+            // Store the new fiche_tech and delete the old one if it exists
+            $fichePath = $request->file('fiche_tech')->store('fiches', 'public');
+
+            // If the existing fiche_tech exists, delete it
+            if ($produit->fiche_tech) {
+                Storage::disk('public')->delete($produit->fiche_tech);
+            }
+
+            // Update the produit's fiche_tech field with the new path
+            $produit->fiche_tech = $fichePath;
+        } elseif (!$request->hasFile('productPhotos') && $produit->fiche_tech) {
+            // If no new fiche_tech is provided, and no new productPhotos are provided, keep the existing fiche_tech
+            $fichePath = $produit->fiche_tech;
+        }
 
         // Check if new photos are provided
         if ($request->hasFile('productPhotos')) {

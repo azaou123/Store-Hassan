@@ -92,6 +92,11 @@
                                 multiple>
                             <label for="photos">Photos</label>
                         </div>
+                        <div class="my-2">
+                            <input type="file" class="form-control bg-light text-dark" name="fiche_tech"
+                                id="fiche_tech">
+                            <label for="photos">Fiche Technique :</label>
+                        </div>
                         <div class="my-2 mt-2">
                             <label for="category" class="my-2">Famille de Produit :</label>
                             <select class="form-select bg-light text-dark" name="id_categorie" id="category">
@@ -103,7 +108,7 @@
                         <div class="row">
                             <div class="col-3"></div>
                             <div class="col-6">
-                                <button type="submit" class="btn btn-primary w-100">Submit</button>
+                                <button type="submit" class="btn btn-primary w-100">Sauvegarder</button>
                             </div>
                             <div class="col-3"></div>
                         </div>

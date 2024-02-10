@@ -32,6 +32,7 @@ class ManagerController extends Controller
         $parametres = Parametre::first();
         return view('index', compact('produits', 'categories', 'opinions', 'partenaires', 'parametres'));
     }
+
     public function about()
     {
         $perPage = 8;
@@ -43,17 +44,21 @@ class ManagerController extends Controller
         return view('about', compact('produits', 'categories', 'opinions', 'partenaires', 'parametres'));
     }
 
-
-
     public function dashboord(Request $request)
     {
         $request->validate([
             'email' => 'required|email',
             'password' => 'required',
         ]);
+
+        // Find the first Manager with the given email and password
         $manager = Manager::where('email', $request->email)->where('password', $request->password)->first();
+
         if ($manager) {
+            // Store the first Manager found in the session
             Session::put('manager', $manager);
+
+            // Redirect to the profile function
             return $this->profile();
         } else {
             return back()->with('failLogin', 'Les Coordonnées Entrées Sont Invalides !');
@@ -63,8 +68,12 @@ class ManagerController extends Controller
     public function profile()
     {
         if (Session::has('manager')) {
+            // Retrieve the first Manager stored in the session
+            $manager = Session::get('manager');
+
             $nbr = Commande::where('statut', '=', 'Envoyée')->count();
             $tables = DB::select('SHOW TABLES');
+
             // Extract the table names from the result
             $tableNames = array_map('current', json_decode(json_encode($tables), true));
 
@@ -73,11 +82,13 @@ class ManagerController extends Controller
             foreach ($tableNames as $tableName) {
                 $tableData[$tableName] = DB::table($tableName)->get();
             }
-            return view('dashboard.index', compact('nbr', 'tableData'));
+
+            return view('dashboard.index', compact('nbr', 'tableData', 'manager'));
         }
 
         return back();
     }
+
     public function logout()
     {
         Session::forget('manager');
@@ -87,61 +98,73 @@ class ManagerController extends Controller
     public function commandes()
     {
         if (Session::has('manager')) {
+            $manager = Session::get('manager');
             $nbr = Commande::where('statut', '=', 'Envoyée')->count();
             $commands = Commande::orderBy('created_at', 'desc')->get();
             $produits = Produit::all();
-            return view('dashboard.commandes', compact('commands', 'produits', 'nbr'));
+            return view('dashboard.commandes', compact('commands', 'produits', 'nbr', 'manager'));
         }
         return back();
     }
+
     public function getFilteredCommands(Request $request)
     {
         $selectedStatut = $request->input('statut');
         $commands = Commande::where('statut', 'Envoyée')->orderBy('created_at', 'desc')->get();
         return response()->json(['filteredData' => $commands]);
     }
+
     public function categories()
     {
         if (Session::has('manager')) {
+            $manager = Session::get('manager');
             $categories = Categorie::all();
             $nbr = Commande::where('statut', '=', 'Envoyée')->count();
-            return view('dashboard.categories', compact('categories', 'nbr'));
+            return view('dashboard.categories', compact('categories', 'nbr', 'manager'));
         }
         return back();
     }
+
     public function produits()
     {
         if (Session::has('manager')) {
+            $manager = Session::get('manager');
             $produits = Produit::all();
             $nbr = Commande::where('statut', '=', 'Envoyée')->count();
-            return view('dashboard.produits', compact('produits', 'nbr'));
+            return view('dashboard.produits', compact('produits', 'nbr', 'manager'));
         }
         return back();
     }
+
     public function opinions()
     {
         if (Session::has('manager')) {
+            $manager = Session::get('manager');
             $opinions = Opinion::all();
             $nbr = Commande::where('statut', '=', 'Envoyée')->count();
-            return view('dashboard.opinions', compact('opinions', 'nbr'));
+            return view('dashboard.opinions', compact('opinions', 'nbr', 'manager'));
         }
         return back();
     }
+
     public function partenaires()
     {
         if (Session::has('manager')) {
+            $manager = Session::get('manager');
             $partenaires = Partenaire::all();
             $nbr = Commande::where('statut', '=', 'Envoyée')->count();
-            return view('dashboard.partenaires', compact('partenaires', 'nbr'));
+            return view('dashboard.partenaires', compact('partenaires', 'nbr', 'manager'));
         }
         return back();
     }
+
     public function parametres()
     {
         if (Session::has('manager')) {
+            $manager = Session::get('manager');
             $parametres = Parametre::first();
             $nbr = Commande::where('statut', '=', 'Envoyée')->count();
-            return view('dashboard.parametres', compact('parametres', 'nbr'));
+            return view('dashboard.parametres', compact('parametres', 'nbr', 'manager'));
         }
         return back();
     }
@@ -149,12 +172,14 @@ class ManagerController extends Controller
     public function messages()
     {
         if (Session::has('manager')) {
+            $manager = Session::get('manager');
             $messages = Message::orderBy('created_at', 'desc')->get();
             $nbr = Commande::where('statut', '=', 'Envoyée')->count();
-            return view('dashboard.messages', compact('messages', 'nbr'));
+            return view('dashboard.messages', compact('messages', 'nbr', 'manager'));
         }
         return back();
     }
+
 
 
 
@@ -183,7 +208,7 @@ class ManagerController extends Controller
             }
 
             // Store new logo
-            $logoPath = $request->file('logo')->store('logos', 'public');
+            $logoPath = $request->file('logo')->store('public');
             $parametre->logo = $logoPath;
         }
 
