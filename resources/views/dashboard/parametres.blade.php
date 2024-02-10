@@ -58,12 +58,14 @@
             <!-- Recent Sales Start -->
             <div class="container-fluid pt-4 px-4">
                 <div class="bg-secondary text-center rounded p-4">
-                    <div class="d-flex align-items-center justify-content-between mb-4">
-                        <h6 class="mb-0">Les Paramètres de site web</h6>
-                        <a href="#">
-                            <i class="fa-solid fa-hammer"></i>
-                        </a>
+                    @if(session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
                     </div>
+                    @endif
+
+                    <h4 class="mb-0">Les Paramètres de site web</h4>
+                    <hr>
                     <!-- Display current parameter values -->
                     <div class="mb-4">
                         <img src="{{ asset('storage/'.$parametres->logo) }}" alt="Logo" class="img-fluid rounded mb-2"
@@ -123,9 +125,43 @@
                                 class="form-control" required>
                         </div>
                         <!-- Add more input fields as needed -->
-                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                        <button type="submit" class="btn btn-primary">Sauvegarder</button>
+                    </form>
+
+                    <h4 class="mt-5">Le Proprétaire de Site</h4>
+                    <hr>
+                    <form action="{{ route('manager.update', $manager->id) }}" method="POST">
+                        @csrf
+                        @method('PUT')
+
+                        <div class="mb-3">
+                            <label for="fullName" class="form-label">Nom & Prénom</label>
+                            <input type="text" class="form-control" id="fullName" name="fullName"
+                                value="{{ $manager->fullName }}">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" name="email"
+                                value="{{ $manager->email }}">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="phone" class="form-label">Téléphone</label>
+                            <input type="text" class="form-control" id="phone" name="phone"
+                                value="{{ $manager->phone }}">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Nouveau Mot De Passe</label>
+                            <input type="password" class="form-control" id="password" name="password">
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Sauvegarder</button>
                     </form>
                 </div>
+
+
             </div>
             <!-- Recent Sales End -->
 

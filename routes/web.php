@@ -88,6 +88,7 @@ Route::group(['middleware' => 'manager'], function () {
     // ****************************** Les Paramètres **********************************
     Route::get('/parametres', [ManagerController::class, 'parametres'])->name('parametres');
     Route::post('parametres/update', [ManagerController::class, 'update'])->name('parametres.update');
+    Route::put('/managers/{id}', [ManagerController::class, 'updateinfo'])->name('manager.update');
 });
 
 

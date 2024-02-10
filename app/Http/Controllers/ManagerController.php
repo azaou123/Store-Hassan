@@ -200,7 +200,7 @@ class ManagerController extends Controller
         $parametre->save();
 
         // Redirect back with success message
-        return redirect()->back()->with('success', 'Settings updated successfully.');
+        return redirect()->back()->with('success', 'Les Changement Sont Effectués Avec Succès.');
     }
 
 
@@ -217,6 +217,20 @@ class ManagerController extends Controller
         $message->message = $request->message;
         $message->save();
         return back()->with('success', 'Your message has been sent!');
+    }
+
+    public function updateinfo(Request $request, $id)
+    {
+        $manager = Manager::findOrFail($id);
+
+        $manager->fullName = $request->input('fullName');
+        $manager->email = $request->input('email');
+        $manager->phone = $request->input('phone');
+        $manager->password = $request->input('password'); // Assuming you want to hash the password
+        $manager->save();
+        Session::forget('manager');
+        Session::put('manager', $manager);
+        return redirect()->back()->with('success', 'Les Changement Sont Effectués Avec Succès.');
     }
 }
 
