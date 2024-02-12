@@ -196,67 +196,137 @@
     $folderPath = public_path('storage/' . $produit->repPhotos);
     $imageFiles = File::allFiles($folderPath);
     @endphp
-    <div class="container px-1 px-lg-1 my-5">
-      <div class="row gx-4 gx-lg-5 align-items-center">
-        <div class="col-md-6">
-          <!-- Main product image -->
-          <img class="card-img-top mb-5 mb-md-0"
-            src="{{ asset('storage/' . $produit->repPhotos . '/' . $imageFiles[0]->getFilename()) }}"
-            alt="Main Product Image" id="mainProductImage" style="width: 300px; height: 400px;">
-
-          <!-- Additional product images as thumbnails -->
-          <div class="row mt-3">
-            @foreach($imageFiles as $img)
-            <div class="col-3">
-              <img src="{{ asset('storage/' . $produit->repPhotos . '/' . $img->getFilename()) }}" alt="Thumbnail 1"
-                class="img-thumbnail" onclick="changeImage(this)" style="width: 130px; height: 100px;">
+    <div class="container">
+      <!-- Page title -->
+      <div class="row">
+        <div class="col-12">
+          <div class="page-title-box">
+            <div class="page-title-right">
+              <ol class="breadcrumb m-0">
+                <li class="breadcrumb-item"><a href="javascript: void(0);">LuxMar</a></li>
+                <li class="breadcrumb-item"><a href="javascript: void(0);">Produits</a></li>
+                <li class="breadcrumb-item active">{{ $produit->label }}</li>
+              </ol>
             </div>
-            @endforeach
-            <!-- Add more thumbnails as needed -->
-          </div>
-        </div>
-
-        <div class="col-md-6">
-          <!-- Product details -->
-          <div class="small mb-1">{{ $produit->category->label }}</div>
-          <h1 class="display-5 fw-bolder">{{ $produit->label }}</h1>
-          <div class="fs-5 mb-5">
-            <span class="text-decoration-line-through">{{ $produit->oldPrice }}</span>
-            <span>{{ $produit->price }}</span>
-          </div>
-          <p class="lead">
-            {{ $produit->description }}
-          </p>
-          <div class="d-flex">
-            <button class="btn btn-outline-dark flex-shrink-0" type="button"
-              onclick="addToCart({{ $produit->id }},'{{ $produit->label }}', {{ $produit->price }})">
-              <i class="bi-cart-fill me-1"></i>
-              Ajouter au panier
-            </button>
+            <h4 class="page-title">Product Details</h4>
           </div>
         </div>
       </div>
-    </div>
 
-    <!-- Fiche Technique Section -->
-    @if ($produit->fiche_tech)
-    <div class="container py-3">
-      <h5 class="fw-bold">Fiche Technique</h5>
-      <!-- Display the fiche_tech here -->
-      <embed src="{{ asset('storage/' . $produit->fiche_tech) }}" type="application/pdf" width="100%" height="600px" />
-      <!-- Download button for Fiche Technique -->
-      <a href="{{ asset('storage/' . $produit->fiche_tech) }}" class="btn btn-success mt-3" download>Télécharger Fiche
-        Technique</a>
-    </div>
-    @endif
+      <!-- Product details -->
+      <div class="row">
+        <div class="col-lg-5">
+          <!-- Main product image -->
+          <a href="javascript: void(0);" class="text-center d-block mb-4">
+              <img id="mainProductImage" src="{{ asset('storage/' . $produit->repPhotos . '/' . $imageFiles[0]->getFilename()) }}"
+                  class="img-fluid" style="max-width: 480px;" alt="Product-img">
+          </a>
 
-    <script>
-      // Function to change the main product image when a thumbnail is clicked
-      function changeImage(thumbnail) {
-        document.getElementById('mainProductImage').src = thumbnail.src;
-      }
-    </script>
+          <!-- Additional product images as thumbnails -->
+          <div class="row justify-content-center">
+          @foreach($imageFiles as $img)
+            <div class="col-3">
+              <img src="{{ asset('storage/' . $produit->repPhotos . '/' . $img->getFilename()) }}"
+                  alt="Thumbnail {{ $loop->index + 1 }}"
+                  class="img-thumbnail thumbnail"
+                  style="width: 130px; height: 100px;">
+            </div>
+          @endforeach
+          </div>
+      </div>
+
+        <div class="col-lg-7">
+          <!-- Product details form -->
+          <form class="ps-lg-4">
+            <h3 class="mt-0">{{ $produit->label }} <a href="javascript: void(0);" class="text-muted"><i
+                  class="mdi mdi-square-edit-outline ms-2"></i></a></h3>
+            <p class="mb-1">Date d'Ajout : {{ $produit->created_at->format('m/d/Y') }}</p>
+
+            <!-- Rating -->
+            <p class="font-16">
+              @for ($i = 0; $i < 5; $i++) <span class="text-warning mdi mdi-star"></span>
+                @endfor
+            </p>
+
+            <!-- Product stock -->
+            <div class="mt-3">
+              <h4><span class="badge badge-success-lighten">In stock</span></h4>
+            </div>
+
+            <!-- Retail Price -->
+            <div class="mt-4">
+              <h6 class="font-14">Prix :</h6>
+              <h3>{{ $produit->price }} DH</h3>
+            </div>
+
+            <!-- Quantity -->
+            <div class="d-flex">
+              <button type="button" onclick="addToCart({{ $produit->id }},'{{ $produit->label }}', {{ $produit->price }})" class="btn btn-danger ms-2">
+                <i class="mdi mdi-cart me-1"></i> Ajouter Au Panier
+              </button>
+            </div>
+
+            <div class="d-flex my-2">
+              <a href="{{ asset('storage/' . $produit->fiche_tech) }}" type="button" class="btn btn-success ms-2">
+                <i class="mdi mdi-file me-1"></i> Fiche Technique
+              </a>
+              @if ($produit->fiche_tech)
+                <!-- Add download attribute for the Fiche Technique -->
+                <a href="{{ asset('storage/' . $produit->fiche_tech) }}" class="btn btn-success ms-2" download>
+                  <i class="mdi mdi-file-download me-1"></i> Télécharger Fiche Technique
+                </a>
+              @endif
+            </div>
+
+
+            <!-- Product description -->
+            <div class="mt-4">
+              <h6 class="font-14">Description:</h6>
+              <p>{{ $produit->description }}</p>
+            </div>
+
+            <!-- Product information -->
+            <div class="mt-4">
+              <div class="row">
+                <div class="col-md-4">
+                  <h6 class="font-14">Stock:</h6>
+                  <p class="text-sm lh-150">{{ $produit->stock }}</p>
+                </div>
+                <div class="col-md-4">
+                  <h6 class="font-14">Ordres:</h6>
+                  <p class="text-sm lh-150">{{ $produit->nbrAchats }}</p>
+                </div>
+                <div class="col-md-4">
+                  <h6 class="font-14">Revenue:</h6>
+                  <p class="text-sm lh-150">{{ $produit->price * $produit->nbrAchats }} DH</p>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
   </section>
+  <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    // Wait for the DOM to be fully loaded before attaching event listeners
+
+    // Function to change the main product image when a thumbnail is clicked
+    function changeImage(thumbnail) {
+      document.getElementById('mainProductImage').src = thumbnail.src;
+    }
+
+    // Attach click event listeners to each thumbnail
+    var thumbnails = document.querySelectorAll('.thumbnail');
+    thumbnails.forEach(function (thumbnail) {
+      thumbnail.addEventListener('click', function () {
+        changeImage(thumbnail);
+      });
+    });
+  });
+
+  </script>
+
 
 
 
