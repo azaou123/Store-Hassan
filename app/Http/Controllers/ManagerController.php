@@ -208,8 +208,9 @@ class ManagerController extends Controller
             }
 
             // Store new logo
-            $logoPath = $request->file('logo')->storeAs('public', 'custom_logo_name.jpg');
-            $parametre->logo = $logoPath;
+            $logoFilename = 'custom_logo_name.jpg'; // You can customize the filename as needed
+            $logoPath = $request->file('logo')->storeAs('public', $logoFilename);
+            $parametre->logo = $logoFilename;
         }
 
         // Update other fields
@@ -225,8 +226,9 @@ class ManagerController extends Controller
         $parametre->save();
 
         // Redirect back with success message
-        return redirect()->back()->with('success', 'Les Changement Sont Effectués Avec Succès.');
+        return redirect()->back()->with('success', 'Les Changements Sont Effectués Avec Succès.');
     }
+
 
 
     public function contact(Request $request)
