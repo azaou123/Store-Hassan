@@ -21,10 +21,10 @@
                             Facebbok
                         </span>
                     </a>
-                    <a href="{{ $parametres->address }}" class="mx-2" target="_blanc">
-                        <i class="fa fa-envelope mx-1" aria-hidden="true"></i>
-                        <span>
-                            Adresse
+                    <a class="mx-2" target="_blanc">
+                        <i class="fas fa-map-marker mx-1" aria-hidden="true"></i>
+                        <span class="text-light">
+                            {{ $parametres->address }}
                         </span>
                     </a>
                 </div>
