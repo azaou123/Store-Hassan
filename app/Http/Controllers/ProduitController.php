@@ -157,8 +157,18 @@ class ProduitController extends Controller
 
     public function produitDetails(Produit $produit)
     {
+        $categoryProducts = [];
+        $categoryProducts = Produit::where('id_categorie', $produit->id_categorie)
+            ->where('id', '!=', $produit->id) // Exclude the current product
+            ->get();
+        // Get 4 products with names similar to the given product
+        $similarNameProducts = [];
+        $similarNameProducts = Produit::where('label', 'like', '%' . $produit->label . '%')
+            ->where('id', '!=', $produit->id) // Exclude the current product
+            ->limit(4)
+            ->get();
         $parametres = Parametre::first();
-        return view('produit', compact('produit', 'parametres'));
+        return view('produit', compact('produit', 'parametres', 'categoryProducts', 'similarNameProducts'));
     }
 
 

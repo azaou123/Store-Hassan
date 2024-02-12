@@ -208,7 +208,7 @@
                 <li class="breadcrumb-item active">{{ $produit->label }}</li>
               </ol>
             </div>
-            <h4 class="page-title">Les Détails : </h4>
+            <h4 class="page-title mt-4">Les Détails : </h4>
           </div>
         </div>
       </div>
@@ -219,9 +219,8 @@
           <!-- Main product image -->
           <a href="javascript: void(0);" class="text-center d-block mb-4">
               <img id="mainProductImage" src="{{ asset('storage/' . $produit->repPhotos . '/' . $imageFiles[0]->getFilename()) }}"
-                  class="img-fluid" style="max-width: 480px;" alt="Product-img">
+                  class="img-fluid my-4" style="width: 300px; height: 350px;" alt="Product-img">
           </a>
-
           <!-- Additional product images as thumbnails -->
           <div class="row justify-content-center">
           @foreach($imageFiles as $img)
@@ -335,58 +334,120 @@
 
   <section class="py-5 bg-light">
     <div class="container px-4 px-lg-5 mt-5">
-      <h2 class="fw-bolder mb-4">Produits En Relation </h2>
-      <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-        @if(!empty($categoryProducts))
-        @foreach ($categoryProducts as $relpro)
-        <div class="col mb-5">
-          <div class="card h-100">
-            <!-- Product image-->
-            <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="...">
-            <!-- Product details-->
-            <div class="card-body p-4">
-              <div class="text-center">
-                <!-- Product name-->
-                <h5 class="fw-bolder">Fancy Product</h5>
-                <!-- Product price-->
-                $40.00 - $80.00
-              </div>
-            </div>
-            <!-- Product actions-->
-            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-              <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View options</a></div>
-            </div>
-          </div>
+        <h2 class="fw-bolder mb-4">Produits En Relation </h2>
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+            @if(!empty($categoryProducts))
+                @foreach ($categoryProducts as $prod)
+                    <div class="col mb-5">
+                        <div class="card h-100">
+                            @if ($prod->repPhotos)
+                                @php
+                                    $folderPath = public_path('storage/' . $prod->repPhotos);
+                                    $imageFiles = File::allFiles($folderPath);
+                                @endphp
+                                <!-- Product image from the first file in the directory -->
+                                <img class="card-img-top"
+                                    src="{{ asset('storage/' . $prod->repPhotos . '/' . $imageFiles[0]->getFilename()) }}"
+                                    alt="..." style="height: 250px; object-fit: cover;">
+                            @else
+                                <!-- Placeholder image when no images are found -->
+                                <img class="card-img-top"
+                                    src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..."
+                                    style="height: 250px;">
+                            @endif
+                            <!-- Product details-->
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                    <!-- Product name-->
+                                    <h5 class="fw-bolder">{{ $prod->label }}</h5>
+                                    <!-- Product reviews-->
+                                    <div class="d-flex justify-content-center small text-warning mb-2">
+                                        <div class="bi-star-fill"></div>
+                                        <div class="bi-star-fill"></div>
+                                        <div class="bi-star-fill"></div>
+                                        <div class="bi-star-fill"></div>
+                                        <div class="bi-star-fill"></div>
+                                    </div>
+                                    <!-- Product price-->
+                                    <span class="text-muted text-decoration-line-through">{{ $prod->oldPrice }}</span>
+                                    <b>{{ $prod->price }}</b>
+                                </div>
+                            </div>
+                            <!-- Product actions-->
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                <div class="text-center">
+                                    <a class="btn btn-primary text-light fw-bold fs-6 btn-outline-dark mt-auto"
+                                        onclick="addToCart({{ $prod->id }},'{{ $prod->label }}', {{ $prod->price }})">
+                                        <i class="fas fa-cart-plus"></i> <!-- Font Awesome cart icon -->
+                                    </a>
+                                    <a class="btn btn-success text-light fw-bold fs-6 btn-outline-dark mt-auto"
+                                        href="{{ route('produitdetails', ['produit' => $prod->id]) }}">
+                                        <i class="fas fa-info-circle"></i> <!-- Font Awesome info icon -->
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            @endif
+            @if(!empty($similarNameProducts))
+                @foreach ($similarNameProducts as $prod)
+                    <div class="col mb-5">
+                        <div class="card h-100">
+                            @if ($prod->repPhotos)
+                                @php
+                                    $folderPath = public_path('storage/' . $prod->repPhotos);
+                                    $imageFiles = File::allFiles($folderPath);
+                                @endphp
+                                <!-- Product image from the first file in the directory -->
+                                <img class="card-img-top"
+                                    src="{{ asset('storage/' . $prod->repPhotos . '/' . $imageFiles[0]->getFilename()) }}"
+                                    alt="..." style="height: 250px; object-fit: cover;">
+                            @else
+                                <!-- Placeholder image when no images are found -->
+                                <img class="card-img-top"
+                                    src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..."
+                                    style="height: 250px;">
+                            @endif
+                            <!-- Product details-->
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                    <!-- Product name-->
+                                    <h5 class="fw-bolder">{{ $prod->label }}</h5>
+                                    <!-- Product reviews-->
+                                    <div class="d-flex justify-content-center small text-warning mb-2">
+                                        <div class="bi-star-fill"></div>
+                                        <div class="bi-star-fill"></div>
+                                        <div class="bi-star-fill"></div>
+                                        <div class="bi-star-fill"></div>
+                                        <div class="bi-star-fill"></div>
+                                    </div>
+                                    <!-- Product price-->
+                                    <span class="text-muted text-decoration-line-through">{{ $prod->oldPrice }}</span>
+                                    <b>{{ $prod->price }}</b>
+                                </div>
+                            </div>
+                            <!-- Product actions-->
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                <div class="text-center">
+                                    <a class="btn btn-primary text-light fw-bold fs-6 btn-outline-dark mt-auto"
+                                        onclick="addToCart({{ $prod->id }},'{{ $prod->label }}', {{ $prod->price }})">
+                                        <i class="fas fa-cart-plus"></i> <!-- Font Awesome cart icon -->
+                                    </a>
+                                    <a class="btn btn-success text-light fw-bold fs-6 btn-outline-dark mt-auto"
+                                        href="{{ route('produitdetails', ['produit' => $prod->id]) }}">
+                                        <i class="fas fa-info-circle"></i> <!-- Font Awesome info icon -->
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            @endif
         </div>
-      </div>
-      @endforeach
-      @endif
-      @if(!empty($similarNameProducts))
-      @foreach ($similarNameProducts as $relpro)
-      <div class="col mb-5">
-        <div class="card h-100">
-          <!-- Product image-->
-          <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="...">
-          <!-- Product details-->
-          <div class="card-body p-4">
-            <div class="text-center">
-              <!-- Product name-->
-              <h5 class="fw-bolder">Fancy Product</h5>
-              <!-- Product price-->
-              $40.00 - $80.00
-            </div>
-          </div>
-          <!-- Product actions-->
-          <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View options</a></div>
-          </div>
-        </div>
-      </div>
     </div>
-    @endforeach
-    @endif
-    </div>
-  </section>
+</section>
+
 
   <!-- end product section -->
 

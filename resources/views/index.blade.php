@@ -383,7 +383,7 @@
               <!-- Product image from the first file in the directory -->
               <img class="card-img-top"
                 src="{{ asset('storage/' . $produit->repPhotos . '/' . $imageFiles[0]->getFilename()) }}" alt="..."
-                style="height: 300px; object-fit: cover;">
+                style="height: 250px; object-fit: cover;">
               @else
               <!-- Placeholder image when no images are found -->
               <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..."
@@ -435,7 +435,7 @@
       <div class="container">
         <div class="heading_container heading_center">
           <h2>
-            Pourquoi Nous Choisir
+            Pourquoi Nous !
           </h2>
         </div>
         <div class="row">
@@ -487,9 +487,86 @@
         </div>
       </div>
     </section>
-
-
     <!-- end why us section -->
+
+
+    <!-- Partners Section  -->
+    <section id="clients" class="section-bg">
+
+      <div class="container">
+
+        <div class="section-header">
+          <h3>Notre Partenaires</h3>
+          <p>Confiance en Nous</p>
+        </div>
+        <div class="row no-gutters clients-wrap clearfix wow fadeInUp"
+          style="visibility: visible; animation-name: fadeInUp;">
+          @foreach ($partenaires as $part)
+          <div class="col-lg-3 col-md-4 col-xs-6">
+            <div class="client-logo">
+              <img src="{{ asset('storage/'.$part->logo) }}" class="img-fluid" alt="">
+            </div>
+          </div>
+          @endforeach
+        </div>
+
+      </div>
+
+    </section>
+
+    <style>
+      .section-header h3 {
+        font-size: 36px;
+        color: #283d50;
+        text-align: center;
+        font-weight: 500;
+        position: relative;
+      }
+
+      .section-header p {
+        text-align: center;
+        margin: auto;
+        font-size: 15px;
+        padding-bottom: 60px;
+        color: #556877;
+        width: 50%;
+      }
+
+      #clients {
+        padding: 60px 0;
+
+      }
+
+      #clients .clients-wrap {
+        border-left: 1px solid #d6eaff;
+        margin-bottom: 30px;
+      }
+
+      #clients .client-logo {
+        padding: 64px;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-pack: center;
+        -webkit-justify-content: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        -webkit-align-items: center;
+        -ms-flex-align: center;
+        align-items: center;
+        border-right: 1px solid #d6eaff;
+        border-bottom: 1px solid #d6eaff;
+        overflow: hidden;
+        background: #fff;
+        height: 160px;
+      }
+
+      #clients img {
+        transition: all 0.4s ease-in-out;
+      }
+    </style>
 
 
     <!-- client section -->
@@ -572,7 +649,7 @@
           <div class="mapouter">
             <div class="gmap_canvas"><iframe class="gmap_iframe" width="100%" frameborder="0" scrolling="no"
                 marginheight="0" marginwidth="0"
-                src="https://maps.google.com/maps?width=802&amp;height=416&amp;hl=en&amp;q=ANGLE AVENUE YACOUB EL MANSOUR ET ALLAL EL FASSI IMMEUBLE OUIRIDA 53 ETAGE N° 5 BUREAU 46, Marrakech 40000&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe><a
+                src="https://maps.google.com/maps?width=802&amp;height=416&amp;hl=en&amp;q={{ $parametres->googlemaps }}&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe><a
                 href="https://embed-googlemap.com">google maps code generator</a></div>
             <style>
               .mapouter {
