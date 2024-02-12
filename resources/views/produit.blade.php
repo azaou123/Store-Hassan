@@ -208,7 +208,7 @@
                 <li class="breadcrumb-item active">{{ $produit->label }}</li>
               </ol>
             </div>
-            <h4 class="page-title">Product Details</h4>
+            <h4 class="page-title">Les Détails : </h4>
           </div>
         </div>
       </div>
@@ -225,12 +225,15 @@
           <!-- Additional product images as thumbnails -->
           <div class="row justify-content-center">
           @foreach($imageFiles as $img)
+          @if (in_array(strtolower(pathinfo($img, PATHINFO_EXTENSION)), ['jpg', 'jpeg', 'png',
+                        'gif']))
             <div class="col-3">
               <img src="{{ asset('storage/' . $produit->repPhotos . '/' . $img->getFilename()) }}"
                   alt="Thumbnail {{ $loop->index + 1 }}"
                   class="img-thumbnail thumbnail"
                   style="width: 130px; height: 100px;">
             </div>
+            @endif
           @endforeach
           </div>
       </div>

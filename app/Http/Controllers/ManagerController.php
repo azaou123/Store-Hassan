@@ -208,7 +208,7 @@ class ManagerController extends Controller
             }
 
             // Store new logo
-            $logoPath = $request->file('logo')->store('public');
+            $logoPath = $request->file('logo')->storeAs('public', 'custom_logo_name.jpg');
             $parametre->logo = $logoPath;
         }
 
