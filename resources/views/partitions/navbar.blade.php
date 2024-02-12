@@ -2,29 +2,29 @@
     <div class="header_top">
         <div class="container-fluid">
             <div class="top_nav_container">
-                <div class="contact_nav">
+                <div class="contact_nav justify-content-center">
                     <a href="tel:{{ $parametres->whatsapp }}" class="mx-2" target="_blanc">
-                        <i class="fa fa-phone" aria-hidden="true"></i>
+                        <i class="fa fa-phone mx-1" aria-hidden="true"></i>
                         <span>
-                            Télé : {{ $parametres->whatsapp }}
+                            Téléphone
                         </span>
                     </a>
                     <a href="mailto:{{ $parametres->email }}" class="mx-2" target="_blanc">
-                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                        <i class="fa fa-envelope mx-1" aria-hidden="true"></i>
                         <span>
-                            Email : {{ $parametres->email }}
+                            Email
                         </span>
                     </a>
                     <a href="{{ $parametres->facebook }}" class="mx-2" target="_blanc">
-                        <i class="fa fa-facebook" aria-hidden="true"></i>
+                        <i class="fa fa-facebook mx-1" aria-hidden="true"></i>
                         <span>
-                            Facebbok : {{ $parametres->facebook }}
+                            Facebbok
                         </span>
                     </a>
                     <a href="{{ $parametres->address }}" class="mx-2" target="_blanc">
-                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                        <i class="fa fa-envelope mx-1" aria-hidden="true"></i>
                         <span>
-                            Adresse : {{ $parametres->address }}
+                            Adresse
                         </span>
                     </a>
                 </div>
