@@ -7,6 +7,7 @@ use App\Http\Controllers\ProduitController;
 use App\Http\Controllers\CommandeController;
 use App\Http\Controllers\OpinionController;
 use App\Http\Controllers\PartnerController;
+use App\Http\Controllers\OffreController;
 use App\Http\Controllers\ParametreController;
 
 
@@ -28,6 +29,8 @@ Route::get('/admin', function () {
 Route::get('/search', [ProduitController::class, 'search'])->name('search');
 Route::get('/filter', [ProduitController::class, 'filter'])->name('filter');
 Route::get('/about', [ManagerController::class, 'about'])->name('about');
+Route::get('/lesoffres', [ManagerController::class, 'lesoffres'])->name('lesoffres');
+Route::get('/prodCat/{id}', [ManagerController::class, 'prodCat'])->name('prodCat');
 Route::post('/contact', [ManagerController::class, 'contact'])->name('contact');
 Route::get('/produit-details/{produit}', [ProduitController::class, 'produitDetails'])->name('produitdetails');
 Route::post('/dashboord', [ManagerController::class, 'dashboord'])->name('dashboord');
@@ -89,6 +92,11 @@ Route::group(['middleware' => 'manager'], function () {
     Route::get('/parametres', [ManagerController::class, 'parametres'])->name('parametres');
     Route::post('parametres/update', [ManagerController::class, 'update'])->name('parametres.update');
     Route::put('/managers/{id}', [ManagerController::class, 'updateinfo'])->name('manager.update');
+    // ***************************** Offres ********************************************
+    Route::get('/offres', [ManagerController::class, 'offres'])->name('offres');
+    Route::post('addOffre', [OffreController::class, 'addOffre'])->name('addOffre');
+    Route::delete('/delete-offre/{id}', [OffreController::class, 'deleteOffre'])->name('deleteOffre');
+
 });
 
 

@@ -30,6 +30,10 @@
             <a href="{{ route('produits') }}" class="nav-item nav-link {{ request()->is('produits') ? 'active' : '' }}">
                 <i class="fas fa-shopping-cart me-2"></i>Produits
             </a>
+            <a href="{{ route('offres') }}" class="nav-item nav-link {{ request()->is('offres') ? 'active' : '' }}">
+                <i class="fas fa-check-circle me-2"></i>
+                Offres
+            </a>
             <a href="{{ route('opinions') }}" class="nav-item nav-link {{ request()->is('opinions') ? 'active' : '' }}">
                 <i class="fas fa-comments me-2"></i>Opinions
             </a>

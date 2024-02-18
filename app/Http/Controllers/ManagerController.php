@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Manager;
 use App\Models\Categorie;
+use App\Models\Offre;
 use App\Models\Produit;
 use App\Models\Commande;
 use App\Models\Message;
@@ -33,6 +34,13 @@ class ManagerController extends Controller
         return view('index', compact('produits', 'categories', 'opinions', 'partenaires', 'parametres'));
     }
 
+    public function prodCat($id)
+    {
+        $category = Categorie::findOrFail($id);
+        $produits = Produit::where('id_categorie', '=', $category->id)->get();
+        return view('category', compact('category', 'produits'));
+    }
+
     public function about()
     {
         $perPage = 8;
@@ -42,6 +50,12 @@ class ManagerController extends Controller
         $partenaires = Partenaire::all();
         $parametres = Parametre::first();
         return view('about', compact('produits', 'categories', 'opinions', 'partenaires', 'parametres'));
+    }
+    public function lesoffres()
+    {
+        $produits = Produit::all();
+        $offres = Offre::all();
+        return view('offres', compact('produits', 'offres'));
     }
 
     public function dashboord(Request $request)
@@ -258,6 +272,14 @@ class ManagerController extends Controller
         Session::forget('manager');
         Session::put('manager', $manager);
         return redirect()->back()->with('success', 'Les Changement Sont Effectués Avec Succès.');
+    }
+
+    public function offres()
+    {
+        $offres = Offre::all();
+        $produits = Produit::all();
+        $nbr = Commande::where('statut', '=', 'Envoyée')->count();
+        return view('dashboard.offres', compact('offres', 'nbr', 'produits'));
     }
 }
 

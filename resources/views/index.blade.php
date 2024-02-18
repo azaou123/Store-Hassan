@@ -1,714 +1,591 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-  <!-- Basic -->
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <!-- Mobile Metas -->
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-  <!-- Site Metas -->
-  <link rel="shortcut icon" href="{{asset('fav.png')}}" type="image/x-icon">
-  <meta name="keywords" content="" />
-  <meta name="description" content="" />
-  <meta name="author" content="" />
+    <meta charset="utf-8">
+    <title>EShopper - Bootstrap Shop Template</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
 
-  <title>LuxMar</title>
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon">
 
-
-  <!-- bootstrap core css -->
-  <link rel="stylesheet" type="text/css" href="front/css/bootstrap.css" />
-  <link rel="stylesheet" href="front/css/bootstrap.min.css">
-  <!-- fonts style -->
-  <link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-  <!-- range slider -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <link rel="shortcut icon" href="{{asset('fav.png')}}" type="image/x-icon">
-  <!-- font awesome style -->
-  <link href="front/css/font-awesome.min.css" rel="stylesheet" />
-
-  <!-- Custom styles for this template -->
-  <link href="front/css/style.css" rel="stylesheet" />
-  <!-- responsive style -->
-  <link href="front/css/responsive.css" rel="stylesheet" />
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <!-- Libraries Stylesheet -->
+    <link href="front/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="front/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 </head>
 
-<body style="overflow:scroll;">
-
-  <div class="hero_area">
-    <!-- header section strats -->
-    @include('partitions.navbar')
-    <!-- end header section -->
-    <!-- slider section -->
-    <!-- Js to handle the cared -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
-      integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
-      crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
-      integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous">
-      </script>
-
-
-
-    <!-- Navigation-->
-    <div class="fixed-buttons bg-warning mt-5 rounded-5">
-      <form class="d-flex">
-        <button class="btn btn-outline-dark" onclick="showCart()">
-          <i class="bi-cart-fill me-1"></i>
-          Cart
-          <span id="cardNBR" class="badge bg-dark text-white ms-1 rounded-pill">0</span>
-        </button>
-        <button type="button" class="btn btn-light mx-1" data-bs-toggle="modal" data-bs-target="#myModal">
-          <i class="fa-regular fa-eye"></i>
-        </button>
-      </form>
-    </div>
-    <style>
-      .fixed-buttons {
-        position: fixed;
-        top: 60px;
-        right: 0;
-        padding: 15px;
-        z-index: 1000;
-        /* Adjust as needed */
-      }
-    </style>
-    <!-- The Modal -->
-    <div class="modal" id="myModal">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <!-- Modal Header -->
-          <div class="modal-header">
-            <h4 class="modal-title text-center">La Commande </h4>
-            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-          </div>
-          <!-- Modal body -->
-          <div class="modal-body">
-            <div id="listeProduits">
-              <table class="table table-striped">
-                <thead>
-                  <tr>
-                    <th>Produit</th>
-                    <th>Prix</th>
-                    <th>Quantités</th>
-                  </tr>
-                </thead>
-                <tbody id="listProducts">
-                </tbody>
-              </table>
-              <div class="alert alert-success" id="total">
-              </div>
-            </div>
-            <div id="formulaire" style="display:none;">
-              <form action="{{ route('addCommande') }}" method="POST">
-                @csrf
-                <div class="mb-3">
-                  <label class="form-label" for="emailAddress">Nom complet :</label>
-                  <input class="form-control" id="nomComplet" name="nomComplet" type="email"
-                    placeholder="Nom complet ...." data-sb-validations="required" />
-                </div>
-                <div class="mb-3">
-                  <label class="form-label" for="emailAddress">Telephone :</label>
-                  <input class="form-control" id="telephone" name="telephone" type="email"
-                    placeholder="Telephone ......" data-sb-validations="required" />
-                </div>
-                <input class="form-control d-none" id="liste" name="listeProduits" type="text"
-                  data-sb-validations="required" />
-                <div class="mb-3">
-                  <label class="form-label" for="message">Message</label>
-                  <textarea class="form-control" id="message" name="message" type="text" placeholder="Message"
-                    style="height: 10rem;"></textarea>
-                </div>
-                @if ($errors->any())
-                <div class="alert alert-danger">
-                  <ul>
-                    @foreach ($errors->all() as $error)
-                    <span>{{ $error }}</span> <br>
-                    @endforeach
-                  </ul>
-                </div>
-                @endif
-              </form>
-            </div>
-          </div>
-
-          <!-- Modal footer -->
-          <div class="modal-footer">
-            <button type="button" id="btnFermer" class="btn btn-danger" data-bs-dismiss="modal">Fermer</button>
-            <button type="button" id="btnSuivant" class="btn btn-danger" onclick='
-                    document.getElementById("listeProduits").style.display="none";
-                    document.getElementById("formulaire").style.display="";
-                    document.getElementById("btnSuivant").style.display="none";
-                    document.getElementById("btnRetourner").style.display="";
-                    document.getElementById("btnEnvoyer").style.display="";
-                '>Suivant</button>
-            <button type="button" id="btnRetourner" class="btn btn-danger" onclick='
-                    document.getElementById("formulaire").style.display="none";
-                    document.getElementById("listeProduits").style.display="";
-                    document.getElementById("btnSuivant").style.display="";
-                    document.getElementById("btnRetourner").style.display="none";
-                    document.getElementById("btnEnvoyer").style.display="none";
-                ' style="display:none;">Retourner</button>
-            <button type="button" id="btnEnvoyer" class="btn btn-danger" onclick="
-                    document.getElementById('liste').value = liste.join('_')
-                    var form = document.getElementById('formulaire').querySelector('form');
-                    form.submit();
-                " style="display:none;">Envoyer</button>
-          </div>
-
-        </div>
-      </div>
-    </div>
-    <section class="slider_section">
-      <div id="customCarousel1" class="carousel slide" data-ride="carousel">
-        <div class="carousel-inner">
-          <div class="carousel-item active">
-            <div class="container">
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="detail-box">
-                    <h1>
-                      Bienvenue dans notre boutique
-                    </h1>
-                    <p>
-                      Découvrez notre boutique en ligne spécialisée dans les matériaux électriques. Trouvez tout ce dont
-                      vous avez besoin pour vos projets électriques avec facilité et qualité.
-                    </p>
-                    <a href="{{ route('index') }}">
-                      Commander
-                    </a>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="img-box">
-                    <img src="front/images/slider-img.png" alt="">
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-    </section>
-    <!-- end slider section -->
-
+<body>
     @if(session('successCommande'))
     <script>
-      // Show alert with z-index 2
-      alert('La Commande Est Envoyé Avec succès, Merci !');
-      localStorage.clear();
-      // Delete the session variable after 5 seconds
-      setTimeout(function () {
-        @php
-        session() -> forget('successCommande');
-        @endphp
-      }, 5000);
+        // Show alert with z-index 2
+        alert('La Commande Est Envoyé Avec succès, Merci !');
+        localStorage.clear();
+        // Delete the session variable after 5 seconds
+        setTimeout(function () {
+            @php
+            session() -> forget('successCommande');
+            @endphp
+        }, 5000);
     </script>
     @endif
 
+    <!-- Topbar Start -->
+    @include('partitions.navbar')
+    <!-- Topbar End -->
 
-    <!-- Section-->
-    <section class="py-5">
-      <!-- Search and Filter  -->
-      <div class="container">
-        <div class="row">
-          <div class="col-1"></div>
-          <div class="col-10">
-            <form id="SearchForm">
-              <div class="input-group">
-                <input type="text" class="form-control" id="searchInput" name="searchInput" placeholder="Chercher">
-                <button class="btn btn-outline-success" type="button" onclick="searchProduits()">Chercher</button>
-              </div>
-            </form>
-          </div>
-          <div class="col-1"></div>
-          <br>
-          <br>
-          <div class="col-1"></div>
-          <div class="col-10">
-            <form id="filterForm">
-              <div class="input-group mb-3">
-                <select class="form-select" id="filterCategorie" name="filterCategorie">
-                  <option value="all">Tous</option>
-                  @foreach ($categories as $cat)
-                  <option value="{{ $cat->id }}">{{ $cat->label }}</option>
-                  @endforeach
-                </select>
-                <button class="btn btn-outline-success" type="button" onclick="filtrerProduits()">Appliquer</button>
-              </div>
-            </form>
-          </div>
-          <div class="col-1"></div>
-        </div>
-      </div>
 
-      <script>
-        function filtrerProduits() {
-          var category = $('#filterCategorie').val();
-          $.ajax({
-            type: 'GET',
-            url: '/filter', // Update this with your actual filter endpoint
-            data: { filterCategorie: category },
-            dataType: 'json',
-            success: function (response) {
-              var filteredResults = response.filteredResults;
-              $('#productContainer').html(renderSearchResults(filteredResults));
-            },
-            error: function (error) {
-              console.error(error);
-            }
-          });
-        }
-        function searchProduits() {
-          var searchTerm = $('#searchInput').val();
-
-          // Make an AJAX request
-          $.ajax({
-            type: 'GET',
-            url: '/search', // Update this with your actual search endpoint
-            data: { searchInput: searchTerm },
-            dataType: 'json', // Specify that you expect JSON data
-            success: function (response) {
-              var searchResults = response.searchResults;
-              // Update the product container with the new results
-              $('#productContainer').html(renderSearchResults(searchResults));
-            },
-            error: function (error) {
-              console.error(error);
-            }
-          });
-        }
-        function renderSearchResults(results) {
-          var container = document.getElementById('productContainer');
-          container.innerHTML = ''; // Clear previous results
-
-          if (results.length === 0) {
-            container.innerHTML = `
-                <div class="alert alert-danger alert-dismissible fade show w-100" role="alert">
-                    <strong>No results found!</strong> Please try a different search term.
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    <!-- Navbar Start -->
+    <div class="container-fluid mb-5">
+        <div class="row border-top px-xl-5">
+            <div class="col-lg-3 d-none d-lg-block">
+                <a class="btn shadow-none d-flex align-items-center justify-content-between bg-primary text-white w-100"
+                    data-toggle="collapse" href="#navbar-vertical"
+                    style="height: 65px; margin-top: -1px; padding: 0 30px;">
+                    <h6 class="m-0">Categories</h6>
+                    <i class="fa fa-angle-down text-dark"></i>
+                </a>
+                <nav class="collapse show navbar navbar-vertical navbar-light align-items-start p-0 border border-top-0 border-bottom-0"
+                    id="navbar-vertical">
+                    <div class="navbar-nav w-100 overflow-hidden" style="height: 410px">
+                        @foreach ($categories as $cat)
+                        <a href="{{ route('prodCat', $cat->id) }}" class="nav-item nav-link">{{$cat->label}}</a>
+                        @endforeach
+                    </div>
+                </nav>
+            </div>
+            <div class="col-lg-9">
+                <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-0">
+                    <a class="" href="{{ route('index') }}">
+                        <img src="{{ asset('storage/'.$parametres->logo) }}" alt="Logo" class="img-fluid rounded mb-2"
+                            style="width:170px; height : 60px;">
+                    </a>
+                    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                        <div class="navbar-nav mr-auto py-0">
+                            <a href="index.html" class="nav-item nav-link active">Home</a>
+                            <a href="shop.html" class="nav-item nav-link">Shop</a>
+                            <a href="detail.html" class="nav-item nav-link">Shop Detail</a>
+                            <div class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>
+                                <div class="dropdown-menu rounded-0 m-0">
+                                    <a href="cart.html" class="dropdown-item">Shopping Cart</a>
+                                    <a href="checkout.html" class="dropdown-item">Checkout</a>
+                                </div>
+                            </div>
+                            <a href="contact.html" class="nav-item nav-link">Contact</a>
+                        </div>
+                        <div class="navbar-nav ml-auto py-0">
+                            <a href="" class="nav-item nav-link"></a>
+                            <a href="" class="nav-item nav-link">Register</a>
+                        </div>
+                    </div>
+                </nav>
+                <div id="header-carousel" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner">
+                        @php
+                        $i=0 ;
+                        @endphp
+                        @foreach ($categories as $cat)
+                        @php
+                        $folderPath = public_path('storage/'.$cat->repPhotos);
+                        $imageFiles = File::allFiles($folderPath);
+                        @endphp
+                        <div class="carousel-item <?php if ($i==0) echo 'active'; ?>" style="height: 410px;">
+                            <img class="img-fluid"
+                                src="{{ asset('storage/' . $cat->repPhotos . '/' . $imageFiles[0]->getFilename()) }}"
+                                alt="Image">
+                            <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+                                <div class="p-3" style="max-width: 700px;">
+                                    <h4 class="text-light text-uppercase font-weight-medium mb-3">
+                                        {{ $cat->description }}
+                                    </h4>
+                                    <h3 class="display-4 text-white font-weight-semi-bold mb-4">{{ $cat->label }}</h3>
+                                    <a href="{{ route('prodCat', $cat->id) }}" class="btn btn-light py-2 px-3">Voir
+                                        Plus</a>
+                                </div>
+                            </div>
+                        </div>
+                        @php
+                        $i++;
+                        @endphp
+                        @endforeach
+                    </div>
+                    <a class="carousel-control-prev" href="#header-carousel" data-slide="prev">
+                        <div class="btn btn-dark" style="width: 45px; height: 45px;">
+                            <span class="carousel-control-prev-icon mb-n2"></span>
+                        </div>
+                    </a>
+                    <a class="carousel-control-next" href="#header-carousel" data-slide="next">
+                        <div class="btn btn-dark" style="width: 45px; height: 45px;">
+                            <span class="carousel-control-next-icon mb-n2"></span>
+                        </div>
+                    </a>
                 </div>
-            `;
-          }
-
-          for (var i = 0; i < results.length; i++) {
-            var result = results[i];
-            var col = document.createElement('div');
-            col.className = 'col mb-5';
-
-            var card = document.createElement('div');
-            card.className = 'card h-100';
-
-            var img = document.createElement('img');
-            img.className = 'card-img-top';
-            img.alt = '...';
-            img.style.height = '300px';
-            img.style.objectFit = 'cover';
-            var decodedFirstImage = JSON.parse('"' + result.firstImage + '"');
-            img.src = decodedFirstImage;
-
-            var cardBody = document.createElement('div');
-            cardBody.className = 'card-body p-4';
-
-            var textCenter = document.createElement('div');
-            textCenter.className = 'text-center';
-
-            var h5 = document.createElement('h5');
-            h5.className = 'fw-bolder';
-            h5.textContent = result.label;
-
-            var small = document.createElement('div');
-            small.className = 'd-flex justify-content-center small text-warning mb-2';
-            for (var j = 0; j < 5; j++) {
-              var star = document.createElement('div'); star.className = 'bi-star-fill';
-              small.appendChild(star);
-            }
-            var spanOldPrice = document.createElement('span');
-            spanOldPrice.className = 'text-muted text-decoration-line-through'; spanOldPrice.textContent = result.oldPrice;
-            var spanPrice = document.createElement('b'); spanPrice.textContent = result.price;
-            var cardFooter = document.createElement('div');
-            cardFooter.className = 'card-footer p-4 pt-0 border-top-0 bg-transparent';
-            var textCenterFooter = document.createElement('div'); textCenterFooter.className = 'text-center';
-            var btnAddToCart = document.createElement('a');
-            btnAddToCart.className = 'btn btn-primary text-light fw-bold fs-6 btn-outline-dark mt-auto mx-1';
-            btnAddToCart.onclick = function () { addToCart(result.id, result.label, result.price); };
-            btnAddToCart.innerHTML = '<i class="fas fa-cart-plus"></i>'; var btnInfo = document.createElement('a');
-            btnInfo.className = 'btn btn-success text-light fw-bold fs-6 btn-outline-dark mt-auto mx-1';
-            // btnInfo.href = '{{ route('produitdetails', ['produit'=> ' + result.id + ']) }}';
-            var url = '{{ route("produitdetails", ":id") }}';
-            url = url.replace(':id', result.id);
-            btnInfo.href = url;
-            btnInfo.innerHTML = '<i class="fas fa-info-circle"></i>';
-
-            textCenterFooter.appendChild(btnAddToCart);
-            textCenterFooter.appendChild(btnInfo);
-
-            textCenter.appendChild(h5);
-            textCenter.appendChild(small);
-            textCenter.appendChild(spanOldPrice);
-            textCenter.appendChild(spanPrice);
-
-            cardBody.appendChild(textCenter);
-            cardFooter.appendChild(textCenterFooter);
-
-            card.appendChild(img);
-            card.appendChild(cardBody);
-            card.appendChild(cardFooter);
-
-            col.appendChild(card);
-
-            container.appendChild(col);
-          }
-        }
-      </script>
+            </div>
+        </div>
+    </div>
+    <!-- Navbar End -->
 
 
+    <!-- Featured Start -->
+    <!-- <div class="container-fluid pt-3">
+        <div class="row px-xl-5 pb-3">
+            <div class="col-lg-4 col-md-4 col-sm-12 pb-1">
+                <div class="d-flex align-items-center border mb-4" style="padding: 10px;">
+                    <h4 class="fas fa-shopping-cart text-primary m-0 mr-3"></h4>
+                    <h5 class="font-weight-semi-bold m-0">Choisir les produits</h5>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12 pb-1">
+                <div class="d-flex align-items-center border mb-4" style="padding: 10px;">
+                    <h4 class="fas fa-clipboard-check text-primary m-0 mr-2"></h4>
+                    <h5 class="font-weight-semi-bold m-0">Valider le formulaire</h5>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12 pb-1">
+                <div class="d-flex align-items-center border mb-4" style="padding: 10px;">
+                    <h4 class="fas fa-phone-alt text-primary m-0 mr-3"></h4>
+                    <h5 class="font-weight-semi-bold m-0">Manager va vous contacter</h5>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+    <!-- Featured End -->
 
 
-
-
-      <div class="container px-4 px-lg-5 mt-5">
+    <!-- Categories Start -->
+    <div class="container px-4 px-lg-5 mt-5">
         <div id="productContainer"
-          class="row gx-4 gx-lg-5 row-cols-1 row-cols-md-2 row-cols-xl-4 justify-content-center">
-          @foreach ($produits as $produit)
-          <div class="col mb-5">
-            <div class="card h-100">
-              @if ($produit->repPhotos)
-              @php
-              $folderPath = public_path('storage/' . $produit->repPhotos);
-              $imageFiles = File::allFiles($folderPath);
-              @endphp
-              <!-- Product image from the first file in the directory -->
-              <img class="card-img-top"
-                src="{{ asset('storage/' . $produit->repPhotos . '/' . $imageFiles[0]->getFilename()) }}" alt="..."
-                style="height: 250px; object-fit: cover;">
-              @else
-              <!-- Placeholder image when no images are found -->
-              <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..."
-                style="height: 250px;">
-              @endif
-              <!-- Product details-->
-              <div class="card-body p-4">
-                <div class="text-center">
-                  <!-- Product name-->
-                  <h5 class="fw-bolder">{{ $produit->label }}</h5>
-                  <!-- Product reviews-->
-                  <div class="d-flex justify-content-center small text-warning mb-2">
-                    <div class="bi-star-fill"></div>
-                    <div class="bi-star-fill"></div>
-                    <div class="bi-star-fill"></div>
-                    <div class="bi-star-fill"></div>
-                    <div class="bi-star-fill"></div>
-                  </div>
-                  <!-- Product price-->
-                  <span class="text-muted text-decoration-line-through">{{ $produit->oldPrice }}</span>
-                  <b>{{ $produit->price }}</b>
+            class="row gx-4 gx-lg-5 row-cols-1 row-cols-md-2 row-cols-xl-4 justify-content-center">
+            @foreach ($produits as $produit)
+            <div class="col mb-5">
+                <div class="card h-100">
+                    @if ($produit->repPhotos)
+                    @php
+                    $folderPath = public_path('storage/'.$produit->repPhotos);
+                    $imgs = File::files($folderPath);
+                    $imageFiles = [];
+                    foreach ($imgs as $im){
+                    if (in_array(strtolower(pathinfo($im, PATHINFO_EXTENSION)), ['jpg', 'jpeg', 'png','gif'])){
+                    array_push($imageFiles,$im);
+                    }
+                    }
+                    @endphp
+                    <!-- Product image from the first file in the directory -->
+                    <img class="card-img-top"
+                        src="{{ asset('storage/' . $produit->repPhotos . '/' . $imageFiles[0]->getFilename()) }}"
+                        alt="..." style="height: 250px; object-fit: cover;">
+                    @else
+                    <!-- Placeholder image when no images are found -->
+                    <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..."
+                        style="height: 250px;">
+                    @endif
+                    <!-- Product details-->
+                    <div class="card-body p-4">
+                        <div class="text-center">
+                            <!-- Product name-->
+                            <h5 class="fw-bolder">{{ $produit->label }}</h5>
+                            <!-- Product reviews-->
+                            <div class="d-flex justify-content-center small text-warning mb-2">
+                                <div class="bi-star-fill"></div>
+                                <div class="bi-star-fill"></div>
+                                <div class="bi-star-fill"></div>
+                                <div class="bi-star-fill"></div>
+                                <div class="bi-star-fill"></div>
+                            </div>
+                            <!-- Product price-->
+                            <span class="text-muted text-decoration-line-through">{{ $produit->oldPrice }}</span>
+                            <b>{{ $produit->price }}</b>
+                        </div>
+                    </div>
+                    <!-- Product actions-->
+                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                        <div class="text-center">
+                            <a class="btn btn-primary text-light fw-bold fs-6 btn-outline-dark mt-auto"
+                                onclick="addToCart({{ $produit->id }},'{{ $produit->label }}', {{ $produit->price }})">
+                                <i class="fas fa-cart-plus"></i> <!-- Font Awesome cart icon -->
+                            </a>
+                            <a class="btn btn-success text-light fw-bold fs-6 btn-outline-dark mt-auto"
+                                href="{{ route('produitdetails', ['produit' => $produit->id]) }}">
+                                <i class="fas fa-info-circle"></i> <!-- Font Awesome info icon -->
+                            </a>
+                        </div>
+                    </div>
                 </div>
-              </div>
-              <!-- Product actions-->
-              <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                <div class="text-center">
-                  <a class="btn btn-primary text-light fw-bold fs-6 btn-outline-dark mt-auto"
-                    onclick="addToCart({{ $produit->id }},'{{ $produit->label }}', {{ $produit->price }})">
-                    <i class="fas fa-cart-plus"></i> <!-- Font Awesome cart icon -->
-                  </a>
-                  <a class="btn btn-success text-light fw-bold fs-6 btn-outline-dark mt-auto"
-                    href="{{ route('produitdetails', ['produit' => $produit->id]) }}">
-                    <i class="fas fa-info-circle"></i> <!-- Font Awesome info icon -->
-                  </a>
+            </div>
+            @endforeach
+        </div>
+    </div>
+    <!-- Categories End -->
+
+
+    <!-- Offer Start -->
+    <div class="container-fluid offer pt-5">
+        <div class="row px-xl-5">
+            <div class="col-md-12 pb-4">
+                <div class="position-relative bg-secondary text-center text-md-center text-white mb-2 py-5 px-5">
+                    <img src="img/offer-1.png" alt="">
+                    <div class="position-relative" style="z-index: 1;">
+                        <h5 class="text-uppercase text-primary mb-3">Les Réductions sur les produits</h5>
+                        <h1 class="mb-4 font-weight-semi-bold">Consulter les différents famiiles</h1>
+                        <a href="{{ route('lesoffres') }}" class="btn btn-outline-primary py-md-2 px-md-3">Consulter</a>
+                    </div>
                 </div>
-              </div>
             </div>
-          </div>
-          @endforeach
         </div>
-      </div>
+    </div>
+    <!-- Offer End -->
+
+
+    <!-- Products Start -->
+    <div class="container-fluid pt-5">
+        <div class="text-center mb-4">
+            <h2 class="section-title px-5"><span class="px-2">Ajoutés Dernièrement</span></h2>
+        </div>
+
+        <div class="container px-4 px-lg-5 mt-5">
+            <div id="productContainer"
+                class="row gx-4 gx-lg-5 row-cols-1 row-cols-md-2 row-cols-xl-4 justify-content-center">
+                @foreach ($produits as $produit)
+                <div class="col mb-5">
+                    <div class="card h-100">
+                        @if ($produit->repPhotos)
+                        @php
+                        $folderPath = public_path('storage/'.$produit->repPhotos);
+                        $imgs = File::files($folderPath);
+                        $imageFiles = [];
+                        foreach ($imgs as $im){
+                        if (in_array(strtolower(pathinfo($im, PATHINFO_EXTENSION)), ['jpg', 'jpeg', 'png','gif'])){
+                        array_push($imageFiles,$im);
+                        }
+                        }
+                        @endphp
+                        <!-- Product image from the first file in the directory -->
+                        <img class="card-img-top"
+                            src="{{ asset('storage/' . $produit->repPhotos . '/' . $imageFiles[0]->getFilename()) }}"
+                            alt="..." style="height: 250px; object-fit: cover;">
+                        @else
+                        <!-- Placeholder image when no images are found -->
+                        <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..."
+                            style="height: 250px;">
+                        @endif
+                        <!-- Product details-->
+                        <div class="card-body p-4">
+                            <div class="text-center">
+                                <!-- Product name-->
+                                <h5 class="fw-bolder">{{ $produit->label }}</h5>
+                                <!-- Product reviews-->
+                                <div class="d-flex justify-content-center small text-warning mb-2">
+                                    <div class="bi-star-fill"></div>
+                                    <div class="bi-star-fill"></div>
+                                    <div class="bi-star-fill"></div>
+                                    <div class="bi-star-fill"></div>
+                                    <div class="bi-star-fill"></div>
+                                </div>
+                                <!-- Product price-->
+                                <span class="text-muted text-decoration-line-through">{{ $produit->oldPrice }}</span>
+                                <b>{{ $produit->price }}</b>
+                            </div>
+                        </div>
+                        <!-- Product actions-->
+                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                            <div class="text-center">
+                                <a class="btn btn-primary text-light fw-bold fs-6 btn-outline-dark mt-auto"
+                                    onclick="addToCart({{ $produit->id }},'{{ $produit->label }}', {{ $produit->price }})">
+                                    <i class="fas fa-cart-plus"></i> <!-- Font Awesome cart icon -->
+                                </a>
+                                <a class="btn btn-success text-light fw-bold fs-6 btn-outline-dark mt-auto"
+                                    href="{{ route('produitdetails', ['produit' => $produit->id]) }}">
+                                    <i class="fas fa-info-circle"></i> <!-- Font Awesome info icon -->
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+        </div>
+
+    </div>
+    <!-- Products End -->
+
+
+    <!-- Subscribe Start -->
+    <!-- <div class="container-fluid bg-secondary my-5">
+        <div class="row justify-content-md-center py-5 px-xl-5">
+            <div class="col-md-6 col-12 py-5">
+                <div class="text-center mb-2 pb-2">
+                    <h2 class="section-title px-5 mb-3"><span class="bg-secondary px-2">Stay Updated</span></h2>
+                    <p>Amet lorem at rebum amet dolores. Elitr lorem dolor sed amet diam labore at justo ipsum eirmod
+                        duo labore labore.</p>
+                </div>
+                <form action="">
+                    <div class="input-group">
+                        <input type="text" class="form-control border-white p-4" placeholder="Email Goes Here">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary px-4">Subscribe</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div> -->
+    <!-- Subscribe End -->
+
+
+    <section class="section section-default mt-none mb-none">
+        <div class="container">
+            <h2 class="mb-sm text-center my-5">Nos <strong>Partenaires</strong></h2>
+            <strong>
+                <div class="row">
+                    <div class="col-sm-6 col-md-4 col-lg-3">
+                        <div class="square-holder">
+                            <img alt=""
+                                src="https://www.pmits.co.uk/portals/0/images/partners/solar-communications-200.png" />
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4 col-lg-3">
+                        <div class="square-holder">
+                            <img alt="" src="https://www.pmits.co.uk/portals/0/images/partners/cbf-200.png" />
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4 col-lg-3">
+                        <div class="square-holder">
+                            <img alt="" src="https://www.pmits.co.uk/portals/0/images/partners/gxs-200.png" />
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4 col-lg-3">
+                        <div class="square-holder">
+                            <img alt="" src="https://www.pmits.co.uk/portals/0/images/partners/jpr-200.png" />
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4 col-lg-3">
+                        <div class="square-holder">
+                            <img alt="" src="https://www.pmits.co.uk/portals/0/images/partners/talk-internet-200.png" />
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4 col-lg-3">
+                        <div class="square-holder">
+                            <img alt="" src="https://www.pmits.co.uk/Portals/0/img/opera3_logo.png" />
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4 col-lg-3">
+                        <div class="square-holder">
+                            <img alt="" src="https://www.pmits.co.uk/Portals/0/pegasus-logo.png" />
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4 col-lg-3">
+                        <div class="square-holder">
+                            <img alt="" src="https://www.pmits.co.uk/Portals/0/sage business partner.jpg" />
+                        </div>
+                    </div>
+                </div>
+            </strong>
+        </div>
     </section>
-    <!-- Button to Open the Modal -->
-
-
-    <!-- why us section -->
-
-    <section class="section_pourquoi_nous layout_padding">
-      <div class="container">
-        <div class="heading_container heading_center">
-          <h2>
-            Pourquoi Nous !
-          </h2>
-        </div>
-        <div class="row">
-          <div class="col-md-4">
-            <div class="box">
-              <div class="img-box">
-                <img src="images/w1.png" alt="">
-              </div>
-              <div class="detail-box">
-                <h5>
-                  Livraison Rapide
-                </h5>
-                <p>
-                  Variations du passage de Lorem Ipsum disponibles
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="box">
-              <div class="img-box">
-                <img src="images/w2.png" alt="">
-              </div>
-              <div class="detail-box">
-                <h5>
-                  Sercices
-                </h5>
-                <p>
-                  Variations du services et produits poue n'importe quel projet ...
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="box">
-              <div class="img-box">
-                <img src="images/w3.png" alt="">
-              </div>
-              <div class="detail-box">
-                <h5>
-                  Meilleure Qualité
-                </h5>
-                <p>
-                  Variations du passage de Lorem Ipsum disponibles
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- end why us section -->
-
-
-    <!-- Partners Section  -->
-    <section id="clients" class="section-bg">
-
-      <div class="container">
-
-        <div class="section-header">
-          <h3>Notre Partenaires</h3>
-          <p>Confiance en Nous</p>
-        </div>
-        <div class="row no-gutters clients-wrap clearfix wow fadeInUp"
-          style="visibility: visible; animation-name: fadeInUp;">
-          @foreach ($partenaires as $part)
-          <div class="col-lg-3 col-md-4 col-xs-6">
-            <div class="client-logo">
-              <img src="{{ asset('storage/'.$part->logo) }}" class="img-fluid" alt="">
-            </div>
-          </div>
-          @endforeach
-        </div>
-
-      </div>
-
-    </section>
-
     <style>
-      .section-header h3 {
-        font-size: 36px;
-        color: #283d50;
-        text-align: center;
-        font-weight: 500;
-        position: relative;
-      }
+        .square-holder {
+            padding: 30px;
+            border: 1px solid #cecece;
+            align-items: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            background-color: #f1f1f1;
+            min-height: 200px
+        }
 
-      .section-header p {
-        text-align: center;
-        margin: auto;
-        font-size: 15px;
-        padding-bottom: 60px;
-        color: #556877;
-        width: 50%;
-      }
+        .square-holder img {
+            max-width: 100%;
+            filter: grayscale(100%);
+            transition: all 0.3s;
+        }
 
-      #clients {
-        padding: 60px 0;
-
-      }
-
-      #clients .clients-wrap {
-        border-left: 1px solid #d6eaff;
-        margin-bottom: 30px;
-      }
-
-      #clients .client-logo {
-        padding: 64px;
-        display: -webkit-box;
-        display: -webkit-flex;
-        display: -ms-flexbox;
-        display: flex;
-        -webkit-box-pack: center;
-        -webkit-justify-content: center;
-        -ms-flex-pack: center;
-        justify-content: center;
-        -webkit-box-align: center;
-        -webkit-align-items: center;
-        -ms-flex-align: center;
-        align-items: center;
-        border-right: 1px solid #d6eaff;
-        border-bottom: 1px solid #d6eaff;
-        overflow: hidden;
-        background: #fff;
-        height: 160px;
-      }
-
-      #clients img {
-        transition: all 0.4s ease-in-out;
-      }
+        .square-holder:hover img {
+            filter: none;
+        }
     </style>
+
 
 
     <!-- client section -->
 
     <section class="client_section layout_padding-bottom">
-      <div class="container">
-        <div class="heading_container heading_center">
-          <h2>
-            Avis de Nos Clients
-          </h2>
-        </div>
-      </div>
-      <div class="client_container ">
-        <div id="carouselExample2Controls" class="carousel slide" data-ride="carousel">
-          <div class="carousel-inner">
-            @foreach($opinions as $testimonial)
-            <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
-              <div class="container">
-                <div class="box">
-                  <div class="detail-box">
-                    <p>
-                      <i class="fa fa-quote-left" aria-hidden="true"></i>
-                    </p>
-                    <p>
-                      {{ $testimonial->opinion }}
-                    </p>
-                  </div>
-                  <div class="client-id">
-                    <div class="img-box">
-                      @if (isset($testimonial->photo))
-                      <img src="{{ asset('storage/'.$testimonial->photo) }}" alt="{{ $testimonial->name }}"
-                        style="width:50px; height:50px;">
-                      @else
-                      <img src="{{ asset('front/images/client.jpg') }}" alt="{{ $testimonial->name }}"
-                        style="width:50px; height:50px;">
-                      @endif
-
-                    </div>
-                    <div class="name">
-                      <h5>
-                        {{ $testimonial->name }}
-                      </h5>
-                      <h6>
-                        {{ $testimonial->occupation }}
-                      </h6>
-                    </div>
-                  </div>
-                </div>
-              </div>
+        <div class="container">
+            <div class="heading_container heading_center">
+                <h2 class="text-center my-3">
+                    Avis de Nos Clients
+                </h2>
             </div>
-            @endforeach
-          </div>
-          <div class="carousel_btn-box">
-            <a class="carousel-control-prev" href="#carouselExample2Controls" role="button" data-slide="prev">
-              <span>
-                <i class="fa fa-angle-left" aria-hidden="true"></i>
-              </span>
-              <span class="sr-only">Previous</span>
-            </a>
-            <a class="carousel-control-next" href="#carouselExample2Controls" role="button" data-slide="next">
-              <span>
-                <i class="fa fa-angle-right" aria-hidden="true"></i>
-              </span>
-              <span class="sr-only">Next</span>
-            </a>
-          </div>
         </div>
-      </div>
+        <div class="client_container ">
+            <div id="carouselExample2Controls" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                    @foreach($opinions as $testimonial)
+                    <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
+                        <div class="container">
+                            <div class="box">
+                                <div class="detail-box">
+                                    <p>
+                                        <i class="fa fa-quote-left" aria-hidden="true"></i>
+                                    </p>
+                                    <p>
+                                        {{ $testimonial->opinion }}
+                                    </p>
+                                </div>
+                                <div class="client-id">
+                                    <div class="img-box">
+                                        @if (isset($testimonial->photo))
+                                        <img src="{{ asset('storage/'.$testimonial->photo) }}"
+                                            alt="{{ $testimonial->name }}" style="width:50px; height:50px;">
+                                        @else
+                                        <img src="{{ asset('front/images/client.jpg') }}" alt="{{ $testimonial->name }}"
+                                            style="width:50px; height:50px;">
+                                        @endif
+
+                                    </div>
+                                    <div class="name">
+                                        <h5>
+                                            {{ $testimonial->name }}
+                                        </h5>
+                                        <h6>
+                                            {{ $testimonial->occupation }}
+                                        </h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
+                <div class="carousel_btn-box">
+                    <a class="carousel-control-prev" href="#carouselExample2Controls" role="button" data-slide="prev">
+                        <span>
+                            <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        </span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExample2Controls" role="button" data-slide="next">
+                        <span>
+                            <i class="fa fa-angle-right" aria-hidden="true"></i>
+                        </span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+            </div>
+        </div>
     </section>
     <!-- end client section -->
 
 
     <!-- Contact Section -->
     <section class="container my-5">
-      <h2 class="text-center my-4">Contactez Nous </h2>
-      <div class="row">
-        <div class="col-md-6">
-          <!-- Add this script tag to the <head> of your HTML file -->
-          <!-- generated by : https://embed-googlemap.com/ -->
-          <div class="mapouter">
-            <div class="gmap_canvas"><iframe class="gmap_iframe" width="100%" frameborder="0" scrolling="no"
-                marginheight="0" marginwidth="0"
-                src="https://maps.google.com/maps?width=802&amp;height=416&amp;hl=en&amp;q={{ $parametres->googlemaps }}&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe><a
-                href="https://embed-googlemap.com">google maps code generator</a></div>
-            <style>
-              .mapouter {
-                position: relative;
-                text-align: right;
-                width: 100%;
-                height: 416px;
-              }
+        <h2 class="text-center my-4">Contactez Nous </h2>
+        <div class="row">
+            <div class="col-md-6">
+                <!-- Add this script tag to the <head> of your HTML file -->
+                <!-- generated by : https://embed-googlemap.com/ -->
+                <div class="mapouter">
+                    <div class="gmap_canvas"><iframe class="gmap_iframe" width="100%" frameborder="0" scrolling="no"
+                            marginheight="0" marginwidth="0"
+                            src="https://maps.google.com/maps?width=802&amp;height=416&amp;hl=en&amp;q={{ $parametres->googlemaps }}&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe><a
+                            href="https://embed-googlemap.com">google maps code generator</a></div>
+                    <style>
+                        .mapouter {
+                            position: relative;
+                            text-align: right;
+                            width: 100%;
+                            height: 416px;
+                        }
 
-              .gmap_canvas {
-                overflow: hidden;
-                background: none !important;
-                width: 100%;
-                height: 416px;
-              }
+                        .gmap_canvas {
+                            overflow: hidden;
+                            background: none !important;
+                            width: 100%;
+                            height: 416px;
+                        }
 
-              .gmap_iframe {
-                height: 416px !important;
-              }
-            </style>
-          </div>
+                        .gmap_iframe {
+                            height: 416px !important;
+                        }
+                    </style>
+                </div>
+            </div>
+            <div class="col-md-6 mt-2">
+                <form action="{{ route('contact') }}" method="post">
+                    @csrf
+                    <div class="mb-3">
+                        <label for="nomComplet" class="form-label">Nom Complet</label>
+                        <input type="text" class="form-control" id="nomComplet" name="nomComplet" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="telephone" class="form-label">Téléphone</label>
+                        <input type="tel" class="form-control" id="telephone" name="telephone" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="message" class="form-label">Your Message</label>
+                        <textarea class="form-control" id="message" name="message" rows="4" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
         </div>
-        <div class="col-md-6 mt-2">
-          <form action="{{ route('contact') }}" method="post">
-            @csrf
-            <div class="mb-3">
-              <label for="nomComplet" class="form-label">Nom Complet</label>
-              <input type="text" class="form-control" id="nomComplet" name="nomComplet" required>
-            </div>
-            <div class="mb-3">
-              <label for="telephone" class="form-label">Téléphone</label>
-              <input type="tel" class="form-control" id="telephone" name="telephone" required>
-            </div>
-            <div class="mb-3">
-              <label for="message" class="form-label">Your Message</label>
-              <textarea class="form-control" id="message" name="message" rows="4" required></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-          </form>
-        </div>
-      </div>
     </section>
 
-    <!-- info section -->
-
-    <!-- footer section -->
-    @include('partitions.footer')
-
-    <!-- jQery -->
-    <script src="front/js/jquery-3.4.1.min.js"></script>
-    <!-- bootstrap js -->
-    <script src="front/js/bootstrap.js"></script>
-    <!-- custom js -->
-    <script src="front/js/custom.js"></script>
-    <script src="front/css/bootstrap.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 
 
+
+
+
+
+    <!-- Footer Start -->
+    <div class="container-fluid bg-secondary text-dark mt-5 pt-5">
+        <footer class="py-3 my-4">
+            <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+                <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Home</a></li>
+                <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Features</a></li>
+                <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Pricing</a></li>
+                <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">FAQs</a></li>
+                <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">About</a></li>
+            </ul>
+            <p class="text-center text-muted">© 2021 Company, Inc</p>
+        </footer>
+    </div>
+    <!-- Footer End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="front/lib/easing/easing.min.js"></script>
+    <script src="front/lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Contact Javascript File -->
+    <script src="front/mail/jqBootstrapValidation.min.js"></script>
+    <script src="front/mail/contact.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="js/main.js"></script>
 </body>
 
 </html>

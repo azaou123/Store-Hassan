@@ -115,5 +115,7 @@ class CategoryController extends Controller
         $nbr = Commande::where('statut', '=', 'Envoyée')->count();
         return view('dashboard.categories.show', compact('category', 'nbr'));
     }
+
+
 }
 
