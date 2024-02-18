@@ -352,7 +352,7 @@
             <div class="partners-grid">
                 @foreach ($partenaires as $par)
                 <div class="partner">
-                    <img src="{{asset('storage/'.$par->logo)}}" alt="Partner 1">
+                    <img src="{{asset('storage/'.$par->logo)}}" alt="Partner 1" style="width:200px; height:110px;">
                 </div>
                 @endforeach
             </div>
