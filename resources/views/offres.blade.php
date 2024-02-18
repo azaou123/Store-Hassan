@@ -257,7 +257,7 @@
 
 
     <!-- Footer Start -->
-
+    @include('partitions.footer')
     <!-- Footer End -->
 
 

@@ -36,9 +36,10 @@ class ManagerController extends Controller
 
     public function prodCat($id)
     {
+        $categories = Categorie::all();
         $category = Categorie::findOrFail($id);
         $produits = Produit::where('id_categorie', '=', $category->id)->get();
-        return view('category', compact('category', 'produits'));
+        return view('category', compact('category', 'produits', 'categories'));
     }
 
     public function about()

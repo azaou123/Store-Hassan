@@ -22,6 +22,10 @@
     <!-- Customized Bootstrap Stylesheet -->
     <link href="{{ asset('front/css/style.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('front/css/bootstrap.css') }}" />
+    <!-- fonts style -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 </head>
 
@@ -68,24 +72,18 @@
                 <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-0">
                     <a class="" href="{{ route('index') }}">
                         <img src="{{ asset('storage/'.$parametres->logo) }}" alt="Logo" class="img-fluid rounded mb-2"
-                            style="width:170px; height : 60px;">
+                            style="width:140px; height : 60px;">
                     </a>
                     <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                         <div class="navbar-nav mr-auto py-0">
-                            <a href="index.html" class="nav-item nav-link active">Home</a>
-                            <a href="shop.html" class="nav-item nav-link">Shop</a>
-                            <a href="detail.html" class="nav-item nav-link">Shop Detail</a>
-                            <div class="nav-item dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>
-                                <div class="dropdown-menu rounded-0 m-0">
-                                    <a href="cart.html" class="dropdown-item">Shopping Cart</a>
-                                    <a href="checkout.html" class="dropdown-item">Checkout</a>
-                                </div>
-                            </div>
-                            <a href="contact.html" class="nav-item nav-link">Contact</a>
+                            <a href="{{ route('index') }}" class="nav-item nav-link active">Home</a>
+                            <a href="" class="nav-item nav-link" data-bs-toggle="modal"
+                                data-bs-target="#myModal">Panier</a>
+                            <a href="{{ route('about') }}" class="nav-item nav-link">A Propos</a>
+                            <a href="{{ route('about') }}" class="nav-item nav-link">Contact</a>
                         </div>
                         <div class="navbar-nav ml-auto py-0">
                             <a href="" class="nav-item nav-link"></a>
@@ -347,77 +345,42 @@
     <!-- Subscribe End -->
 
 
-    <section class="section section-default mt-none mb-none">
+    <section class="partners-section">
         <div class="container">
-            <h2 class="mb-sm text-center my-5">Nos <strong>Partenaires</strong></h2>
-            <strong>
-                <div class="row">
-                    <div class="col-sm-6 col-md-4 col-lg-3">
-                        <div class="square-holder">
-                            <img alt=""
-                                src="https://www.pmits.co.uk/portals/0/images/partners/solar-communications-200.png" />
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-4 col-lg-3">
-                        <div class="square-holder">
-                            <img alt="" src="https://www.pmits.co.uk/portals/0/images/partners/cbf-200.png" />
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-4 col-lg-3">
-                        <div class="square-holder">
-                            <img alt="" src="https://www.pmits.co.uk/portals/0/images/partners/gxs-200.png" />
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-4 col-lg-3">
-                        <div class="square-holder">
-                            <img alt="" src="https://www.pmits.co.uk/portals/0/images/partners/jpr-200.png" />
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-4 col-lg-3">
-                        <div class="square-holder">
-                            <img alt="" src="https://www.pmits.co.uk/portals/0/images/partners/talk-internet-200.png" />
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-4 col-lg-3">
-                        <div class="square-holder">
-                            <img alt="" src="https://www.pmits.co.uk/Portals/0/img/opera3_logo.png" />
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-4 col-lg-3">
-                        <div class="square-holder">
-                            <img alt="" src="https://www.pmits.co.uk/Portals/0/pegasus-logo.png" />
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-4 col-lg-3">
-                        <div class="square-holder">
-                            <img alt="" src="https://www.pmits.co.uk/Portals/0/sage business partner.jpg" />
-                        </div>
-                    </div>
+            <h2>Nos Partenaires</h2>
+            <div class="partners-grid">
+                @foreach ($partenaires as $par)
+                <div class="partner">
+                    <img src="{{asset('storage/'.$par->logo)}}" alt="Partner 1">
                 </div>
-            </strong>
+                <div class="partner">
+                    <img src="{{asset('storage/'.$par->logo)}}" alt="Partner 1">
+                </div>
+                @endforeach
+            </div>
         </div>
     </section>
     <style>
-        .square-holder {
-            padding: 30px;
-            border: 1px solid #cecece;
-            align-items: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 20px;
-            background-color: #f1f1f1;
-            min-height: 200px
+        .partners-section {
+            padding: 50px 0;
+            background-color: #f9f9f9;
+            text-align: center;
         }
 
-        .square-holder img {
-            max-width: 100%;
-            filter: grayscale(100%);
-            transition: all 0.3s;
+        .partners-section h2 {
+            margin-bottom: 30px;
         }
 
-        .square-holder:hover img {
-            filter: none;
+        .partners-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            justify-items: center;
+        }
+
+        .partner img {
+            max-width: 200px;
+            height: auto;
         }
     </style>
 
@@ -425,70 +388,67 @@
 
     <!-- client section -->
 
-    <section class="client_section layout_padding-bottom">
+    <!-- info section -->
+    <section class="container client_section layout_padding-bottom mt-3">
         <div class="container">
             <div class="heading_container heading_center">
-                <h2 class="text-center my-3">
+                <h2 class="text-center">
                     Avis de Nos Clients
                 </h2>
             </div>
         </div>
-        <div class="client_container ">
-            <div id="carouselExample2Controls" class="carousel slide" data-ride="carousel">
-                <div class="carousel-inner">
-                    @foreach($opinions as $testimonial)
-                    <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
-                        <div class="container">
-                            <div class="box">
-                                <div class="detail-box">
-                                    <p>
-                                        <i class="fa fa-quote-left" aria-hidden="true"></i>
-                                    </p>
-                                    <p>
-                                        {{ $testimonial->opinion }}
-                                    </p>
-                                </div>
-                                <div class="client-id">
-                                    <div class="img-box">
-                                        @if (isset($testimonial->photo))
-                                        <img src="{{ asset('storage/'.$testimonial->photo) }}"
-                                            alt="{{ $testimonial->name }}" style="width:50px; height:50px;">
-                                        @else
-                                        <img src="{{ asset('front/images/client.jpg') }}" alt="{{ $testimonial->name }}"
-                                            style="width:50px; height:50px;">
-                                        @endif
-
-                                    </div>
-                                    <div class="name">
-                                        <h5>
-                                            {{ $testimonial->name }}
-                                        </h5>
-                                        <h6>
-                                            {{ $testimonial->occupation }}
-                                        </h6>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    @endforeach
-                </div>
-                <div class="carousel_btn-box">
-                    <a class="carousel-control-prev" href="#carouselExample2Controls" role="button" data-slide="prev">
-                        <span>
-                            <i class="fa fa-angle-left" aria-hidden="true"></i>
-                        </span>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                    <a class="carousel-control-next" href="#carouselExample2Controls" role="button" data-slide="next">
-                        <span>
-                            <i class="fa fa-angle-right" aria-hidden="true"></i>
-                        </span>
-                        <span class="sr-only">Next</span>
-                    </a>
+        <div class="client_container">
+            @foreach ($opinions as $o)
+            <div class="col-6">
+                <div class="testo">
+                    <img src="{{ asset('storage/'.$o->photo) }}" alt="Avatar" style="width:90px">
+                    <p><span>{{ $o->name }}</span></p>
+                    <p class="text-center"><strong class="fs-5 text-warning">"</strong> {{ $o->opinion }} <strong
+                            class="fs-5 text-warning">"</strong>
+                    </p>
                 </div>
             </div>
+            @endforeach
         </div>
+    </section>
+    <style>
+        .testo {
+            border: 2px solid #ccc;
+            background-color: #eee;
+            border-radius: 5px;
+            padding: 16px;
+            margin: 16px 0
+        }
+
+        .testo::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+
+        .testo img {
+            float: left;
+            margin-right: 20px;
+            border-radius: 50%;
+        }
+
+        .testo span {
+            font-size: 20px;
+            margin-right: 15px;
+        }
+
+        @media (max-width: 500px) {
+            .testo {
+                text-align: center;
+            }
+
+            .testo img {
+                margin: auto;
+                float: none;
+                display: block;
+            }
+        }
+    </style>
     </section>
     <!-- end client section -->
 
@@ -541,7 +501,7 @@
                         <label for="message" class="form-label">Your Message</label>
                         <textarea class="form-control" id="message" name="message" rows="4" required></textarea>
                     </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary">Envoyer</button>
                 </form>
             </div>
         </div>
@@ -555,18 +515,7 @@
 
 
     <!-- Footer Start -->
-    <div class="container-fluid bg-secondary text-dark mt-5 pt-5">
-        <footer class="py-3 my-4">
-            <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-                <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Home</a></li>
-                <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Features</a></li>
-                <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Pricing</a></li>
-                <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">FAQs</a></li>
-                <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">About</a></li>
-            </ul>
-            <p class="text-center text-muted">© 2021 Company, Inc</p>
-        </footer>
-    </div>
+    @include('partitions.footer')
     <!-- Footer End -->
 
 

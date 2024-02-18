@@ -1,23 +1,19 @@
-<footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top text-light"
-    style="background-color : #434f78 ; color:white; ">
-    <div class="col-md-4 d-flex align-items-center">
-        <a href="/" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
-            <svg class="bi" width="30" height="24">
-                <use xlink:href="#bootstrap"></use>
-            </svg>
-        </a>
-        <span class="mb-3 mb-md-0 text-light">© 2024 Luxmar, Casablanca</span>
-    </div>
-
-    <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
-        <li class="ms-3"><a class="text-muted" href="{{ $parametres->insta }}" target="_blanc">
-                <i class="fa-brands fa-instagram text-light fw-bol fs-4 mx-1"></i>
-            </a></li>
-        <li class="ms-3"><a class="text-muted" href="{{ $parametres->whatsapp }}" target="_blanc">
-                <i class="fa-solid fa-phone text-light fw-bol fs-4 mx-1"></i>
-            </a></li>
-        <li class="ms-3"><a class="text-muted" href="{{ $parametres->facebook }}" target="_blanc">
-                <i class="fa-brands fa-facebook-f text-light fw-bol fs-4 mx-1"></i>
-            </a></li>
-    </ul>
-</footer>
+<div class="container-fluid bg-secondary text-dark mt-2 pt-2">
+    <footer class="py-3 my-4">
+        <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+            <a class="text-dark px-2" href="{{ $parametres->facebook }}" target="_blank">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+            <a class="text-dark px-2" href="{{ $parametres->instagram }}" target="_blank">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a class="text-dark pl-2 px-2" href="mailto:{{ $parametres->email }}" target="_blank">
+                <i class="far fa-envelope"></i>
+            </a>
+            <a class="text-dark pl-2 px-2" href="{{ $parametres->googlemaps }}" target="_blank">
+                <i class="fas fa-map-marker-alt"></i>
+            </a>
+        </ul>
+        <p class="text-center text-muted">© 2024 Luxmar , Casblanca</p>
+    </footer>
+</div>

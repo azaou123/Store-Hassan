@@ -64,10 +64,16 @@
 
 
   <section class="py-5">
-    @php
-    $folderPath = public_path('storage/' . $produit->repPhotos);
-    $imageFiles = File::allFiles($folderPath);
-    @endphp
+  @php
+                            $folderPath = public_path('storage/'.$produit->repPhotos);
+                            $imgs = File::files($folderPath);
+                            $imageFiles = [];
+                            foreach ($imgs as $im){
+                            if (in_array(strtolower(pathinfo($im, PATHINFO_EXTENSION)), ['jpg', 'jpeg', 'png','gif'])){
+                            array_push($imageFiles,$im);
+                            }
+                            }
+                            @endphp
     <div class="container">
       <!-- Page title -->
       <div class="row">
@@ -159,23 +165,7 @@
               <p>{{ $produit->description }}</p>
             </div>
 
-            <!-- Product information -->
-            <div class="mt-4">
-              <div class="row">
-                <div class="col-md-4">
-                  <h6 class="font-14">Stock:</h6>
-                  <p class="text-sm lh-150">{{ $produit->stock }}</p>
-                </div>
-                <div class="col-md-4">
-                  <h6 class="font-14">Ordres:</h6>
-                  <p class="text-sm lh-150">{{ $produit->nbrAchats }}</p>
-                </div>
-                <div class="col-md-4">
-                  <h6 class="font-14">Revenue:</h6>
-                  <p class="text-sm lh-150">{{ $produit->price * $produit->nbrAchats }} DH</p>
-                </div>
-              </div>
-            </div>
+            
           </form>
         </div>
       </div>
@@ -213,10 +203,16 @@
                     <div class="col mb-5">
                         <div class="card h-100">
                             @if ($prod->repPhotos)
-                                @php
-                                    $folderPath = public_path('storage/' . $prod->repPhotos);
-                                    $imageFiles = File::allFiles($folderPath);
-                                @endphp
+                            @php
+                            $folderPath = public_path('storage/'.$prod->repPhotos);
+                            $imgs = File::files($folderPath);
+                            $imageFiles = [];
+                            foreach ($imgs as $im){
+                            if (in_array(strtolower(pathinfo($im, PATHINFO_EXTENSION)), ['jpg', 'jpeg', 'png','gif'])){
+                            array_push($imageFiles,$im);
+                            }
+                            }
+                            @endphp
                                 <!-- Product image from the first file in the directory -->
                                 <img class="card-img-top"
                                     src="{{ asset('storage/' . $prod->repPhotos . '/' . $imageFiles[0]->getFilename()) }}"
@@ -225,7 +221,7 @@
                                 <!-- Placeholder image when no images are found -->
                                 <img class="card-img-top"
                                     src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..."
-                                    style="height: 250px;">
+                                    style="height: 220px;">
                             @endif
                             <!-- Product details-->
                             <div class="card-body p-4">

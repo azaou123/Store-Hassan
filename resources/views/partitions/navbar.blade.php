@@ -12,33 +12,30 @@
         </div>
         <div class="col-lg-6 text-center text-lg-right">
             <div class="d-inline-flex align-items-center">
-                <a class="text-dark px-2" href="{{ $parametres->facebook }}">
+                <a class="text-dark px-2" href="{{ $parametres->facebook }}" target="_blank">
                     <i class="fab fa-facebook-f"></i>
                 </a>
-                <a class="text-dark px-2" href="{{ $parametres->facebook }}">
-                    <i class="fab fa-twitter"></i>
-                </a>
-                <a class="text-dark px-2" href="{{ $parametres->facebook }}">
-                    <i class="fab fa-linkedin-in"></i>
-                </a>
-                <a class="text-dark px-2" href="{{ $parametres->facebook }}">
+                <a class="text-dark px-2" href="{{ $parametres->instagram }}" target="_blank">
                     <i class="fab fa-instagram"></i>
                 </a>
-                <a class="text-dark pl-2" href="{{ $parametres->facebook }}">
-                    <i class="fab fa-youtube"></i>
+                <a class="text-dark pl-2 px-2" href="mailto:{{ $parametres->email }}" target="_blank">
+                    <i class="far fa-envelope"></i>
+                </a>
+                <a class="text-dark pl-2 px-2" href="{{ $parametres->googlemaps }}" target="_blank">
+                    <i class="fas fa-map-marker-alt"></i>
                 </a>
             </div>
         </div>
     </div>
-    <div class="row align-items-center py-3 px-xl-5">
+    <div class="row align-items-center py-1 px-xl-5">
         <div class="col-lg-3 d-none d-lg-block">
             <a class="" href="{{ route('index') }}">
                 <img src="{{ asset('storage/'.$parametres->logo) }}" alt="Logo" class="img-fluid rounded mb-2"
-                    style="width:170px; height : 60px;">
+                    style="width:140px; height : 60px;">
             </a>
         </div>
-        <div class="col-lg-6 col-6 text-center mt-2">
-            <p>Hello Badr AZAOU</p>
+        <div class="col-lg-6 col-6 text-center mt-3">
+            <p class="fw-bold">{{ $parametres->address }}</p>
         </div>
         <div class="col-lg-3 col-6 text-right">
             <a class="btn border" data-bs-toggle="modal" data-bs-target="#myModal">
