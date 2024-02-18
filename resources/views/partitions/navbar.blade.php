@@ -133,6 +133,22 @@
     </div>
 </div>
 
+<style>
+    .alert {
+        position: fixed;
+        top: 20px;
+        /* Adjust as needed */
+        right: 20px;
+        /* Adjust as needed */
+        z-index: 9999;
+        /* Ensure it's on top of other elements */
+        padding: 10px 20px;
+        border-radius: 5px;
+        background-color: #28a745;
+        /* Success color */
+        color: #fff;
+    }
+</style>
 
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
@@ -142,6 +158,24 @@
     integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
     crossorigin="anonymous"></script>
 <script>
+    function showSuccessAlert(message) {
+        // Create a div element for the alert
+        var alertDiv = document.createElement('div');
+        alertDiv.className = 'alert alert-success';
+        alertDiv.textContent = message;
+
+        // Append the alert to the body
+        document.body.appendChild(alertDiv);
+
+        // Automatically remove the alert after 3 seconds
+        setTimeout(function () {
+            alertDiv.remove();
+        }, 2000);
+    }
+
+    // Example usage:
+    // Call the function with the message you want to display
+
     // Get current year
     function getYear() {
         var currentDate = new Date();
@@ -161,6 +195,7 @@
     // Function to add an item to the cart
     // Function to add an item to the cart
     function addToCart(id, productName, price) {
+        showSuccessAlert('Ajouté Au Panier!');
         let newItem = {
             id: id,
             product: productName,
