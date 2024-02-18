@@ -205,8 +205,9 @@
                                 <div class="bi-star-fill"></div>
                             </div>
                             <!-- Product price-->
-                            <span class="text-muted text-decoration-line-through">{{ $produit->oldPrice }}</span>
-                            <b>{{ $produit->price }}</b>
+                            <span class="text-muted" style="text-decoration: line-through;">{{ $produit->oldPrice
+                                }} DH </span> <br>
+                            <b>{{ $produit->price }} DH </b>
                         </div>
                     </div>
                     <!-- Product actions-->
@@ -296,8 +297,9 @@
                                     <div class="bi-star-fill"></div>
                                 </div>
                                 <!-- Product price-->
-                                <span class="text-muted text-decoration-line-through">{{ $produit->oldPrice }}</span>
-                                <b>{{ $produit->price }}</b>
+                                <span class="text-muted" style="text-decoration: line-through;">{{ $produit->oldPrice
+                                    }} DH </span> <br>
+                                <b>{{ $produit->price }} DH </b>
                             </div>
                         </div>
                         <!-- Product actions-->

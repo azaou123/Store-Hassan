@@ -56,7 +56,6 @@
             <!-- Navbar Start -->
             @include('dashboard.navbar')
 
-
             <div class="container py-5">
                 <h4 class="fw-bold">{{ $produit->label }} - Edit</h4>
                 @if ($errors->any())
@@ -167,7 +166,6 @@
 
                 </div>
                 @endif
-
                 <div class="mb-3">
                     <h4 class="my-2">Les Photos : </h4>
                     <div class="row">
