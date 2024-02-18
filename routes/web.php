@@ -80,6 +80,7 @@ Route::group(['middleware' => 'manager'], function () {
     Route::get('commande.validate/{commande}', [CommandeController::class, 'validateCommande'])->name('commande.validate');
     Route::get('commande.delete/{commande}', [CommandeController::class, 'deleteCommande'])->name('commande.delete');
     Route::get('commande.discard/{commande}', [CommandeController::class, 'discardCommande'])->name('commande.discard');
+    Route::get('/filter-commands', [CommandeController::class, 'filterCommands'])->name('filter.commands');
     // **************************************** Opinions *******************************************
     Route::get('/opinions', [ManagerController::class, 'opinions'])->name('opinions');
     Route::post('addOpinion', [OpinionController::class, 'addOpinion'])->name('addOpinion');

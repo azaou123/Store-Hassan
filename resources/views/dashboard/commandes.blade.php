@@ -116,11 +116,11 @@
                     <div class="d-flex align-items-center justify-content-between mb-4">
                         <h6 class="mb-0">Les Commandes</h6>
                         <div class="mb-3">
-                            <label for="filterStatut" class="form-label">Filtrer : </label>
                             <select class="form-select" id="filterStatut" onchange="filterCommands()">
                                 <option value="all">Tous</option>
                                 <option value="Envoyée">Envoyée</option>
                                 <option value="Validée">Validée</option>
+                                <option value="Archivée">Archivée</option>
                                 <option value="Supprimée">Supprimée</option>
                             </select>
                         </div>
@@ -159,20 +159,15 @@
                                 <tr class="text-white">
                                     <th scope="col">Date</th>
                                     <th scope="col">Nom Complet</th>
-                                    <th scope="col">Téléphone</th>
-                                    <th scope="col">nbr Produits</th>
                                     <th scope="col">Status</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="commandsBody">
                                 @foreach($commands as $command)
-                                <tr class="text-light command-row" data-statut="{{ $command->statut }}">
+                                <tr class="text-light command-row">
                                     <td>{{ $command->created_at }}</td>
                                     <td>{{ $command->nomComplet }}</td>
-                                    <td>{{ $command->telephone }}</td>
-                                    @php $array = explode('_', $command->listeProduits); @endphp
-                                    <td>{{ count($array)/2 }}</td>
                                     <td>{{ $command->statut }}</td>
                                     <td>
                                         <a class="btn btn-sm btn-primary" onclick="showProducts(
@@ -192,7 +187,7 @@
                                             <i class="bi bi-x"></i>
                                         </a>
                                         <a class="btn btn-sm btn-danger"
-                                            href="{{ route('commande.delete', ['commande'=>$command->id]) }}">
+                                            onclick="confirmDelete('{{ route('commande.delete', ['commande'=>$command->id]) }}')">
                                             <i class="bi bi-trash"></i>
                                         </a>
                                     </td>
@@ -206,16 +201,144 @@
             <script>
                 function filterCommands() {
                     var selectedStatut = document.getElementById('filterStatut').value;
-                    var rows = document.querySelectorAll('.command-row');
+                    var urls = "{{ route('filter.commands') }}";
 
-                    rows.forEach(function (row) {
-                        var rowStatut = row.getAttribute('data-statut');
-                        if (selectedStatut === 'all' || rowStatut === selectedStatut) {
-                            row.style.display = 'table-row';
-                        } else {
-                            row.style.display = 'none';
+                    // Send AJAX request to filter commands
+                    $.ajax({
+                        url: urls,
+                        type: "GET",
+                        data: {
+                            statut: selectedStatut
+                        },
+                        success: function (response) {
+                            // Update the DOM with the filtered data
+                            $('#commandsBody').empty();
+
+                            // Iterate through the filtered commands and create table rows
+                            response.commands.forEach(function (command) {
+                                var row = document.createElement('tr');
+                                row.classList.add('text-light', 'command-row');
+
+                                var dateCell = document.createElement('td');
+                                var date = new Date(command.created_at);
+                                dateCell.textContent = formatDate(date); // Call formatDate function to format the date
+                                row.appendChild(dateCell);
+
+                                // Function to format the date
+                                function formatDate(date) {
+                                    var day = date.getDate();
+                                    var month = date.getMonth() + 1;
+                                    var year = date.getFullYear();
+                                    var hours = date.getHours();
+                                    var minutes = date.getMinutes();
+                                    var seconds = date.getSeconds();
+
+                                    // Ensure two digits for day, month, hours, minutes, and seconds
+                                    day = ('0' + day).slice(-2);
+                                    month = ('0' + month).slice(-2);
+                                    hours = ('0' + hours).slice(-2);
+                                    minutes = ('0' + minutes).slice(-2);
+                                    seconds = ('0' + seconds).slice(-2);
+
+                                    // Return the formatted date string
+                                    return day + '-' + month + '-' + year + ' ' + hours + ':' + minutes + ':' + seconds;
+                                }
+                                var nomCompletCell = document.createElement('td');
+                                nomCompletCell.textContent = command.nomComplet;
+                                row.appendChild(nomCompletCell);
+
+                                var statutCell = document.createElement('td');
+                                statutCell.textContent = command.statut;
+                                row.appendChild(statutCell);
+
+                                // Create action cell
+                                var actionCell = document.createElement('td');
+
+                                // Create view button
+                                var viewBtn = createLinkButton('primary', 'eye', 'javascript:void(0);');
+                                viewBtn.setAttribute('onclick', 'showProducts("' + command.listeProduits + '", "' + command.nomComplet + '", "' + command.telephone + '", "' + command.message + '")');
+                                actionCell.appendChild(viewBtn);
+
+                                // Add space between buttons
+                                actionCell.appendChild(document.createTextNode(' '));
+
+                                // Create validate button
+                                var validateUrl = "{{ route('commande.validate', ['commande' => ':id']) }}";
+                                validateUrl = validateUrl.replace(':id', command.id);
+                                var validateBtn = createLinkButton('success', 'check', validateUrl);
+                                actionCell.appendChild(validateBtn);
+
+                                // Add space between buttons
+                                actionCell.appendChild(document.createTextNode(' '));
+
+                                // Create discard button
+                                var discardUrl = "{{ route('commande.discard', ['commande' => ':id']) }}";
+                                discardUrl = discardUrl.replace(':id', command.id);
+                                var discardBtn = createLinkButton('warning', 'x', discardUrl);
+                                actionCell.appendChild(discardBtn);
+
+                                // Add space between buttons
+                                actionCell.appendChild(document.createTextNode(' '));
+
+                                // Create delete button
+                                var deleteUrl = "{{ route('commande.delete', ['commande' => ':id']) }}";
+                                deleteUrl = deleteUrl.replace(':id', command.id);
+                                var deleteBtn = createDeleteButton('danger', 'trash', deleteUrl);
+                                actionCell.appendChild(deleteBtn);
+
+                                // Function to create a delete button with confirmation message
+
+
+                                // Append action cell to the row
+                                row.appendChild(actionCell);
+
+                                // Append the row to the table body
+                                $('#commandsBody').append(row);
+                            });
+                        },
+                        error: function (xhr, status, error) {
+                            // Handle error
+                            console.error(xhr.responseText);
                         }
                     });
+                }
+
+                function createDeleteButton(btnClass, iconClass, url) {
+                    var btn = document.createElement('a');
+                    btn.classList.add('btn', 'btn-sm', 'btn-' + btnClass);
+                    btn.href = '#'; // Set href to '#' to prevent page reload
+                    var icon = document.createElement('i');
+                    icon.classList.add('bi', 'bi-' + iconClass);
+                    btn.appendChild(icon);
+
+                    // Add event listener to show confirmation message on button click
+                    btn.addEventListener('click', function () {
+                        if (confirm("Voulez Vous Vraiment supprimer Cette commande !")) {
+                            window.location.href = url; // Redirect to delete URL if confirmed
+                        }
+                    });
+
+                    return btn;
+                }
+
+                // Function to create a link button element
+                function createLinkButton(btnClass, iconClass, url, label) {
+                    var btn = document.createElement('a');
+                    btn.classList.add('btn', 'btn-sm', 'btn-' + btnClass);
+                    btn.href = url;
+                    var icon = document.createElement('i');
+                    icon.classList.add('bi', 'bi-' + iconClass);
+                    btn.appendChild(icon);
+                    if (label) {
+                        btn.appendChild(document.createTextNode(' ' + label));
+                    }
+                    return btn;
+                }
+
+                function confirmDelete(deleteUrl) {
+                    if (confirm("Voulez Vous Vraiment supprimer Cette commande !")) {
+                        window.location.href = deleteUrl;
+                    }
                 }
             </script>
             <!-- Recent Sales End -->

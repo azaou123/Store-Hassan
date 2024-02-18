@@ -21,6 +21,25 @@ class CommandeController extends Controller
         return back()->with('successCommande', true);
     }
 
+    public function filterCommands(Request $request)
+    {
+        if ($request->ajax()) {
+            $statut = $request->input('statut');
+
+            // Filter commands based on the selected status
+            if ($statut === 'all') {
+                $commands = Commande::orderBy('created_at', 'desc')->get();
+            } else {
+                $commands = Commande::where('statut', $statut)->orderBy('created_at', 'desc')->get();
+            }
+
+            // Return the filtered commands as a JSON response
+            return response()->json([
+                'commands' => $commands
+            ]);
+        }
+    }
+
     public function validateCommande(Commande $commande)
     {
         // Validate the command (you can add your own validation logic)

@@ -114,12 +114,13 @@ class ManagerController extends Controller
         if (Session::has('manager')) {
             $manager = Session::get('manager');
             $nbr = Commande::where('statut', '=', 'Envoyée')->count();
-            $commands = Commande::orderBy('created_at', 'desc')->get();
+            $commands = Commande::where('statut', '=', 'Envoyée')->orderBy('created_at', 'desc')->get();
             $produits = Produit::all();
             return view('dashboard.commandes', compact('commands', 'produits', 'nbr', 'manager'));
         }
         return back();
     }
+
 
     public function getFilteredCommands(Request $request)
     {
