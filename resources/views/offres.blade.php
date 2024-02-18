@@ -198,8 +198,8 @@
                             </div>
                             <!-- Product price-->
                             <span class="text-muted" style="text-decoration: line-through;">{{ $produit->oldPrice
-                                }}</span>
-                            <b>{{ $produit->price }}</b>
+                                }} DH </span> <br>
+                            <b>{{ $offre->prix }} DH </b>
                         </div>
                     </div>
                     <!-- Product actions-->

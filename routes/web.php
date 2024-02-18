@@ -61,19 +61,13 @@ Route::group(['middleware' => 'manager'], function () {
 
     //************************************* Produits ****************************************************************//
     Route::get('/produits', [ManagerController::class, 'produits'])->name('produits');
-    // View a specific category
     Route::get('/produits/{produit}', [ProduitController::class, 'show'])->name('produits.show');
     Route::post('/produits/search', [ProduitController::class, 'search'])->name('produits.search');
-    // Create a new category (show create form)
     Route::get('/produits.create', [ProduitController::class, 'create'])->name('produits.create');
-    // Store a new category
     Route::post('/produits', [ProduitController::class, 'store'])->name('produits.store');
-    // Edit a product (show edit form)
-// Route::get('/produits/{category}/edit', [ProduitController::class, 'edit'])->name('produits.edit');
-// Update a product
     Route::post('/produits/{category}', [ProduitController::class, 'update'])->name('produits.update');
     Route::post('/deletePhoto/', [ProduitController::class, 'deletePhoto'])->name('deletePhoto');
-    // Delete a product
+    Route::post('/delete.ficheTechnique/', [ProduitController::class, 'deleteFicheTechnique'])->name('delete.ficheTechnique');
     Route::get('produits.destroy/{produit}', [ProduitController::class, 'destroy'])->name('produits.destroy');
     // ************************************************ Commandes **********************************************************
     Route::get('/commandes', [ManagerController::class, 'commandes'])->name('commandes');

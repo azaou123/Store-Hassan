@@ -8,7 +8,6 @@
                 <span class="text-muted px-2">|</span>
                 <span class="text-dark">Confirmer</span>
             </div>
-
         </div>
         <div class="col-lg-6 text-center text-lg-right">
             <div class="d-inline-flex align-items-center">

@@ -298,4 +298,23 @@ class ProduitController extends Controller
 
         return redirect()->back()->with('success', 'Photo deleted successfully');
     }
+
+    public function deleteFicheTechnique(Request $request)
+    {
+        $produit = Produit::findOrFail($request->idp); // Use findOrFail to handle model not found
+        $folderPath = public_path('storage/' . $produit->repPhotos);
+        // Check if the directory exists before attempting deletion
+        if (File::exists($folderPath)) {
+            // Get all PDF files in the directory
+            $pdfFiles = File::glob($folderPath . '/*.pdf');
+            // Delete all PDF files
+            foreach ($pdfFiles as $pdfFile) {
+                File::delete($pdfFile);
+            }
+        }
+        $produit->fiche_tech = "";
+        $produit->save();
+        return redirect()->back()->with('success', 'Fiche Technique est Supprimé Avec Succès .');
+    }
+
 }

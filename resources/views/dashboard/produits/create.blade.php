@@ -63,33 +63,38 @@
             <!-- Formulaire d'ajout d'un nouvelle categorie  -->
             <div class="col-sm-12 col-xl-12 mt-4">
                 <div class="rounded h-100 p-4 my-2">
+                    @if(session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                    @endif
                     <form action="{{ route('produits.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <h6 class="mb-4">Enter Product Information:</h6>
                         <div class="form-floating mb-3">
                             <input type="text" class="form-control bg-light text-dark" name="label" id="floatingInput"
-                                placeholder="Product Name">
+                                placeholder="Product Name" required>
                             <label for="floatingInput" class="text-dark">Nom Produit</label>
                         </div>
                         <div class="form-floating mb-3">
                             <input type="text" class="form-control bg-light text-dark" name="oldPrice" id="oldPrice"
-                                placeholder="Ancien Prix">
+                                placeholder="Ancien Prix" required>
                             <label for="floatingInput" class="text-dark">Ancien Prix</label>
                         </div>
                         <div class="form-floating mb-3">
                             <input type="text" class="form-control bg-light text-dark" name="price" id="price"
-                                placeholder="Prix">
+                                placeholder="Prix" required>
                             <label for="floatingInput" class="text-dark">Prix</label>
                         </div>
                         <div class="form-floating my-2">
                             <textarea class="form-control bg-light text-dark" name="description"
-                                placeholder="Leave a comment here" id="floatingTextarea"
-                                style="height: 150px;"></textarea>
+                                placeholder="Leave a comment here" id="floatingTextarea" style="height: 150px;"
+                                required></textarea>
                             <label for="floatingTextarea" class="text-dark">Description de Produit</label>
                         </div>
                         <div class="my-2">
                             <input type="file" class="form-control bg-light text-dark" name="photos[]" id="photos"
-                                multiple>
+                                multiple required>
                             <label for="photos">Photos</label>
                         </div>
                         <div class="my-2">
@@ -99,7 +104,7 @@
                         </div>
                         <div class="my-2 mt-2">
                             <label for="category" class="my-2">Famille de Produit :</label>
-                            <select class="form-select bg-light text-dark" name="id_categorie" id="category">
+                            <select class="form-select bg-light text-dark" name="id_categorie" id="category" required>
                                 @foreach($categories as $category)
                                 <option value="{{ $category->id }}">{{ $category->label }}</option>
                                 @endforeach

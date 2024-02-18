@@ -64,16 +64,16 @@
 
 
   <section class="py-5">
-  @php
-                            $folderPath = public_path('storage/'.$produit->repPhotos);
-                            $imgs = File::files($folderPath);
-                            $imageFiles = [];
-                            foreach ($imgs as $im){
-                            if (in_array(strtolower(pathinfo($im, PATHINFO_EXTENSION)), ['jpg', 'jpeg', 'png','gif'])){
-                            array_push($imageFiles,$im);
-                            }
-                            }
-                            @endphp
+    @php
+      $folderPath = public_path('storage/'.$produit->repPhotos);
+      $imgs = File::files($folderPath);
+      $imageFiles = [];
+      foreach ($imgs as $im){
+      if (in_array(strtolower(pathinfo($im, PATHINFO_EXTENSION)), ['jpg', 'jpeg', 'png','gif'])){
+      array_push($imageFiles,$im);
+      }
+      }
+    @endphp
     <div class="container">
       <!-- Page title -->
       <div class="row">
@@ -130,7 +130,7 @@
 
             <!-- Product stock -->
             <div class="mt-3">
-              <h4><span class="badge badge-success-lighten">In stock</span></h4>
+              <h4>Famille : {{ $produit->category->label }}</h4>
             </div>
 
             <!-- Retail Price -->
@@ -146,18 +146,17 @@
               </button>
             </div>
 
+            @if ($produit->fiche_tech)
             <div class="d-flex my-2">
               <a href="{{ asset('storage/' . $produit->fiche_tech) }}" type="button" class="btn btn-success ms-2">
                 <i class="mdi mdi-file me-1"></i> Fiche Technique
               </a>
-              @if ($produit->fiche_tech)
                 <!-- Add download attribute for the Fiche Technique -->
                 <a href="{{ asset('storage/' . $produit->fiche_tech) }}" class="btn btn-success ms-2" download>
                   <i class="mdi mdi-file-download me-1"></i> Télécharger Fiche Technique
                 </a>
-              @endif
             </div>
-
+            @endif
 
             <!-- Product description -->
             <div class="mt-4">

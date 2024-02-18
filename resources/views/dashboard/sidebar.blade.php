@@ -27,7 +27,8 @@
                 class="nav-item nav-link {{ request()->is('categories') ? 'active' : '' }}">
                 <i class="fas fa-folder me-2"></i>Catégories
             </a>
-            <a href="{{ route('produits') }}" class="nav-item nav-link {{ request()->is('produits') ? 'active' : '' }}">
+            <a href="{{ route('produits') }}"
+                class="nav-item nav-link {{ request()->is('produits') ? 'active' : '' }} {{ request()->is('produits.show') ? 'active' : '' }}">
                 <i class="fas fa-shopping-cart me-2"></i>Produits
             </a>
             <a href="{{ route('offres') }}" class="nav-item nav-link {{ request()->is('offres') ? 'active' : '' }}">

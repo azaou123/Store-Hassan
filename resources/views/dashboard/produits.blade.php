@@ -74,7 +74,7 @@
                                     <th scope="col">Nbr Achat</th>
                                     <th scope="col">Action</th>
                                 </tr>
-                            </thead>f
+                            </thead>
                             <tbody>
                                 @foreach ($produits as $produit)
                                 <tr onclick="window.location='{{ route('produits.show', ['produit'=>$produit->id]) }}';"

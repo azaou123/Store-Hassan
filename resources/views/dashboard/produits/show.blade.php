@@ -68,6 +68,11 @@
                     </ul>
                 </div>
                 @endif
+                @if(session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+                @endif
                 <form method="post" action="{{ route('produits.update', $produit->id) }}" enctype="multipart/form-data">
                     @csrf
                     <!-- Label -->
@@ -151,9 +156,15 @@
                     <embed src="{{ asset('storage/' . $produit->fiche_tech) }}" type="application/pdf" width="100%"
                         height="600px" />
                     <!-- Button to delete fiche_tech -->
-                    <button class="btn btn-danger btn-sm mt-2" onclick="deleteFicheTech(<?php echo $produit->id; ?>)">
-                        <i class="bi bi-trash"></i> Supprimer Fiche Technique
-                    </button>
+                    <form action="{{ route('delete.ficheTechnique') }}" method="post">
+                        @csrf
+                        <input type="hidden" name="idp" id="idp" value="{{ $produit->id }}">
+                        <button class="btn btn-danger btn-sm mt-2"
+                            onclick="return confirm('Supprimer Fiche Technique ?');">
+                            <i class="bi bi-trash"></i> Supprimer Fiche Technique</button>
+                        </a>
+                    </form>
+
                 </div>
                 @endif
 
