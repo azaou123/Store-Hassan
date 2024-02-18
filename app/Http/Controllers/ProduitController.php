@@ -80,7 +80,9 @@ class ProduitController extends Controller
 
     public function search(Request $request)
     {
-        $searchResults = Produit::where('label', 'like', '%' . $request->searchInput . '%')->get();
+        $searchResults = Produit::where('label', 'like', '%' . $request->searchInput . '%')
+            ->where('id_categorie', '=', $request->cat)
+            ->get();
 
         foreach ($searchResults as $result) {
             // Get the folder path for repPhotos
@@ -93,8 +95,26 @@ class ProduitController extends Controller
             $result->firstImage = count($imageFiles) > 0 ? asset('storage/' . $result->repPhotos . '/' . $imageFiles[0]->getFilename()) : null;
         }
 
-        // Return the results as JSON
-        return response()->json(['searchResults' => $searchResults]);
+        $searchResultsPrime = Produit::where('label', 'like', '%' . $request->searchInput . '%')
+            ->where('id_categorie', '!=', $request->cat)
+            ->get();
+
+        foreach ($searchResultsPrime as $result) {
+            // Get the folder path for repPhotos
+            $folderPath = public_path('storage/' . $result->repPhotos);
+
+            // Get all image files in the folder
+            $imageFiles = File::allFiles($folderPath);
+
+            // Set the first image path in a new column
+            $result->firstImage = count($imageFiles) > 0 ? asset('storage/' . $result->repPhotos . '/' . $imageFiles[0]->getFilename()) : null;
+        }
+
+        // Return both sets of results as JSON
+        return response()->json([
+            'searchResults' => $searchResults,
+            'searchResultsPrime' => $searchResultsPrime
+        ]);
     }
 
 

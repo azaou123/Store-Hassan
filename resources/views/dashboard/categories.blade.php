@@ -76,18 +76,17 @@
                             </thead>
                             <tbody>
                                 @foreach ($categories as $categorie)
-                                <tr>
+                                <tr
+                                    onclick="window.location='{{ route('categories.show', ['category'=>$categorie->id]) }}';">
                                     <td>{{ $categorie->label }}</td>
                                     <td>{{ count($categorie->produits) }}</td>
                                     <td class"row">
-                                        <a class="col-3"
-                                            href="{{ route('categories.show', ['category'=>$categorie->id]) }}">
-                                            <i class="fas fa-eye me-2"></i>
-                                        </a>
-                                        <a class="col-3"
-                                            href="{{ route('categories.destroy', ['category' => $categorie->id]) }}">
+                                        <a class="col-3 delete-category"
+                                            href="{{ route('categories.destroy', ['category' => $categorie->id]) }}"
+                                            onclick="return confirm('Are you sure you want to delete this category?');">
                                             <i class="fas fa-trash-alt me-2"></i>
                                         </a>
+
                                     </td>
                                 </tr>
                                 @endforeach

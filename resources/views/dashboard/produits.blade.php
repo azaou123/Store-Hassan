@@ -54,8 +54,6 @@
         <div class="content">
             <!-- Navbar Start -->
             @include('dashboard.navbar')
-
-
             <!-- Recent Sales Start -->
             <div class="container-fluid pt-4 px-4">
                 <div class="bg-secondary text-center rounded p-4">
@@ -79,18 +77,17 @@
                             </thead>
                             <tbody>
                                 @foreach ($produits as $produit)
-                                <tr>
+                                <tr onclick="window.location='{{ route('produits.show', ['produit'=>$produit->id]) }}';"
+                                    style="cursor: pointer;">
                                     <td>{{ $produit->label }}</td>
                                     <td>{{ $produit->category['label'] }}</td>
                                     <td>{{ $produit->price }}</td>
                                     <td>{{ $produit->label }}</td>
                                     <td>{{ $produit->label }}</td>
                                     <td class"row">
-                                        <a class="col-3" href="{{ route('produits.show', ['produit'=>$produit->id]) }}">
-                                            <i class="fas fa-eye me-2 text-success"></i>
-                                        </a>
-                                        <a class="col-3"
-                                            href="{{ route('produits.destroy', ['produit'=>$produit->id]) }}">
+                                        <a class="col-3 delete-product"
+                                            href="{{ route('produits.destroy', ['produit'=>$produit->id]) }}"
+                                            onclick="return confirm('Are you sure you want to delete this product?');">
                                             <i class="fas fa-trash-alt me-2"></i>
                                         </a>
                                     </td>
@@ -138,5 +135,3 @@
     <!-- Template Javascript -->
     <script src="back/js/main.js"></script>
 </body>
-
-</html>
