@@ -1,5 +1,5 @@
 <div class="container-fluid">
-    <div class="row bg-secondary py-2 px-xl-5">
+    <div class="row py-2 px-xl-5" style="background-color : #E48F45;">
         <div class="col-lg-6 d-none d-lg-block">
             <div class="d-inline-flex align-items-center">
                 <span class="text-dark">Sélectionner</span>
@@ -27,7 +27,7 @@
             </div>
         </div>
     </div>
-    <div class="row align-items-center py-1 px-xl-5">
+    <div class="row align-items-center py-1 px-xl-5" style="background-color : #EEF296;">
         <div class="col-lg-3 d-none d-lg-block">
             <a class="" href="{{ route('index') }}">
                 <img src="{{ asset('storage/'.$parametres->logo) }}" alt="Logo" class="img-fluid rounded mb-2"
@@ -39,7 +39,7 @@
         </div>
         <div class="col-lg-3 col-6 text-right">
             <a class="btn border" data-bs-toggle="modal" data-bs-target="#myModal">
-                <i class="fas fa-shopping-cart text-primary"></i>
+                <i class="fas fa-shopping-cart" style="color : #E48F45;"></i>
                 <span id="cardNBR" class="badge text-dark">0</span>
             </a>
         </div>
@@ -64,7 +64,7 @@
                             <tr>
                                 <th>Produit</th>
                                 <th>Prix</th>
-                                <th>Quantités</th>
+                                <th>Qte</th>
                             </tr>
                         </thead>
                         <tbody id="listProducts">

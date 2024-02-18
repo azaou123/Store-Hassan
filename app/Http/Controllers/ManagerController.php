@@ -54,9 +54,10 @@ class ManagerController extends Controller
     }
     public function lesoffres()
     {
+        $categories = Categorie::all();
         $produits = Produit::all();
         $offres = Offre::all();
-        return view('offres', compact('produits', 'offres'));
+        return view('offres', compact('produits', 'offres', 'categories'));
     }
 
     public function dashboord(Request $request)

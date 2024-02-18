@@ -86,8 +86,7 @@
                             <a href="{{ route('about') }}" class="nav-item nav-link">Contact</a>
                         </div>
                         <div class="navbar-nav ml-auto py-0">
-                            <a href="" class="nav-item nav-link"></a>
-                            <a href="" class="nav-item nav-link">Register</a>
+                            <a href="{{ route('lesoffres') }}" class="nav-item nav-link">Les Offres</a>
                         </div>
                     </div>
                 </nav>
@@ -235,12 +234,14 @@
     <div class="container-fluid offer pt-5">
         <div class="row px-xl-5">
             <div class="col-md-12 pb-4">
-                <div class="position-relative bg-secondary text-center text-md-center text-white mb-2 py-5 px-5">
+                <div class="position-relative text-center text-md-center text-white mb-2 py-5 px-5"
+                    style="background-color : #E48F45;">
                     <img src="img/offer-1.png" alt="">
                     <div class="position-relative" style="z-index: 1;">
-                        <h5 class="text-uppercase text-primary mb-3">Les Réductions sur les produits</h5>
+                        <h5 class="text-uppercase mb-3">Les Réductions sur les produits</h5>
                         <h1 class="mb-4 font-weight-semi-bold">Consulter les différents famiiles</h1>
-                        <a href="{{ route('lesoffres') }}" class="btn btn-outline-primary py-md-2 px-md-3">Consulter</a>
+                        <a href="{{ route('lesoffres') }}"
+                            class="btn btn-outline-primary text-dark py-md-2 px-md-3">Consulter</a>
                     </div>
                 </div>
             </div>
@@ -396,7 +397,7 @@
         </div>
         <div class="client_container">
             @foreach ($opinions as $o)
-            <div class="col-6">
+            <div class="col-lg-6 col-md-6 col-sm-12">
                 <div class="testo">
                     <img src="{{ asset('storage/'.$o->photo) }}" alt="Avatar" style="width:90px">
                     <p><span>{{ $o->name }}</span></p>
