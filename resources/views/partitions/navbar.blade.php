@@ -134,7 +134,7 @@
 </div>
 
 <style>
-    .alert {
+    .alertppp {
         position: fixed;
         top: 20px;
         /* Adjust as needed */
@@ -161,7 +161,7 @@
     function showSuccessAlert(message) {
         // Create a div element for the alert
         var alertDiv = document.createElement('div');
-        alertDiv.className = 'alert alert-success';
+        alertDiv.className = 'alert alertppp alert-success';
         alertDiv.textContent = message;
 
         // Append the alert to the body

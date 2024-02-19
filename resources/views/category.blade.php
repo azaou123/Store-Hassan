@@ -145,8 +145,24 @@
                     var searchResults = response.searchResults;
                     var searchResultsPrime = response.searchResultsPrime;
                     // Update the product container with the new results
-                    $('#productContainer').html(renderSearchResults(searchResults, 'productContainer'));
-                    $('#otherCat').html(renderSearchResults(searchResultsPrime, 'otherCat'));
+                    if (searchResults.length > 0) {
+                        $('#productContainer').html(renderSearchResults(searchResults, 'productContainer'));
+                    }
+                    if (searchResultsPrime.length > 0) {
+                        $('#otherCat').html(renderSearchResults(searchResultsPrime, 'otherCat'));
+                    }
+                    if (searchResults.length == 0 && searchResultsPrime.length == 0) {
+                        var container = document.getElementById('productContainer');
+                        var container2 = document.getElementById('otherCat');
+                        container.innerHTML = ''; // Clear previous results
+                        container2.innerHTML = ''; // Clear previous results
+                        container.innerHTML = `
+                            <div class="alert alert-danger alert-dismissible fade show w-100" role="alert">
+                                <strong>Pas De Résultats !!</strong>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">X</button>
+                            </div>
+                        `;
+                    }
                 },
             error: function (error) {
                 console.error(error);
@@ -156,15 +172,6 @@
             function renderSearchResults(results, iddiv) {
                 var container = document.getElementById(iddiv);
                 container.innerHTML = ''; // Clear previous results
-
-                if (results.length === 0) {
-                    container.innerHTML = `
-                <div class="alert alert-danger alert-dismissible fade show w-100" role="alert">
-                    <strong>Pas De Résultats !!</strong>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">X</button>
-                </div>
-            `;
-                }
 
                 for (var i = 0; i < results.length; i++) {
                     var result = results[i];
