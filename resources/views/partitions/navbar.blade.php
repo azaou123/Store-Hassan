@@ -26,10 +26,10 @@
             </div>
         </div>
     </div>
-    <div class="row align-items-center py-1 px-xl-5" style="background-color : #EEF296;">
+    <div class="row align-items-center px-xl-5">
         <div class="col-lg-3 d-none d-lg-block">
             <a class="" href="{{ route('index') }}">
-                <img src="{{ asset('storage/'.$parametres->logo) }}" alt="Logo" class="img-fluid rounded mb-2"
+                <img src="{{ asset('storage/'.$parametres->logo) }}" alt="Logo" class="img-fluid rounded"
                     style="width:140px; height : 60px;">
             </a>
         </div>

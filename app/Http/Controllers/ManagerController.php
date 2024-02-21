@@ -52,6 +52,11 @@ class ManagerController extends Controller
         $parametres = Parametre::first();
         return view('about', compact('produits', 'categories', 'opinions', 'partenaires', 'parametres'));
     }
+    public function contactpage()
+    {
+        $categories = Categorie::all();
+        return view('contact', compact('categories'));
+    }
     public function lesoffres()
     {
         $categories = Categorie::all();

@@ -29,6 +29,7 @@ Route::get('/admin', function () {
 Route::get('/search', [ProduitController::class, 'search'])->name('search');
 Route::get('/filter', [ProduitController::class, 'filter'])->name('filter');
 Route::get('/about', [ManagerController::class, 'about'])->name('about');
+Route::get('/contactpage', [ManagerController::class, 'contactpage'])->name('contactpage');
 Route::get('/lesoffres', [ManagerController::class, 'lesoffres'])->name('lesoffres');
 Route::get('/prodCat/{id}', [ManagerController::class, 'prodCat'])->name('prodCat');
 Route::post('/contact', [ManagerController::class, 'contact'])->name('contact');
