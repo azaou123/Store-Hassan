@@ -130,9 +130,18 @@
 
                     <h4 class="mt-5">Le Proprétaire de Site</h4>
                     <hr>
-                    <form action="{{ route('manager.update', $manager->id) }}" method="POST">
+                    <form action="{{ route('manager.update', $manager->id) }}" method="POST"
+                        enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
+
+                        <img class="rounded-circle my-3" src="{{ asset('storage/'.$manager->photo) }}"
+                            alt="Profile Photo" style="height:250px; height:150px;">
+
+                        <div class="mb-3">
+                            <label for="imgProfile" class="form-label">Nom & Prénom</label>
+                            <input type="file" class="form-control" id="imgProfile" name="imgProfile">
+                        </div>
 
                         <div class="mb-3">
                             <label for="fullName" class="form-label">Nom & Prénom</label>

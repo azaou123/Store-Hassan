@@ -166,6 +166,17 @@
 
                 </div>
                 @endif
+                <form action="{{ route('ajouterPhoto') }}" method="post" enctype="multipart/form-data">
+                    @csrf
+                    <input type="hidden" name="idp" value="{{ $produit->id }}">
+                    <h3>
+                        Ajouter Une Photo au produit:
+                    </h3>
+                    <input type="file" name="photo" id="photo" class="form-control my-2" required>
+                    <button type="submit" class="btn btn-danger btn-sm mt-2">
+                        <i class="bi bi-trash"></i> Ajouter
+                    </button>
+                </form>
                 <div class="mb-3">
                     <h4 class="my-2">Les Photos : </h4>
                     <div class="row">

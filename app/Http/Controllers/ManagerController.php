@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class ManagerController extends Controller
 {
@@ -268,18 +269,45 @@ class ManagerController extends Controller
         return back()->with('success', 'Your message has been sent!');
     }
 
+    public function deleteMessage($id)
+    {
+        // Find the message by its ID
+        $message = Message::findOrFail($id);
+        // Delete the message
+        $message->delete();
+        // Redirect back with a success message
+        return redirect()->back()->with('success', 'Message est Supprimé Avec succès.');
+    }
+
     public function updateinfo(Request $request, $id)
     {
         $manager = Manager::findOrFail($id);
-
         $manager->fullName = $request->input('fullName');
         $manager->email = $request->input('email');
         $manager->phone = $request->input('phone');
-        $manager->password = $request->input('password'); // Assuming you want to hash the password
+
+        // Check if a file has been uploaded
+        if ($request->hasFile('imgProfile')) {
+            // Store the file in storage/app/public directory
+            $filePath = $request->file('imgProfile')->store('public');
+            // Update the manager's photo path in the database
+            $filename = basename($filePath);
+            // Update the manager's photo path in the database
+            $manager->photo = $filename;
+        }
+
+        // Check if password field is not empty before updating it
+        if ($request->filled('password')) {
+            $manager->password = Hash::make($request->input('password'));
+        }
+
         $manager->save();
-        Session::forget('manager');
-        Session::put('manager', $manager);
-        return redirect()->back()->with('success', 'Les Changement Sont Effectués Avec Succès.');
+
+        // Assuming you are using session to store manager data
+        session()->forget('manager');
+        session()->put('manager', $manager);
+
+        return redirect()->back()->with('success', 'Les Changements Sont Effectués Avec Succès.');
     }
 
     public function offres()
@@ -289,5 +317,7 @@ class ManagerController extends Controller
         $nbr = Commande::where('statut', '=', 'Envoyée')->count();
         return view('dashboard.offres', compact('offres', 'nbr', 'produits'));
     }
+
+
 }
 

@@ -275,7 +275,7 @@ class ProduitController extends Controller
         $produit->save();
 
         // Redirect back with a success message
-        return redirect()->back()->with('success', 'Product updated successfully');
+        return redirect()->back()->with('success', 'Les Changements sont effectuées avec succès !');
     }
 
 
@@ -296,7 +296,7 @@ class ProduitController extends Controller
             }
         }
 
-        return redirect()->back()->with('success', 'Photo deleted successfully');
+        return redirect()->back()->with('success', 'Image est Supprimé avec Succès !');
     }
 
     public function deleteFicheTechnique(Request $request)
@@ -316,5 +316,25 @@ class ProduitController extends Controller
         $produit->save();
         return redirect()->back()->with('success', 'Fiche Technique est Supprimé Avec Succès .');
     }
+
+    public function ajouterPhoto(Request $request)
+    {
+        // Validate the incoming request, ensuring that a file is uploaded
+        $request->validate([
+            'photo' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Adjust maximum file size as needed
+            'idp' => 'required|exists:produits,id', // Ensure product_id exists in products table
+        ]);
+
+        // Get the product based on the provided ID
+        $produit = Produit::findOrFail($request->idp);
+
+        // Store the uploaded file in the appropriate directory
+        $produitPhotosPath = 'uploads/produits/' . $produit->id;
+        $request->photo->storeAs($produitPhotosPath, $request->photo->getClientOriginalName(), 'public');
+
+        // Optionally, you can return a response indicating success or failure
+        return redirect()->back()->with('success', 'Image est Ajoutée Avec Succès .');
+    }
+
 
 }

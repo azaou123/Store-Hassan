@@ -68,6 +68,7 @@ Route::group(['middleware' => 'manager'], function () {
     Route::post('/produits', [ProduitController::class, 'store'])->name('produits.store');
     Route::post('/produits/{category}', [ProduitController::class, 'update'])->name('produits.update');
     Route::post('/deletePhoto/', [ProduitController::class, 'deletePhoto'])->name('deletePhoto');
+    Route::post('/ajouterPhoto/', [ProduitController::class, 'ajouterPhoto'])->name('ajouterPhoto');
     Route::post('/delete.ficheTechnique/', [ProduitController::class, 'deleteFicheTechnique'])->name('delete.ficheTechnique');
     Route::get('produits.destroy/{produit}', [ProduitController::class, 'destroy'])->name('produits.destroy');
     // ************************************************ Commandes **********************************************************
@@ -92,6 +93,9 @@ Route::group(['middleware' => 'manager'], function () {
     Route::get('/offres', [ManagerController::class, 'offres'])->name('offres');
     Route::post('addOffre', [OffreController::class, 'addOffre'])->name('addOffre');
     Route::delete('/delete-offre/{id}', [OffreController::class, 'deleteOffre'])->name('deleteOffre');
+    // ***************************** Messages ********************************************
+    Route::delete('/messages/{id}', [ManagerController::class, 'deleteMessage'])->name('deleteMessage');
+
 
 });
 

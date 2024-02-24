@@ -60,7 +60,7 @@
             <div class="container mt-5">
                 <div class="row">
                     <div class="col-8">
-                        <legend>Les Offres</legend>
+                        <legend>Les Promotions</legend>
                     </div>
                     <div class="col-4">
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal"
@@ -73,7 +73,8 @@
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                        <h5 class="modal-title text-dark" id="exampleModalLabel">Ajouter Une produit au
+                                            promotions</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                             aria-label="Close"></button>
                                     </div>
@@ -111,7 +112,6 @@
                                                 document.getElementById('prix').value = price;
                                             });
                                         </script>
-
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary"

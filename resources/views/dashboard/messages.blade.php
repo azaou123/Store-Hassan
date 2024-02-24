@@ -58,31 +58,46 @@
             <!-- Recent Sales Start -->
 
             <div class="container mt-4">
-                <h2>Messages Des visiteurs</h2>
-                <table class="table table-bordered table-hover">
-                    <thead>
-                        <tr>
-                            <th scope="col">ID</th>
-                            <th scope="col">Nom Complet</th>
-                            <th scope="col">Téléphone</th>
-                            <th scope="col">Message</th>
-                            <th scope="col">Created At</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($messages as $message)
-                        <tr>
-                            <td>{{ $message->id }}</td>
-                            <td>{{ $message->nomComplet }}</td>
-                            <td>{{ $message->telephone }}</td>
-                            <td>{{ $message->message }}</td>
-                            <td>{{ $message->created_at }}</td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                <h2>Messages des visiteurs</h2>
+                @if(session('success'))
+                <div class="alert alert-success my-2">
+                    {{ session('success') }}
+                </div>
+                @endif
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Nom Complet</th>
+                                <th scope="col">Téléphone</th>
+                                <th scope="col">Message</th>
+                                <th scope="col">Date</th>
+                                <th scope="col">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($messages as $message)
+                            <tr>
+                                <td>{{ $message->id }}</td>
+                                <td>{{ $message->nomComplet }}</td>
+                                <td>{{ $message->telephone }}</td>
+                                <td>{{ $message->message }}</td>
+                                <td>{{ $message->created_at->format('d/m/Y H:i') }}</td>
+                                <td>
+                                    <form action="{{ route('deleteMessage', $message->id) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger btn-sm"
+                                            onclick="return confirm('Are you sure you want to delete this message?')">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
-
 
             <!-- Footer Start -->
             <div class="container-fluid pt-4 px-4">
