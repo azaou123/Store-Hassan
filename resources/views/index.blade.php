@@ -53,7 +53,7 @@
     <div class="container-fluid mb-5">
         <div class="row border-top px-xl-5">
             <div class="col-lg-3 d-none d-lg-block">
-                <a class="btn shadow-none d-flex align-items-center justify-content-between bg-primary text-white w-100"
+                <a class="btn shadow-none d-flex align-items-center justify-content-between text-white w-100"
                     data-toggle="collapse" href="#navbar-vertical"
                     style="height: 65px; margin-top: -1px; padding: 0 30px;">
                     <h6 class="m-0">Categories</h6>
@@ -61,7 +61,7 @@
                 </a>
                 <nav class="collapse show navbar navbar-vertical navbar-light align-items-start p-0 border border-top-0 border-bottom-0"
                     id="navbar-vertical">
-                    <div class="navbar-nav w-100 overflow-hidden" style="height: 410px">
+                    <div class="navbar-nav w-100" style="height: 410px; overflow-y:scroll;">
                         @foreach ($categories as $cat)
                         <a href="{{ route('prodCat', $cat->id) }}" class="nav-item nav-link">{{$cat->label}}</a>
                         @endforeach
@@ -221,8 +221,9 @@
                     <div class="position-relative" style="z-index: 1;">
                         <h5 class="text-uppercase mb-3">Les Réductions sur les produits</h5>
                         <h1 class="mb-4 font-weight-semi-bold">Consulter les différents famiiles</h1>
-                        <a href="{{ route('lesoffres') }}"
-                            class="btn btn-outline-primary text-dark py-md-2 px-md-3">Consulter</a>
+                        <a href="{{ route('lesoffres') }}" class="btn btn-outline-primary text-dark py-md-2 px-md-3">
+                            Consulter
+                        </a>
                     </div>
                 </div>
             </div>

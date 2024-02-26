@@ -27,12 +27,13 @@ class ManagerController extends Controller
     public function index()
     {
         $perPage = 8;
-        $produits = Produit::paginate($perPage);
+        $produits = Produit::all();
         $categories = Categorie::all();
         $opinions = Opinion::all();
         $partenaires = Partenaire::all();
         $parametres = Parametre::first();
-        return view('index', compact('produits', 'categories', 'opinions', 'partenaires', 'parametres'));
+        $offres = Offre::all();
+        return view('index', compact('produits', 'categories', 'opinions', 'partenaires', 'parametres', 'offres'));
     }
 
     public function prodCat($id)
